@@ -650,117 +650,191 @@ public class MinecraftWiki {
 
         // ==================== RECURSOS E MATERIAIS ====================
 
+        // MINÉRIOS
+        Item minerioCarvao = new Item("Minério de Carvão",
+            "Minério encontrado em cavernas e montanhas",
+            MinecraftEdition.BOTH, "Minério");
+        minerioCarvao.adicionarIngrediente("Encontrado em Y 0-256");
+        itens.add(minerioCarvao);
+
         Item carvao = new Item("Carvão",
             "Combustível comum para fornalha",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         carvao.adicionarIngrediente("Minerar Minério de Carvão");
         itens.add(carvao);
 
+        Item minerioFerro = new Item("Minério de Ferro",
+            "Minério comum para ferramentas",
+            MinecraftEdition.BOTH, "Minério");
+        minerioFerro.adicionarIngrediente("Encontrado em Y -64 a 72");
+        itens.add(minerioFerro);
+
         Item ferroLingote = new Item("Lingote de Ferro",
             "Material para ferramentas e armaduras",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Lingote");
         ferroLingote.adicionarIngrediente("Fundir Minério de Ferro");
         itens.add(ferroLingote);
 
+        Item minerioOuro = new Item("Minério de Ouro",
+            "Minério raro para itens especiais",
+            MinecraftEdition.BOTH, "Minério");
+        minerioOuro.adicionarIngrediente("Encontrado em Y -64 a 32");
+        itens.add(minerioOuro);
+
         Item ouroLingote = new Item("Lingote de Ouro",
             "Material valioso mas frágil",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Lingote");
         ouroLingote.adicionarIngrediente("Fundir Minério de Ouro");
         itens.add(ouroLingote);
 
+        Item minerioDiamante = new Item("Minério de Diamante",
+            "Minério muito raro e valioso",
+            MinecraftEdition.BOTH, "Minério");
+        minerioDiamante.adicionarIngrediente("Encontrado em Y -64 a 16");
+        itens.add(minerioDiamante);
+
         Item diamante = new Item("Diamante",
             "Gema rara para itens poderosos",
-            MinecraftEdition.BOTH, "Recurso");
-        diamante.adicionarIngrediente("Minerar Minério de Diamante (Y 16 ou menos)");
+            MinecraftEdition.BOTH, "Gema");
+        diamante.adicionarIngrediente("Minerar Minério de Diamante (Y -64 a 16)");
         itens.add(diamante);
+
+        Item minerioEsmeralda = new Item("Minério de Esmeralda",
+            "Minério mais raro do jogo",
+            MinecraftEdition.BOTH, "Minério");
+        minerioEsmeralda.adicionarIngrediente("Encontrado apenas em biomas de montanha");
+        itens.add(minerioEsmeralda);
 
         Item esmeralda = new Item("Esmeralda",
             "Moeda para comércio com aldeões",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Gema");
         esmeralda.adicionarIngrediente("Minerar Minério de Esmeralda");
         itens.add(esmeralda);
 
+        Item minerioRedstone = new Item("Minério de Redstone",
+            "Minério para circuitos e mecanismos",
+            MinecraftEdition.BOTH, "Minério");
+        minerioRedstone.adicionarIngrediente("Encontrado em Y -64 a 15");
+        itens.add(minerioRedstone);
+
         Item redstone = new Item("Pó de Redstone",
             "Material para circuitos e mecanismos",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         redstone.adicionarIngrediente("Minerar Minério de Redstone");
         itens.add(redstone);
 
+        Item minerioLapis = new Item("Minério de Lápis-lazúli",
+            "Minério para corante azul",
+            MinecraftEdition.BOTH, "Minério");
+        minerioLapis.adicionarIngrediente("Encontrado em Y -64 a 64");
+        itens.add(minerioLapis);
+
         Item lapisLazuli = new Item("Lápis-lazúli",
             "Corante azul e material de encantamento",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Gema");
         lapisLazuli.adicionarIngrediente("Minerar Minério de Lápis-lazúli");
         itens.add(lapisLazuli);
 
+        Item minerioQuartzo = new Item("Minério de Quartzo do Nether",
+            "Minério encontrado no Nether",
+            MinecraftEdition.BOTH, "Minério");
+        minerioQuartzo.adicionarIngrediente("Encontrado no Nether");
+        itens.add(minerioQuartzo);
+
         Item quartzo = new Item("Quartzo do Nether",
             "Material do Nether para construção",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Gema");
         quartzo.adicionarIngrediente("Minerar Minério de Quartzo (Nether)");
         itens.add(quartzo);
 
+        Item debrisAncestral = new Item("Debris Ancestral",
+            "Minério mais raro do Nether",
+            MinecraftEdition.BOTH, "Minério");
+        debrisAncestral.adicionarIngrediente("Encontrado no Nether em Y 8-22");
+        itens.add(debrisAncestral);
+
+        Item sucataNetherite = new Item("Sucata de Netherite",
+            "Fragmento raro do Nether",
+            MinecraftEdition.BOTH, "Material");
+        sucataNetherite.adicionarIngrediente("Fundir Debris Ancestral");
+        itens.add(sucataNetherite);
+
         Item netherite = new Item("Lingote de Netherite",
             "Material mais forte do jogo",
-            MinecraftEdition.BOTH, "Recurso");
-        netherite.adicionarIngrediente("4x Sucata de Netherite + 4x Barras de Ouro");
+            MinecraftEdition.BOTH, "Lingote");
+        netherite.adicionarIngrediente("4x Sucata de Netherite + 4x Lingotes de Ouro");
         itens.add(netherite);
 
+        Item minerioCobre = new Item("Minério de Cobre",
+            "Minério para construção e elétrica",
+            MinecraftEdition.BOTH, "Minério");
+        minerioCobre.adicionarIngrediente("Encontrado em Y -16 a 112");
+        itens.add(minerioCobre);
+
+        Item cobreLingote = new Item("Lingote de Cobre",
+            "Material para construção e lightning rods",
+            MinecraftEdition.BOTH, "Lingote");
+        cobreLingote.adicionarIngrediente("Fundir Minério de Cobre");
+        itens.add(cobreLingote);
+
+        // MATERIAIS ESPECIAIS
         Item perola = new Item("Pérola do Ender",
             "Item para teleporte",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         perola.adicionarIngrediente("Dropar de Enderman");
         itens.add(perola);
 
         Item olhoEnder = new Item("Olho de Ender",
             "Item para localizar stronghold",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         olhoEnder.adicionarIngrediente("Pérola do Ender + Pó de Blaze");
         itens.add(olhoEnder);
 
         Item poBlaze = new Item("Pó de Blaze",
             "Ingrediente de poções",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         poBlaze.adicionarIngrediente("Dropar de Blaze");
         itens.add(poBlaze);
 
         Item vareteBlaze = new Item("Varete de Blaze",
             "Material para suporte de poções",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         vareteBlaze.adicionarIngrediente("Dropar de Blaze");
         itens.add(vareteBlaze);
 
         Item linha = new Item("Linha",
             "Material para arco e pesca",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         linha.adicionarIngrediente("Matar aranhas ou quebrar teias");
         itens.add(linha);
 
         Item couro = new Item("Couro",
             "Material para armadura leve",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         couro.adicionarIngrediente("Matar vacas, cavalos ou lhamas");
         itens.add(couro);
 
         Item pena = new Item("Pena",
             "Material para flechas",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         pena.adicionarIngrediente("Matar galinhas");
         itens.add(pena);
 
         Item osso = new Item("Osso",
             "Material para farinha de osso",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         osso.adicionarIngrediente("Matar esqueletos");
         itens.add(osso);
 
         Item polvora = new Item("Pólvora",
             "Material para TNT e fogos",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         polvora.adicionarIngrediente("Matar Creepers, Ghasts ou Bruxas");
         itens.add(polvora);
 
         Item silex = new Item("Sílex",
             "Material para flechas e pederneira",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         silex.adicionarIngrediente("Minerar cascalho (chance)");
         itens.add(silex);
 
@@ -846,7 +920,7 @@ public class MinecraftWiki {
 
         Item trigo = new Item("Trigo",
             "Cultivo básico para pão",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         trigo.adicionarIngrediente("Plantar e colher sementes");
         itens.add(trigo);
 
@@ -932,13 +1006,13 @@ public class MinecraftWiki {
 
         Item papel = new Item("Papel",
             "Material para livros e mapas",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         papel.adicionarIngrediente("3x Cana-de-açúcar");
         itens.add(papel);
 
         Item livro = new Item("Livro",
             "Item para encantamentos",
-            MinecraftEdition.BOTH, "Recurso");
+            MinecraftEdition.BOTH, "Material");
         livro.adicionarIngrediente("3x Papel + 1x Couro");
         itens.add(livro);
 
@@ -989,6 +1063,448 @@ public class MinecraftWiki {
             MinecraftEdition.BOTH, "Utilitário");
         trilho.adicionarIngrediente("6x Lingote de Ferro + 1x Graveto");
         itens.add(trilho);
+
+        // ==================== BLOCOS DO NETHER ====================
+        
+        Item netherrack = new Item("Netherrack",
+            "Bloco principal do Nether, pega fogo eternamente",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        netherrack.adicionarIngrediente("Encontrado no Nether");
+        itens.add(netherrack);
+
+        Item soulSand = new Item("Areia das Almas",
+            "Bloco que reduz velocidade e faz bolhas na água",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        soulSand.adicionarIngrediente("Encontrado no Vale das Almas (Nether)");
+        itens.add(soulSand);
+
+        Item glowstone = new Item("Pedra Luminosa",
+            "Bloco luminoso do Nether",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        glowstone.adicionarIngrediente("4x Pó de Pedra Luminosa");
+        itens.add(glowstone);
+
+        Item poGlowstone = new Item("Pó de Pedra Luminosa",
+            "Usado para poções e iluminação",
+            MinecraftEdition.BOTH, "Material");
+        poGlowstone.adicionarIngrediente("Quebrar Pedra Luminosa");
+        itens.add(poGlowstone);
+
+        Item magmaBlock = new Item("Bloco de Magma",
+            "Bloco que causa dano por fogo",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        magmaBlock.adicionarIngrediente("4x Creme de Magma");
+        itens.add(magmaBlock);
+
+        Item cremeMagma = new Item("Creme de Magma",
+            "Ingrediente de poções",
+            MinecraftEdition.BOTH, "Material");
+        cremeMagma.adicionarIngrediente("Dropar de Cubo de Magma");
+        itens.add(cremeMagma);
+
+        Item tijolonether = new Item("Tijolos do Nether",
+            "Bloco decorativo do Nether",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijolonether.adicionarIngrediente("4x Tijolos do Nether");
+        itens.add(tijolonether);
+
+        Item warteNether = new Item("Verruga do Nether",
+            "Ingrediente essencial para poções",
+            MinecraftEdition.BOTH, "Material");
+        warteNether.adicionarIngrediente("Encontrado em Fortalezas do Nether");
+        itens.add(warteNether);
+
+        // ==================== BLOCOS DO END ====================
+        
+        Item endStone = new Item("Pedra do End",
+            "Bloco principal da dimensão End",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        endStone.adicionarIngrediente("Encontrado no End");
+        itens.add(endStone);
+
+        Item purpurBlock = new Item("Bloco de Purpur",
+            "Bloco decorativo do End",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        purpurBlock.adicionarIngrediente("4x Fruta Chorus Estourada");
+        itens.add(purpurBlock);
+
+        Item frutaChorus = new Item("Fruta Chorus",
+            "Alimento que teleporta ao comer",
+            MinecraftEdition.BOTH, "Alimento");
+        frutaChorus.adicionarIngrediente("Quebrar plantas Chorus no End");
+        itens.add(frutaChorus);
+
+        Item endRod = new Item("Vareta do End",
+            "Fonte de luz decorativa",
+            MinecraftEdition.BOTH, "Utilitário");
+        endRod.adicionarIngrediente("1x Pó de Blaze + 1x Fruta Chorus Estourada");
+        itens.add(endRod);
+
+        // ==================== FERRAMENTAS COMPLETAS ====================
+        
+        Item paMadeira = new Item("Pá de Madeira",
+            "Ferramenta básica para cavar",
+            MinecraftEdition.BOTH, "Ferramenta");
+        paMadeira.adicionarIngrediente("1x Tábuas + 2x Graveto");
+        itens.add(paMadeira);
+
+        Item paPedra = new Item("Pá de Pedra",
+            "Pá de pedra mais durável",
+            MinecraftEdition.BOTH, "Ferramenta");
+        paPedra.adicionarIngrediente("1x Pedregulho + 2x Graveto");
+        itens.add(paPedra);
+
+        Item paFerro = new Item("Pá de Ferro",
+            "Pá de ferro eficiente",
+            MinecraftEdition.BOTH, "Ferramenta");
+        paFerro.adicionarIngrediente("1x Lingote de Ferro + 2x Graveto");
+        itens.add(paFerro);
+
+        Item paOuro = new Item("Pá de Ouro",
+            "Pá rápida mas frágil",
+            MinecraftEdition.BOTH, "Ferramenta");
+        paOuro.adicionarIngrediente("1x Lingote de Ouro + 2x Graveto");
+        itens.add(paOuro);
+
+        Item paNetherite = new Item("Pá de Netherite",
+            "Pá mais forte e durável",
+            MinecraftEdition.BOTH, "Ferramenta");
+        paNetherite.adicionarIngrediente("Pá de Diamante + Lingote de Netherite (Mesa de Ferraria)");
+        itens.add(paNetherite);
+
+        Item enxadaMadeira = new Item("Enxada de Madeira",
+            "Ferramenta para agricultura",
+            MinecraftEdition.BOTH, "Ferramenta");
+        enxadaMadeira.adicionarIngrediente("2x Tábuas + 2x Graveto");
+        itens.add(enxadaMadeira);
+
+        Item enxadaPedra = new Item("Enxada de Pedra",
+            "Enxada de pedra",
+            MinecraftEdition.BOTH, "Ferramenta");
+        enxadaPedra.adicionarIngrediente("2x Pedregulho + 2x Graveto");
+        itens.add(enxadaPedra);
+
+        Item enxadaFerro = new Item("Enxada de Ferro",
+            "Enxada de ferro",
+            MinecraftEdition.BOTH, "Ferramenta");
+        enxadaFerro.adicionarIngrediente("2x Lingote de Ferro + 2x Graveto");
+        itens.add(enxadaFerro);
+
+        Item enxadaOuro = new Item("Enxada de Ouro",
+            "Enxada de ouro",
+            MinecraftEdition.BOTH, "Ferramenta");
+        enxadaOuro.adicionarIngrediente("2x Lingote de Ouro + 2x Graveto");
+        itens.add(enxadaOuro);
+
+        Item enxadaNetherite = new Item("Enxada de Netherite",
+            "Enxada mais forte",
+            MinecraftEdition.BOTH, "Ferramenta");
+        enxadaNetherite.adicionarIngrediente("Enxada de Diamante + Lingote de Netherite (Mesa de Ferraria)");
+        itens.add(enxadaNetherite);
+
+        Item machadoPedra = new Item("Machado de Pedra",
+            "Machado de pedra",
+            MinecraftEdition.BOTH, "Ferramenta");
+        machadoPedra.adicionarIngrediente("3x Pedregulho + 2x Graveto");
+        itens.add(machadoPedra);
+
+        Item machadoFerro = new Item("Machado de Ferro",
+            "Machado de ferro eficiente",
+            MinecraftEdition.BOTH, "Ferramenta");
+        machadoFerro.adicionarIngrediente("3x Lingote de Ferro + 2x Graveto");
+        itens.add(machadoFerro);
+
+        Item machadoOuro = new Item("Machado de Ouro",
+            "Machado rápido mas frágil",
+            MinecraftEdition.BOTH, "Ferramenta");
+        machadoOuro.adicionarIngrediente("3x Lingote de Ouro + 2x Graveto");
+        itens.add(machadoOuro);
+
+        // ==================== MAIS ARMAS ====================
+        
+        Item espadaPedra = new Item("Espada de Pedra",
+            "Espada básica de pedra",
+            MinecraftEdition.BOTH, "Arma");
+        espadaPedra.adicionarIngrediente("2x Pedregulho + 1x Graveto");
+        itens.add(espadaPedra);
+
+        Item espadaOuro = new Item("Espada de Ouro",
+            "Espada de ouro com encantamentos melhores",
+            MinecraftEdition.BOTH, "Arma");
+        espadaOuro.adicionarIngrediente("2x Lingote de Ouro + 1x Graveto");
+        itens.add(espadaOuro);
+
+        // ==================== ARMADURAS OURO ====================
+        
+        Item capaceteOuro = new Item("Capacete de Ouro",
+            "Proteção básica de ouro",
+            MinecraftEdition.BOTH, "Armadura");
+        capaceteOuro.adicionarIngrediente("5x Lingote de Ouro");
+        itens.add(capaceteOuro);
+
+        Item peitoralOuro = new Item("Peitoral de Ouro",
+            "Peitoral de ouro",
+            MinecraftEdition.BOTH, "Armadura");
+        peitoralOuro.adicionarIngrediente("8x Lingote de Ouro");
+        itens.add(peitoralOuro);
+
+        Item calcasOuro = new Item("Calças de Ouro",
+            "Calças de ouro",
+            MinecraftEdition.BOTH, "Armadura");
+        calcasOuro.adicionarIngrediente("7x Lingote de Ouro");
+        itens.add(calcasOuro);
+
+        Item botasOuro = new Item("Botas de Ouro",
+            "Botas de ouro",
+            MinecraftEdition.BOTH, "Armadura");
+        botasOuro.adicionarIngrediente("4x Lingote de Ouro");
+        itens.add(botasOuro);
+
+        // ==================== MAIS BLOCOS UTILITÁRIOS ====================
+        
+        Item caldeirão = new Item("Caldeirão",
+            "Armazena água, lava ou poções",
+            MinecraftEdition.BOTH, "Utilitário");
+        caldeirão.adicionarIngrediente("7x Lingote de Ferro");
+        itens.add(caldeirão);
+
+        Item compostor = new Item("Compostor",
+            "Transforma itens em farinha de osso",
+            MinecraftEdition.BOTH, "Utilitário");
+        compostor.adicionarIngrediente("7x Tábuas");
+        itens.add(compostor);
+
+        Item barril = new Item("Barril",
+            "Armazenamento alternativo ao baú",
+            MinecraftEdition.BOTH, "Utilitário");
+        barril.adicionarIngrediente("6x Tábuas + 2x Lajes de Madeira");
+        itens.add(barril);
+
+        Item funil = new Item("Funil",
+            "Transfere itens entre containers",
+            MinecraftEdition.BOTH, "Redstone");
+        funil.adicionarIngrediente("5x Lingote de Ferro + 1x Baú");
+        itens.add(funil);
+
+        Item dispensador = new Item("Dispensador",
+            "Dispara itens automaticamente",
+            MinecraftEdition.BOTH, "Redstone");
+        dispensador.adicionarIngrediente("7x Pedregulho + 1x Arco + 1x Pó de Redstone");
+        itens.add(dispensador);
+
+        Item ejetor = new Item("Ejetor",
+            "Ejeta itens",
+            MinecraftEdition.BOTH, "Redstone");
+        ejetor.adicionarIngrediente("7x Pedregulho + 1x Pó de Redstone");
+        itens.add(ejetor);
+
+        Item observador = new Item("Observador",
+            "Detecta mudanças de blocos",
+            MinecraftEdition.BOTH, "Redstone");
+        observador.adicionarIngrediente("6x Pedregulho + 2x Pó de Redstone + 1x Quartzo");
+        itens.add(observador);
+
+        Item comparador = new Item("Comparador de Redstone",
+            "Compara sinais de redstone",
+            MinecraftEdition.BOTH, "Redstone");
+        comparador.adicionarIngrediente("3x Tocha de Redstone + 3x Pedra + 1x Quartzo");
+        itens.add(comparador);
+
+        Item torchaRedstone = new Item("Tocha de Redstone",
+            "Fonte de sinal de redstone",
+            MinecraftEdition.BOTH, "Redstone");
+        torchaRedstone.adicionarIngrediente("1x Pó de Redstone + 1x Graveto");
+        itens.add(torchaRedstone);
+
+        Item alavanca = new Item("Alavanca",
+            "Interruptor de redstone",
+            MinecraftEdition.BOTH, "Redstone");
+        alavanca.adicionarIngrediente("1x Graveto + 1x Pedregulho");
+        itens.add(alavanca);
+
+        Item botao = new Item("Botão",
+            "Ativa redstone temporariamente",
+            MinecraftEdition.BOTH, "Redstone");
+        botao.adicionarIngrediente("1x Pedra ou Tábua");
+        itens.add(botao);
+
+        Item placaPressao = new Item("Placa de Pressão",
+            "Ativada ao pisar",
+            MinecraftEdition.BOTH, "Redstone");
+        placaPressao.adicionarIngrediente("2x Tábuas ou Pedra");
+        itens.add(placaPressao);
+
+        // ==================== MAIS ALIMENTOS ====================
+        
+        Item carnePorco = new Item("Costeleta de Porco Crua",
+            "Carne crua de porco",
+            MinecraftEdition.BOTH, "Alimento");
+        carnePorco.adicionarIngrediente("Matar porcos");
+        itens.add(carnePorco);
+
+        Item costeletaAssada = new Item("Costeleta de Porco Assada",
+            "Restaura 8 de fome",
+            MinecraftEdition.BOTH, "Alimento");
+        costeletaAssada.adicionarIngrediente("Cozinhar Costeleta Crua");
+        itens.add(costeletaAssada);
+
+        Item carneiro = new Item("Carneiro Cru",
+            "Carne de ovelha",
+            MinecraftEdition.BOTH, "Alimento");
+        carneiro.adicionarIngrediente("Matar ovelhas");
+        itens.add(carneiro);
+
+        Item carneiroAssado = new Item("Carneiro Assado",
+            "Restaura 6 de fome",
+            MinecraftEdition.BOTH, "Alimento");
+        carneiroAssado.adicionarIngrediente("Cozinhar Carneiro Cru");
+        itens.add(carneiroAssado);
+
+        Item coelho = new Item("Coelho Cru",
+            "Carne de coelho",
+            MinecraftEdition.BOTH, "Alimento");
+        coelho.adicionarIngrediente("Matar coelhos");
+        itens.add(coelho);
+
+        Item coelhoAssado = new Item("Coelho Assado",
+            "Restaura 5 de fome",
+            MinecraftEdition.BOTH, "Alimento");
+        coelhoAssado.adicionarIngrediente("Cozinhar Coelho Cru");
+        itens.add(coelhoAssado);
+
+        Item bacalhau = new Item("Bacalhau Cru",
+            "Peixe comum",
+            MinecraftEdition.BOTH, "Alimento");
+        bacalhau.adicionarIngrediente("Pescar");
+        itens.add(bacalhau);
+
+        Item bacalhauAssado = new Item("Bacalhau Cozido",
+            "Restaura 5 de fome",
+            MinecraftEdition.BOTH, "Alimento");
+        bacalhauAssado.adicionarIngrediente("Cozinhar Bacalhau");
+        itens.add(bacalhauAssado);
+
+        Item salmao = new Item("Salmão Cru",
+            "Peixe nutritivo",
+            MinecraftEdition.BOTH, "Alimento");
+        salmao.adicionarIngrediente("Pescar");
+        itens.add(salmao);
+
+        Item salmaoAssado = new Item("Salmão Cozido",
+            "Restaura 6 de fome",
+            MinecraftEdition.BOTH, "Alimento");
+        salmaoAssado.adicionarIngrediente("Cozinhar Salmão");
+        itens.add(salmaoAssado);
+
+        Item batataVenenosa = new Item("Batata Venenosa",
+            "Chance de envenenar",
+            MinecraftEdition.BOTH, "Alimento");
+        batataVenenosa.adicionarIngrediente("Colher batatas (chance rara)");
+        itens.add(batataVenenosa);
+
+        Item carnePodre = new Item("Carne Podre",
+            "Causa fome ao comer",
+            MinecraftEdition.BOTH, "Alimento");
+        carnePodre.adicionarIngrediente("Dropar de zumbis");
+        itens.add(carnePodre);
+
+        Item olhoAranha = new Item("Olho de Aranha",
+            "Ingrediente de poções (venenoso)",
+            MinecraftEdition.BOTH, "Material");
+        olhoAranha.adicionarIngrediente("Matar aranhas");
+        itens.add(olhoAranha);
+
+        Item olhoFermentado = new Item("Olho de Aranha Fermentado",
+            "Corrompe poções",
+            MinecraftEdition.BOTH, "Material");
+        olhoFermentado.adicionarIngrediente("Olho de Aranha + Açúcar + Cogumelo Marrom");
+        itens.add(olhoFermentado);
+
+        Item acucar = new Item("Açúcar",
+            "Ingrediente de poções e comidas",
+            MinecraftEdition.BOTH, "Material");
+        acucar.adicionarIngrediente("1x Cana-de-açúcar");
+        itens.add(acucar);
+
+        Item ovo = new Item("Ovo",
+            "Ingrediente de receitas",
+            MinecraftEdition.BOTH, "Material");
+        ovo.adicionarIngrediente("Galinhas botam ovos");
+        itens.add(ovo);
+
+        Item leite = new Item("Leite",
+            "Remove efeitos de status",
+            MinecraftEdition.BOTH, "Alimento");
+        leite.adicionarIngrediente("Ordenhar vaca com balde");
+        itens.add(leite);
+
+        // ==================== ITENS ESPECIAIS ====================
+        
+        Item dragaoOvo = new Item("Ovo do Dragão",
+            "Troféu por derrotar o Ender Dragon",
+            MinecraftEdition.BOTH, "Item Especial");
+        dragaoOvo.adicionarIngrediente("Derrotar o Ender Dragon");
+        itens.add(dragaoOvo);
+
+        Item estrelaFogo = new Item("Estrela do Nether",
+            "Item para criar Beacon",
+            MinecraftEdition.BOTH, "Material");
+        estrelaFogo.adicionarIngrediente("Derrotar o Wither");
+        itens.add(estrelaFogo);
+
+        Item concha = new Item("Concha de Nautilus",
+            "Ingrediente do Conduit",
+            MinecraftEdition.BOTH, "Material");
+        concha.adicionarIngrediente("Pescar ou dropar de Afogados");
+        itens.add(concha);
+
+        Item coracaoMar = new Item("Coração do Mar",
+            "Item raro para Conduit",
+            MinecraftEdition.BOTH, "Material");
+        coracaoMar.adicionarIngrediente("Encontrado em tesouros enterrados");
+        itens.add(coracaoMar);
+
+        Item conduit = new Item("Conduit",
+            "Estrutura subaquática que dá efeitos",
+            MinecraftEdition.BOTH, "Item Especial");
+        conduit.adicionarIngrediente("8x Concha de Nautilus + 1x Coração do Mar");
+        itens.add(conduit);
+
+        Item graveto = new Item("Graveto",
+            "Material básico para ferramentas",
+            MinecraftEdition.BOTH, "Material");
+        graveto.adicionarIngrediente("2x Tábuas");
+        itens.add(graveto);
+
+        Item corda = new Item("Corda",
+            "Amarra animais e cria cercas",
+            MinecraftEdition.BOTH, "Utilitário");
+        corda.adicionarIngrediente("4x Linha + 1x Slimeball");
+        itens.add(corda);
+
+        Item sliméball = new Item("Slimeball",
+            "Material pegajoso",
+            MinecraftEdition.BOTH, "Material");
+        sliméball.adicionarIngrediente("Matar Slimes");
+        itens.add(sliméball);
+
+        Item blocoSlime = new Item("Bloco de Slime",
+            "Bloco que pula e gruda pistões",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoSlime.adicionarIngrediente("9x Slimeball");
+        itens.add(blocoSlime);
+
+        Item blocoMel = new Item("Bloco de Mel",
+            "Bloco pegajoso que reduz velocidade",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoMel.adicionarIngrediente("4x Garrafa de Mel");
+        itens.add(blocoMel);
+
+        Item frascoMel = new Item("Garrafa de Mel",
+            "Remove veneno e restaura fome",
+            MinecraftEdition.BOTH, "Alimento");
+        frascoMel.adicionarIngrediente("Usar garrafa em colmeia cheia");
+        itens.add(frascoMel);
     }
 
     private void carregarPocoes() {

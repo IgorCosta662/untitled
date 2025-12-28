@@ -72,7 +72,7 @@ Mesa 3x3 onde você pode:
 ### Paleta de Cores Minecraft:
 ```java
 MINECRAFT_GREEN     = #55FF55  // Sucesso, principal
-MINECRAFT_DARK_GREEN = #00AA00  // Crafting
+MINECRAFT_DARK_GREEN = #00AA00 // Crafting
 MINECRAFT_BROWN     = #8B5A2B  // Itens
 MINECRAFT_GOLD      = #FFAA00  // Destaque
 MINECRAFT_BLUE      = #5555FF  // Encantamentos

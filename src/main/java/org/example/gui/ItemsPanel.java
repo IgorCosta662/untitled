@@ -1,15 +1,31 @@
 package org.example.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.border.EmptyBorder;
+
 import org.example.Item;
 import org.example.MinecraftWiki;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.util.List;
-
 public class ItemsPanel extends JPanel {
-    private MinecraftWiki wiki;
+    private final MinecraftWiki wiki;
     private JTextField searchField;
     private JComboBox<String> categoryFilter;
     private JPanel resultsPanel;
@@ -74,8 +90,10 @@ public class ItemsPanel extends JPanel {
         categoryLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         categoryFilter = new JComboBox<>(new String[]{
-            "Todas", "Ferramenta", "Arma", "Armadura", "Bloco Utilitário",
-            "Alimento", "Redstone", "Transporte", "Item Especial"
+            "Todas", "Minério", "Lingote", "Gema", "Material",
+            "Bloco Natural", "Bloco Construção", "Bloco Decorativo",
+            "Ferramenta", "Arma", "Armadura", "Alimento", "Utilitário",
+            "Redstone", "Transporte", "Item Especial"
         });
         categoryFilter.setFont(new Font("SansSerif", Font.PLAIN, 14));
         categoryFilter.addActionListener(e -> filterByCategory());
