@@ -1,0 +1,227 @@
+package org.example.api;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Optional;
+
+/**
+ * Sistema de cache usando SQLite para armazenar dados da API localmente
+ * Evita requisições repetidas e melhora performance
+ */
+public class CacheManager {
+    
+    private static final String DB_URL = "jdbc:sqlite:minecraft_wiki_cache.db";
+    private static final int CACHE_EXPIRY_HOURS = 24; // Cache expira após 24 horas
+    
+    private Connection connection;
+    
+    public CacheManager() {
+        initDatabase();
+    }
+    
+    /**
+     * Inicializa o banco de dados SQLite e cria tabelas
+     */
+    private void initDatabase() {
+        try {
+            connection = DriverManager.getConnection(DB_URL);
+            
+            String createTableSQL = """
+                CREATE TABLE IF NOT EXISTS cache (
+                    key TEXT PRIMARY KEY,
+                    value TEXT NOT NULL,
+                    category TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    expires_at TIMESTAMP
+                )
+                """;
+            
+            try (Statement stmt = connection.createStatement()) {
+                stmt.execute(createTableSQL);
+            }
+            
+            // Criar índice para melhorar performance de buscas
+            String createIndexSQL = "CREATE INDEX IF NOT EXISTS idx_category ON cache(category)";
+            try (Statement stmt = connection.createStatement()) {
+                stmt.execute(createIndexSQL);
+            }
+            
+            // Limpar cache expirado
+            cleanExpiredCache();
+            
+        } catch (SQLException e) {
+            System.err.println("Erro ao inicializar cache: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Armazena um valor no cache
+     * @param key Chave única
+     * @param value Valor a ser armazenado (JSON ou texto)
+     * @param category Categoria opcional para organização
+     */
+    public void put(String key, String value, String category) {
+        String sql = """
+            INSERT OR REPLACE INTO cache (key, value, category, created_at, expires_at)
+            VALUES (?, ?, ?, datetime('now'), datetime('now', '+' || ? || ' hours'))
+            """;
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, key);
+            pstmt.setString(2, value);
+            pstmt.setString(3, category);
+            pstmt.setInt(4, CACHE_EXPIRY_HOURS);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Erro ao salvar no cache: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Recupera um valor do cache
+     * @param key Chave do valor
+     * @return Optional com o valor se existir e não estiver expirado
+     */
+    public Optional<String> get(String key) {
+        String sql = """
+            SELECT value FROM cache 
+            WHERE key = ? AND expires_at > datetime('now')
+            """;
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, key);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                return Optional.of(rs.getString("value"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao recuperar do cache: " + e.getMessage());
+        }
+        
+        return Optional.empty();
+    }
+    
+    /**
+     * Verifica se uma chave existe no cache e está válida
+     */
+    public boolean exists(String key) {
+        return get(key).isPresent();
+    }
+    
+    /**
+     * Remove uma entrada específica do cache
+     */
+    public void remove(String key) {
+        String sql = "DELETE FROM cache WHERE key = ?";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, key);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Erro ao remover do cache: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Remove todas as entradas de uma categoria
+     */
+    public void clearCategory(String category) {
+        String sql = "DELETE FROM cache WHERE category = ?";
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, category);
+            int deleted = pstmt.executeUpdate();
+            System.out.println("Cache limpo: " + deleted + " entradas removidas");
+        } catch (SQLException e) {
+            System.err.println("Erro ao limpar categoria: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Limpa todo o cache
+     */
+    public void clearAll() {
+        String sql = "DELETE FROM cache";
+        
+        try (Statement stmt = connection.createStatement()) {
+            int deleted = stmt.executeUpdate(sql);
+            System.out.println("Cache totalmente limpo: " + deleted + " entradas removidas");
+        } catch (SQLException e) {
+            System.err.println("Erro ao limpar cache: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Remove automaticamente entradas expiradas
+     */
+    public void cleanExpiredCache() {
+        String sql = "DELETE FROM cache WHERE expires_at < datetime('now')";
+        
+        try (Statement stmt = connection.createStatement()) {
+            int deleted = stmt.executeUpdate(sql);
+            if (deleted > 0) {
+                System.out.println("Cache expirado removido: " + deleted + " entradas");
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao limpar cache expirado: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Retorna estatísticas do cache
+     */
+    public CacheStats getStats() {
+        String sql = """
+            SELECT 
+                COUNT(*) as total,
+                COUNT(CASE WHEN expires_at > datetime('now') THEN 1 END) as valid,
+                COUNT(CASE WHEN expires_at <= datetime('now') THEN 1 END) as expired
+            FROM cache
+            """;
+        
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            
+            if (rs.next()) {
+                return new CacheStats(
+                    rs.getInt("total"),
+                    rs.getInt("valid"),
+                    rs.getInt("expired")
+                );
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao obter estatísticas: " + e.getMessage());
+        }
+        
+        return new CacheStats(0, 0, 0);
+    }
+    
+    /**
+     * Fecha a conexão com o banco de dados
+     */
+    public void close() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Erro ao fechar cache: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Classe para estatísticas do cache
+     */
+    public record CacheStats(int total, int valid, int expired) {
+        @Override
+        public String toString() {
+            return String.format("Cache Stats: Total=%d, Válido=%d, Expirado=%d", 
+                               total, valid, expired);
+        }
+    }
+}

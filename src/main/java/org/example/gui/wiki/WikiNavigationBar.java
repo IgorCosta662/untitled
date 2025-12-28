@@ -1,14 +1,28 @@
 package org.example.gui.wiki;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class WikiNavigationBar extends JPanel {
     private WikiMainWindow parent;
     private JTextField searchField;
+    private JButton backButton;
 
     public WikiNavigationBar(WikiMainWindow parent) {
         this.parent = parent;
@@ -26,6 +40,17 @@ public class WikiNavigationBar extends JPanel {
         // Logo e título
         JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
         leftPanel.setOpaque(false);
+
+        // Botão de voltar
+        backButton = new JButton("← Voltar");
+        backButton.setFont(new Font("SansSerif", Font.BOLD, 12));
+        backButton.setBackground(new Color(100, 100, 100));
+        backButton.setForeground(Color.WHITE);
+        backButton.setFocusPainted(false);
+        backButton.setBorderPainted(false);
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backButton.setEnabled(false);
+        backButton.addActionListener(e -> parent.goBack());
 
         JLabel logo = new JLabel("🎮");
         logo.setFont(new Font("Dialog", Font.PLAIN, 28));
@@ -49,6 +74,7 @@ public class WikiNavigationBar extends JPanel {
             }
         });
 
+        leftPanel.add(backButton);
         leftPanel.add(logo);
         leftPanel.add(title);
 
@@ -189,6 +215,15 @@ public class WikiNavigationBar extends JPanel {
 
     public void setSearchText(String text) {
         searchField.setText(text);
+    }
+
+    public void updateBackButton(boolean enabled) {
+        backButton.setEnabled(enabled);
+        if (enabled) {
+            backButton.setBackground(WikiMainWindow.MINECRAFT_GREEN);
+        } else {
+            backButton.setBackground(new Color(100, 100, 100));
+        }
     }
 }
 

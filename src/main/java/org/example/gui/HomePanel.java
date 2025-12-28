@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,6 +31,9 @@ public class HomePanel extends JPanel {
         setLayout(new BorderLayout());
         setBackground(new Color(40, 40, 40));
 
+        // Pré-carregar imagens em background
+        ImageManager.preloadImages();
+
         // Painel do título
         JPanel titlePanel = createTitlePanel();
         add(titlePanel, BorderLayout.NORTH);
@@ -46,8 +50,19 @@ public class HomePanel extends JPanel {
     private JPanel createTitlePanel() {
         JPanel panel = new JPanel();
         panel.setBackground(new Color(30, 30, 30));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new BorderLayout());
         panel.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
+
+        // Botão Voltar no canto esquerdo
+        JPanel leftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        leftPanel.setOpaque(false);
+        JButton backButton = createBackButton();
+        leftPanel.add(backButton);
+
+        // Títulos no centro
+        JPanel centerPanel = new JPanel();
+        centerPanel.setOpaque(false);
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 
         // Título principal
         JLabel titleLabel = new JLabel("MINECRAFT WIKI");
@@ -67,36 +82,88 @@ public class HomePanel extends JPanel {
         versionLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GRAY);
         versionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        panel.add(titleLabel);
-        panel.add(Box.createVerticalStrut(10));
-        panel.add(subtitleLabel);
-        panel.add(Box.createVerticalStrut(5));
-        panel.add(versionLabel);
+        centerPanel.add(titleLabel);
+        centerPanel.add(Box.createVerticalStrut(10));
+        centerPanel.add(subtitleLabel);
+        centerPanel.add(Box.createVerticalStrut(5));
+        centerPanel.add(versionLabel);
+
+        panel.add(leftPanel, BorderLayout.WEST);
+        panel.add(centerPanel, BorderLayout.CENTER);
 
         return panel;
     }
 
+    private JButton createBackButton() {
+        JButton backButton = new JButton("⬅ Voltar");
+        backButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        backButton.setForeground(Color.WHITE);
+        backButton.setBackground(new Color(70, 70, 70));
+        backButton.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_BLUE, 2),
+            BorderFactory.createEmptyBorder(8, 15, 8, 15)
+        ));
+        backButton.setFocusPainted(false);
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+        // Tooltip com atalho
+        backButton.setToolTipText("Voltar para página anterior (Alt+Backspace)");
+
+        // Efeitos hover
+        backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                if (parent.canGoBack()) {
+                    backButton.setBackground(new Color(90, 90, 90));
+                    backButton.setBorder(BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_BLUE.brighter(), 2),
+                        BorderFactory.createEmptyBorder(8, 15, 8, 15)
+                    ));
+                }
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                backButton.setBackground(new Color(70, 70, 70));
+                backButton.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_BLUE, 2),
+                    BorderFactory.createEmptyBorder(8, 15, 8, 15)
+                ));
+            }
+        });
+
+        backButton.addActionListener(e -> parent.goBack());
+        
+        // Atualizar visibilidade do botão baseado no histórico
+        backButton.setEnabled(parent.canGoBack());
+
+        return backButton;
+    }
+
     private JPanel createCenterPanel() {
-        JPanel panel = new JPanel(new GridLayout(2, 4, 15, 15));
+        JPanel panel = new JPanel(new GridLayout(3, 3, 15, 15));
         panel.setBackground(new Color(40, 40, 40));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
         // Linha 1
-        panel.add(createCategoryButton("⛏️", "Itens", MinecraftWikiGUI.MINECRAFT_BLUE, "ITEMS"));
-        panel.add(createCategoryButton("⚔️", "Armaduras", new Color(192, 192, 192), "ARMOR"));
-        panel.add(createCategoryButton("📖", "Encantamento", MinecraftWikiGUI.MINECRAFT_PURPLE, "ENCHANTMENTS"));
-        panel.add(createCategoryButton("⚗️", "Poções", MinecraftWikiGUI.MINECRAFT_PURPLE, "BREWING"));
+        panel.add(createCategoryButton("ITEMS", "Itens", MinecraftWikiGUI.MINECRAFT_BLUE, "ITEMS"));
+        panel.add(createCategoryButton("ARMOR", "Armaduras", new Color(192, 192, 192), "ARMOR"));
+        panel.add(createCategoryButton("ENCHANTMENTS", "Encantamento", MinecraftWikiGUI.MINECRAFT_PURPLE, "ENCHANTMENTS"));
 
         // Linha 2
-        panel.add(createCategoryButton("🔨", "Fabricação", new Color(139, 90, 43), "CRAFTING"));
-        panel.add(createCategoryButton("📊", "Estatísticas", MinecraftWikiGUI.MINECRAFT_GOLD, "STATISTICS"));
-        panel.add(createCategoryButton("ℹ️", "Sobre", MinecraftWikiGUI.MINECRAFT_BLUE, "ABOUT"));
-        panel.add(createCategoryButton("🚪", "Sair", MinecraftWikiGUI.MINECRAFT_RED, "EXIT"));
+        panel.add(createCategoryButton("BREWING", "Poções", MinecraftWikiGUI.MINECRAFT_PURPLE, "BREWING"));
+        panel.add(createCategoryButton("CRAFTING", "Fabricação", new Color(139, 90, 43), "CRAFTING"));
+        panel.add(createCategoryButton("STATISTICS", "Estatísticas", MinecraftWikiGUI.MINECRAFT_GOLD, "STATISTICS"));
+
+        // Linha 3
+        panel.add(createCategoryButton("API_TEST", "API Test", new Color(0, 150, 200), "API_TEST"));
+        panel.add(createCategoryButton("ABOUT", "Sobre", MinecraftWikiGUI.MINECRAFT_BLUE, "ABOUT"));
+        panel.add(createCategoryButton("EXIT", "Sair", MinecraftWikiGUI.MINECRAFT_RED, "EXIT"));
 
         return panel;
     }
 
-    private JButton createCategoryButton(String emoji, String title, Color color, String panelName) {
+    private JButton createCategoryButton(String itemName, String title, Color color, String panelName) {
         JButton button = new JButton();
         button.setLayout(new BorderLayout(5, 5));
         button.setBackground(new Color(60, 60, 60));
@@ -107,10 +174,9 @@ public class HomePanel extends JPanel {
         button.setFocusPainted(false);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Emoji no topo
-        JLabel emojiLabel = new JLabel(emoji, SwingConstants.CENTER);
-        emojiLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 40));
-        emojiLabel.setForeground(color);
+        // Imagem do item no topo
+        ImageIcon itemIcon = ImageManager.getItemIcon(itemName, 48);
+        JLabel iconLabel = new JLabel(itemIcon, SwingConstants.CENTER);
 
         // Título embaixo
         JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
@@ -119,7 +185,7 @@ public class HomePanel extends JPanel {
 
         JPanel contentPanel = new JPanel(new BorderLayout(5, 5));
         contentPanel.setOpaque(false);
-        contentPanel.add(emojiLabel, BorderLayout.CENTER);
+        contentPanel.add(iconLabel, BorderLayout.CENTER);
         contentPanel.add(titleLabel, BorderLayout.SOUTH);
 
         button.add(contentPanel);
@@ -158,6 +224,7 @@ public class HomePanel extends JPanel {
             case "BREWING" -> parent.showPanel("POTIONS");
             case "CRAFTING" -> parent.showPanel("CRAFTING");
             case "STATISTICS" -> parent.showPanel("STATISTICS");
+            case "API_TEST" -> parent.showPanel("API_TEST");
             case "ABOUT" -> parent.showPanel("ABOUT");
             case "EXIT" -> System.exit(0);
             default -> parent.showPanel("HOME");
@@ -173,7 +240,50 @@ public class HomePanel extends JPanel {
         infoLabel.setFont(new Font("SansSerif", Font.ITALIC, 14));
         infoLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
 
+        // Botão de modo offline
+        JButton offlineButton = new JButton("🔌 Modo Offline");
+        offlineButton.setFont(new Font("SansSerif", Font.BOLD, 12));
+        offlineButton.setForeground(Color.WHITE);
+        offlineButton.setBackground(new Color(70, 70, 70));
+        offlineButton.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(100, 100, 100), 2),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+        ));
+        offlineButton.setFocusPainted(false);
+        offlineButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        offlineButton.setToolTipText("Clique para alternar modo offline/online");
+        
+        offlineButton.addActionListener(e -> {
+            boolean isOffline = ImageManager.isOfflineMode();
+            ImageManager.setOfflineMode(!isOffline);
+            
+            if (!isOffline) {
+                offlineButton.setText("🌐 Modo Online");
+                offlineButton.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_GREEN, 2),
+                    BorderFactory.createEmptyBorder(5, 10, 5, 10)
+                ));
+                infoLabel.setText("🔌 Modo Offline ativado - usando cache local");
+            } else {
+                offlineButton.setText("🔌 Modo Offline");
+                offlineButton.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(100, 100, 100), 2),
+                    BorderFactory.createEmptyBorder(5, 10, 5, 10)
+                ));
+                infoLabel.setText("🌐 Modo Online - baixando imagens da wiki");
+            }
+        });
+
+        // Label de estatísticas do cache
+        JLabel cacheLabel = new JLabel(ImageManager.getCacheStats());
+        cacheLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+        cacheLabel.setForeground(new Color(150, 150, 150));
+
         panel.add(infoLabel);
+        panel.add(Box.createHorizontalStrut(20));
+        panel.add(offlineButton);
+        panel.add(Box.createHorizontalStrut(20));
+        panel.add(cacheLabel);
 
         return panel;
     }

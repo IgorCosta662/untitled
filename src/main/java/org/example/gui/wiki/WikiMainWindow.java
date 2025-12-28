@@ -27,6 +27,7 @@ public class WikiMainWindow extends JFrame {
     private WikiNavigationBar navigationBar;
     private final List<String> history;
     private final List<String> favorites;
+    private int historyIndex = -1;
 
     // Cores do tema Minecraft Wiki
     public static final Color WIKI_BG = new Color(248, 249, 250);
@@ -127,11 +128,52 @@ public class WikiMainWindow extends JFrame {
     }
 
     private void addToHistory(String page) {
+        // Remove páginas futuras se estamos no meio do histórico
+        if (historyIndex > 0) {
+            history.subList(0, historyIndex).clear();
+            historyIndex = 0;
+        }
+        
         history.add(0, page);
         if (history.size() > 20) {
             history.remove(20);
         }
         sidebar.updateHistory(history);
+        updateBackButtonState();
+    }
+
+    public void goBack() {
+        if (history.size() > 1 && historyIndex < history.size() - 1) {
+            historyIndex++;
+            String previousPage = history.get(historyIndex);
+            
+            // Navegar sem adicionar ao histórico
+            if (previousPage.startsWith("Busca: ")) {
+                String query = previousPage.substring(7);
+                contentArea.showSearchResults(query);
+            } else if (previousPage.startsWith("Categoria: ")) {
+                String category = previousPage.substring(11);
+                contentArea.showCategoryPage(category);
+            } else if (previousPage.equals("Página Inicial")) {
+                contentArea.showHomePage();
+            } else {
+                // Tentar como item, poção ou encantamento
+                if (wiki.listarTodosItens().stream().anyMatch(i -> i.getNome().equals(previousPage))) {
+                    contentArea.showItemPage(previousPage);
+                } else if (wiki.listarTodasPocoes().stream().anyMatch(p -> p.getNome().equals(previousPage))) {
+                    contentArea.showPotionPage(previousPage);
+                } else if (wiki.listarTodosEncantamentos().stream().anyMatch(e -> e.getNome().equals(previousPage))) {
+                    contentArea.showEnchantmentPage(previousPage);
+                }
+            }
+            
+            updateBackButtonState();
+        }
+    }
+
+    private void updateBackButtonState() {
+        boolean canGoBack = history.size() > 1 && historyIndex < history.size() - 1;
+        navigationBar.updateBackButton(canGoBack);
     }
 
     public void toggleFavorite(String page) {

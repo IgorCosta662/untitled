@@ -1,0 +1,182 @@
+package org.example.api;
+
+import java.io.IOException;
+import java.util.Optional;
+
+import com.google.gson.JsonObject;
+
+/**
+ * Serviço principal que gerencia busca de dados da Wiki com cache inteligente
+ * Primeiro verifica cache local, depois busca da API se necessário
+ */
+public class WikiDataService {
+    
+    private final MinecraftWikiAPI wikiAPI;
+    private final CacheManager cache;
+    private boolean offlineMode = false;
+    
+    public WikiDataService() {
+        this.wikiAPI = new MinecraftWikiAPI();
+        this.cache = new CacheManager();
+        
+        // Verificar se tem conexão com a API
+        if (!wikiAPI.testConnection()) {
+            System.out.println("⚠️ Sem conexão com Minecraft Wiki API - Modo offline ativado");
+            offlineMode = true;
+        } else {
+            System.out.println("✅ Conectado à Minecraft Wiki API");
+        }
+    }
+    
+    /**
+     * Busca informações sobre um item, primeiro no cache, depois na API
+     * @param itemName Nome do item
+     * @return JSON com informações do item
+     */
+    public Optional<JsonObject> getItemInfo(String itemName) {
+        String cacheKey = "item_" + itemName.toLowerCase().replace(" ", "_");
+        
+        // 1. Tentar buscar do cache
+        Optional<String> cached = cache.get(cacheKey);
+        if (cached.isPresent()) {
+            System.out.println("📦 Cache hit: " + itemName);
+            return Optional.of(com.google.gson.JsonParser.parseString(cached.get()).getAsJsonObject());
+        }
+        
+        // 2. Se não está no cache e não está offline, buscar da API
+        if (!offlineMode) {
+            try {
+                System.out.println("🌐 Buscando da API: " + itemName);
+                JsonObject result = wikiAPI.searchItem(itemName);
+                
+                // Salvar no cache
+                cache.put(cacheKey, result.toString(), "items");
+                
+                return Optional.of(result);
+            } catch (IOException e) {
+                System.err.println("❌ Erro ao buscar item da API: " + e.getMessage());
+                offlineMode = true; // Ativar modo offline temporariamente
+            }
+        }
+        
+        return Optional.empty();
+    }
+    
+    /**
+     * Busca conteúdo de uma página da Wiki
+     */
+    public Optional<String> getPageContent(String pageTitle) {
+        String cacheKey = "page_" + pageTitle.toLowerCase().replace(" ", "_");
+        
+        // Tentar cache primeiro
+        Optional<String> cached = cache.get(cacheKey);
+        if (cached.isPresent()) {
+            System.out.println("📦 Cache hit: " + pageTitle);
+            return cached;
+        }
+        
+        // Buscar da API se online
+        if (!offlineMode) {
+            try {
+                System.out.println("🌐 Buscando página da API: " + pageTitle);
+                String content = wikiAPI.getPageContent(pageTitle);
+                
+                if (content != null) {
+                    cache.put(cacheKey, content, "pages");
+                    return Optional.of(content);
+                }
+            } catch (IOException e) {
+                System.err.println("❌ Erro ao buscar página: " + e.getMessage());
+            }
+        }
+        
+        return Optional.empty();
+    }
+    
+    /**
+     * Busca URL de imagem de um item
+     */
+    public Optional<String> getItemImageUrl(String imageName) {
+        String cacheKey = "image_" + imageName.toLowerCase().replace(" ", "_");
+        
+        // Cache
+        Optional<String> cached = cache.get(cacheKey);
+        if (cached.isPresent()) {
+            return cached;
+        }
+        
+        // API
+        if (!offlineMode) {
+            try {
+                String imageUrl = wikiAPI.getImageUrl(imageName);
+                if (imageUrl != null) {
+                    cache.put(cacheKey, imageUrl, "images");
+                    return Optional.of(imageUrl);
+                }
+            } catch (IOException e) {
+                System.err.println("❌ Erro ao buscar imagem: " + e.getMessage());
+            }
+        }
+        
+        return Optional.empty();
+    }
+    
+    /**
+     * Força atualização do cache para um item específico
+     */
+    public void refreshItem(String itemName) {
+        String cacheKey = "item_" + itemName.toLowerCase().replace(" ", "_");
+        cache.remove(cacheKey);
+        getItemInfo(itemName); // Buscar novamente
+    }
+    
+    /**
+     * Limpa todo o cache
+     */
+    public void clearCache() {
+        cache.clearAll();
+        System.out.println("🗑️ Cache limpo completamente");
+    }
+    
+    /**
+     * Limpa cache de uma categoria específica
+     */
+    public void clearCacheCategory(String category) {
+        cache.clearCategory(category);
+        System.out.println("🗑️ Cache da categoria " + category + " limpo");
+    }
+    
+    /**
+     * Retorna estatísticas do cache
+     */
+    public CacheManager.CacheStats getCacheStats() {
+        return cache.getStats();
+    }
+    
+    /**
+     * Verifica se está em modo offline
+     */
+    public boolean isOffline() {
+        return offlineMode;
+    }
+    
+    /**
+     * Tenta reconectar com a API
+     */
+    public boolean reconnect() {
+        if (wikiAPI.testConnection()) {
+            offlineMode = false;
+            System.out.println("✅ Reconectado à API");
+            return true;
+        }
+        System.out.println("❌ Ainda sem conexão");
+        return false;
+    }
+    
+    /**
+     * Fecha recursos (cache)
+     */
+    public void close() {
+        cache.close();
+    }
+}

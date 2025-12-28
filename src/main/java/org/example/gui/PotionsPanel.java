@@ -60,7 +60,7 @@ public class PotionsPanel extends JPanel {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBackground(new Color(40, 40, 40));
 
-        JLabel titleLabel = new JLabel("⚗️ POÇÕES E EFEITOS");
+        JLabel titleLabel = ImageManager.createIconLabel("BREWING", " POÇÕES E EFEITOS", 28);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE);
 
@@ -90,7 +90,8 @@ public class PotionsPanel extends JPanel {
             loadAllPotions();
         });
 
-        JButton guideButton = new JButton("📖 Guia de Preparação");
+        JButton guideButton = new JButton(" Guia de Preparação");
+        guideButton.setIcon(ImageManager.getItemIcon("BOOK", 16));
         guideButton.setBackground(MinecraftWikiGUI.MINECRAFT_BLUE);
         guideButton.setForeground(Color.WHITE);
         guideButton.setFocusPainted(false);

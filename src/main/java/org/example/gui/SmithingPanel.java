@@ -46,7 +46,7 @@ public class SmithingPanel extends JPanel {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         panel.setBackground(DARK_BG);
 
-        JLabel titleLabel = new JLabel("🔨 MESA DE FERRARIA");
+        JLabel titleLabel = ImageManager.createIconLabel("SMITHING_TABLE", " MESA DE FERRARIA", 28);
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(MINECRAFT_GOLD);
         panel.add(titleLabel);
@@ -121,7 +121,7 @@ public class SmithingPanel extends JPanel {
             new EmptyBorder(15, 15, 15, 15)
         ));
 
-        JLabel title = new JLabel("💎 UPGRADE PARA NETHERITE");
+        JLabel title = ImageManager.createIconLabel("NETHERITE", " UPGRADE PARA NETHERITE", 24);
         title.setFont(new Font("Segoe UI", Font.BOLD, 18));
         title.setForeground(MINECRAFT_PURPLE);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);

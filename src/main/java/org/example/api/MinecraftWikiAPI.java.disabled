@@ -1,0 +1,188 @@
+package org.example.api;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * Cliente para integração com a MediaWiki API da Minecraft Wiki oficial
+ * URL base: https://minecraft.wiki/api.php
+ */
+public class MinecraftWikiAPI {
+    
+    private static final String WIKI_API_URL = "https://minecraft.wiki/api.php";
+    private static final String USER_AGENT = "MinecraftWikiApp/2.0 (Educational Project)";
+    
+    private final OkHttpClient client;
+    private final Gson gson;
+    
+    public MinecraftWikiAPI() {
+        this.client = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build();
+        this.gson = new Gson();
+    }
+    
+    /**
+     * Busca informações sobre um item específico na Wiki
+     * @param itemName Nome do item (ex: "Diamond Sword")
+     * @return JSON com informações do item
+     */
+    public JsonObject searchItem(String itemName) throws IOException {
+        String url = WIKI_API_URL + 
+                "?action=query" +
+                "&list=search" +
+                "&srsearch=" + itemName.replace(" ", "%20") +
+                "&format=json" +
+                "&srlimit=5";
+        
+        Request request = new Request.Builder()
+                .url(url)
+                .header("User-Agent", USER_AGENT)
+                .build();
+        
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Erro na requisição: " + response.code());
+            }
+            
+            String jsonData = response.body().string();
+            return gson.fromJson(jsonData, JsonObject.class);
+        }
+    }
+    
+    /**
+     * Busca o conteúdo completo de uma página da Wiki
+     * @param pageTitle Título da página
+     * @return Conteúdo da página em formato Wiki
+     */
+    public String getPageContent(String pageTitle) throws IOException {
+        String url = WIKI_API_URL + 
+                "?action=query" +
+                "&prop=revisions" +
+                "&titles=" + pageTitle.replace(" ", "%20") +
+                "&rvprop=content" +
+                "&format=json";
+        
+        Request request = new Request.Builder()
+                .url(url)
+                .header("User-Agent", USER_AGENT)
+                .build();
+        
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Erro na requisição: " + response.code());
+            }
+            
+            String jsonData = response.body().string();
+            JsonObject json = gson.fromJson(jsonData, JsonObject.class);
+            
+            // Navegar pelo JSON para extrair o conteúdo
+            try {
+                return json.getAsJsonObject("query")
+                          .getAsJsonObject("pages")
+                          .entrySet().iterator().next().getValue()
+                          .getAsJsonObject()
+                          .getAsJsonArray("revisions")
+                          .get(0).getAsJsonObject()
+                          .get("*").getAsString();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+    }
+    
+    /**
+     * Busca URL de imagem de um item
+     * @param imageName Nome da imagem (ex: "Diamond_Sword.png")
+     * @return URL da imagem
+     */
+    public String getImageUrl(String imageName) throws IOException {
+        String url = WIKI_API_URL + 
+                "?action=query" +
+                "&titles=File:" + imageName.replace(" ", "%20") +
+                "&prop=imageinfo" +
+                "&iiprop=url" +
+                "&format=json";
+        
+        Request request = new Request.Builder()
+                .url(url)
+                .header("User-Agent", USER_AGENT)
+                .build();
+        
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Erro na requisição: " + response.code());
+            }
+            
+            String jsonData = response.body().string();
+            JsonObject json = gson.fromJson(jsonData, JsonObject.class);
+            
+            try {
+                return json.getAsJsonObject("query")
+                          .getAsJsonObject("pages")
+                          .entrySet().iterator().next().getValue()
+                          .getAsJsonObject()
+                          .getAsJsonArray("imageinfo")
+                          .get(0).getAsJsonObject()
+                          .get("url").getAsString();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+    }
+    
+    /**
+     * Busca categorias relacionadas a um termo
+     * @param category Nome da categoria
+     * @return Lista de páginas na categoria
+     */
+    public JsonObject getCategoryMembers(String category) throws IOException {
+        String url = WIKI_API_URL + 
+                "?action=query" +
+                "&list=categorymembers" +
+                "&cmtitle=Category:" + category.replace(" ", "%20") +
+                "&cmlimit=50" +
+                "&format=json";
+        
+        Request request = new Request.Builder()
+                .url(url)
+                .header("User-Agent", USER_AGENT)
+                .build();
+        
+        try (Response response = client.newCall(request).execute()) {
+            if (!response.isSuccessful()) {
+                throw new IOException("Erro na requisição: " + response.code());
+            }
+            
+            String jsonData = response.body().string();
+            return gson.fromJson(jsonData, JsonObject.class);
+        }
+    }
+    
+    /**
+     * Teste de conexão com a API
+     * @return true se a API está acessível
+     */
+    public boolean testConnection() {
+        try {
+            String url = WIKI_API_URL + "?action=query&meta=siteinfo&format=json";
+            Request request = new Request.Builder()
+                    .url(url)
+                    .header("User-Agent", USER_AGENT)
+                    .build();
+            
+            try (Response response = client.newCall(request).execute()) {
+                return response.isSuccessful();
+            }
+        } catch (IOException e) {
+            return false;
+        }
+    }
+}

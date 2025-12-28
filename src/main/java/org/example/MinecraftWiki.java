@@ -1979,6 +1979,250 @@ public class MinecraftWiki {
             MinecraftEdition.BEDROCK, "Utilitário");
         tingidor.adicionarIngrediente("7x Lingote de Ferro");
         itens.add(tingidor);
+
+        // ==================== PICARETAS NOVAS ====================
+        
+        Item picaretaOuroNova = new Item("Picareta de Ouro",
+            "Picareta rápida mas frágil",
+            MinecraftEdition.BOTH, "Picareta");
+        picaretaOuroNova.adicionarIngrediente("3x Lingote de Ouro + 2x Graveto");
+        itens.add(picaretaOuroNova);
+
+        // ==================== MACHADOS NOVOS ====================
+        
+        Item machadoPedraNovo = new Item("Machado de Pedra",
+            "Machado intermediário",
+            MinecraftEdition.BOTH, "Machado");
+        machadoPedraNovo.adicionarIngrediente("3x Pedregulho + 2x Graveto");
+        itens.add(machadoPedraNovo);
+
+        Item machadoFerroNovo = new Item("Machado de Ferro",
+            "Machado avançado",
+            MinecraftEdition.BOTH, "Machado");
+        machadoFerroNovo.adicionarIngrediente("3x Lingote de Ferro + 2x Graveto");
+        itens.add(machadoFerroNovo);
+
+        Item machadoOuroNovo = new Item("Machado de Ouro",
+            "Machado rápido mas frágil",
+            MinecraftEdition.BOTH, "Machado");
+        machadoOuroNovo.adicionarIngrediente("3x Lingote de Ouro + 2x Graveto");
+        itens.add(machadoOuroNovo);
+
+        // ==================== PÁS NOVAS ====================
+        
+        Item paMadeiraNova = new Item("Pá de Madeira",
+            "Pá básica para escavar",
+            MinecraftEdition.BOTH, "Pá");
+        paMadeiraNova.adicionarIngrediente("1x Tábua + 2x Graveto");
+        itens.add(paMadeiraNova);
+
+        Item paPedraNova = new Item("Pá de Pedra",
+            "Pá intermediária",
+            MinecraftEdition.BOTH, "Pá");
+        paPedraNova.adicionarIngrediente("1x Pedregulho + 2x Graveto");
+        itens.add(paPedraNova);
+
+        Item paFerroNova = new Item("Pá de Ferro",
+            "Pá avançada",
+            MinecraftEdition.BOTH, "Pá");
+        paFerroNova.adicionarIngrediente("1x Lingote de Ferro + 2x Graveto");
+        itens.add(paFerroNova);
+
+        Item paOuroNova = new Item("Pá de Ouro",
+            "Pá rápida mas frágil",
+            MinecraftEdition.BOTH, "Pá");
+        paOuroNova.adicionarIngrediente("1x Lingote de Ouro + 2x Graveto");
+        itens.add(paOuroNova);
+
+        Item paNetheriteNova = new Item("Pá de Netherite",
+            "A melhor pá do jogo",
+            MinecraftEdition.BOTH, "Pá");
+        paNetheriteNova.adicionarIngrediente("1x Pá de Diamante + 1x Lingote de Netherite");
+        itens.add(paNetheriteNova);
+
+        // ==================== ENXADAS NOVAS ====================
+        
+        Item enxadaMadeiraNova = new Item("Enxada de Madeira",
+            "Enxada básica para agricultura",
+            MinecraftEdition.BOTH, "Enxada");
+        enxadaMadeiraNova.adicionarIngrediente("2x Tábua + 2x Graveto");
+        itens.add(enxadaMadeiraNova);
+
+        Item enxadaPedraNova = new Item("Enxada de Pedra",
+            "Enxada intermediária",
+            MinecraftEdition.BOTH, "Enxada");
+        enxadaPedraNova.adicionarIngrediente("2x Pedregulho + 2x Graveto");
+        itens.add(enxadaPedraNova);
+
+        Item enxadaFerroNova = new Item("Enxada de Ferro",
+            "Enxada avançada",
+            MinecraftEdition.BOTH, "Enxada");
+        enxadaFerroNova.adicionarIngrediente("2x Lingote de Ferro + 2x Graveto");
+        itens.add(enxadaFerroNova);
+
+        Item enxadaOuroNova = new Item("Enxada de Ouro",
+            "Enxada rápida mas frágil",
+            MinecraftEdition.BOTH, "Enxada");
+        enxadaOuroNova.adicionarIngrediente("2x Lingote de Ouro + 2x Graveto");
+        itens.add(enxadaOuroNova);
+
+        Item enxadaNetheriteNova = new Item("Enxada de Netherite",
+            "A melhor enxada do jogo",
+            MinecraftEdition.BOTH, "Enxada");
+        enxadaNetheriteNova.adicionarIngrediente("1x Enxada de Diamante + 1x Lingote de Netherite");
+        itens.add(enxadaNetheriteNova);
+
+        // ==================== FERRAMENTAS ESPECIAIS NOVAS ====================
+        
+        Item cenouraVaraNova = new Item("Vara com Cenoura",
+            "Controla porcos",
+            MinecraftEdition.BOTH, "Ferramenta Especial");
+        cenouraVaraNova.adicionarIngrediente("1x Vara de Pesca + 1x Cenoura");
+        itens.add(cenouraVaraNova);
+
+        Item fungoVaraNova = new Item("Vara com Fungo Distorcido",
+            "Controla striders",
+            MinecraftEdition.BOTH, "Ferramenta Especial");
+        fungoVaraNova.adicionarIngrediente("1x Vara de Pesca + 1x Fungo Distorcido");
+        itens.add(fungoVaraNova);
+
+        Item escovaNova = new Item("Escova",
+            "Revela itens em blocos suspeitos",
+            MinecraftEdition.BOTH, "Ferramenta Especial");
+        escovaNova.adicionarIngrediente("1x Pena + 1x Lingote de Cobre + 1x Graveto");
+        itens.add(escovaNova);
+
+        // ==================== ESPADAS COMPLETAS NOVAS ====================
+        
+        Item espadaMadeiraNova = new Item("Espada de Madeira",
+            "Espada básica",
+            MinecraftEdition.BOTH, "Espada");
+        espadaMadeiraNova.adicionarIngrediente("2x Tábua + 1x Graveto");
+        itens.add(espadaMadeiraNova);
+
+        Item espadaPedraNova = new Item("Espada de Pedra",
+            "Espada intermediária",
+            MinecraftEdition.BOTH, "Espada");
+        espadaPedraNova.adicionarIngrediente("2x Pedregulho + 1x Graveto");
+        itens.add(espadaPedraNova);
+
+        Item espadaFerroNova = new Item("Espada de Ferro",
+            "Espada avançada",
+            MinecraftEdition.BOTH, "Espada");
+        espadaFerroNova.adicionarIngrediente("2x Lingote de Ferro + 1x Graveto");
+        itens.add(espadaFerroNova);
+
+        Item espadaOuroNova = new Item("Espada de Ouro",
+            "Espada rápida mas frágil",
+            MinecraftEdition.BOTH, "Espada");
+        espadaOuroNova.adicionarIngrediente("2x Lingote de Ouro + 1x Graveto");
+        itens.add(espadaOuroNova);
+
+        Item espadaDiamanteNova = new Item("Espada de Diamante",
+            "Espada poderosa",
+            MinecraftEdition.BOTH, "Espada");
+        espadaDiamanteNova.adicionarIngrediente("2x Diamante + 1x Graveto");
+        itens.add(espadaDiamanteNova);
+
+        Item espadaNetheriteNova = new Item("Espada de Netherite",
+            "A melhor espada do jogo",
+            MinecraftEdition.BOTH, "Espada");
+        espadaNetheriteNova.adicionarIngrediente("1x Espada de Diamante + 1x Lingote de Netherite");
+        itens.add(espadaNetheriteNova);
+
+        // ==================== ARCOS E BESTAS NOVOS ====================
+        
+        Item arcoNovo = new Item("Arco",
+            "Arma de longo alcance",
+            MinecraftEdition.BOTH, "Arco");
+        arcoNovo.adicionarIngrediente("3x Graveto + 3x Linha");
+        itens.add(arcoNovo);
+
+        Item bestaNova = new Item("Besta",
+            "Arco automático mais poderoso",
+            MinecraftEdition.BOTH, "Besta");
+        bestaNova.adicionarIngrediente("3x Graveto + 2x Linha + 1x Gancho de Armadilha + 1x Anel de Ferro");
+        itens.add(bestaNova);
+
+        Item flechaNova = new Item("Flecha",
+            "Munição para arco e besta",
+            MinecraftEdition.BOTH, "Arma de Longo Alcance");
+        flechaNova.adicionarIngrediente("1x Sílex + 1x Graveto + 1x Pena");
+        itens.add(flechaNova);
+
+        Item flechaEspectralNova = new Item("Flecha Espectral",
+            "Ilumina o alvo",
+            MinecraftEdition.BOTH, "Arma de Longo Alcance");
+        flechaEspectralNova.adicionarIngrediente("4x Pó de Pedra Luminosa + 1x Flecha");
+        itens.add(flechaEspectralNova);
+
+        Item tridenteNovo = new Item("Tridente",
+            "Arma corpo a corpo e longo alcance",
+            MinecraftEdition.BOTH, "Arma de Longo Alcance");
+        tridenteNovo.adicionarIngrediente("Drop de Afogados");
+        itens.add(tridenteNovo);
+
+        // ==================== BLOCOS FUNCIONAIS NOVOS ====================
+        
+        Item fornalhaNova = new Item("Fornalha",
+            "Funde minérios e cozinha alimentos",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        fornalhaNova.adicionarIngrediente("8x Pedregulho");
+        itens.add(fornalhaNova);
+
+        Item altoFornoNovo = new Item("Alto-forno",
+            "Funde minérios 2x mais rápido",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        altoFornoNovo.adicionarIngrediente("5x Lingote de Ferro + 1x Fornalha + 3x Pedra Lisa");
+        itens.add(altoFornoNovo);
+
+        Item defumadorNovo = new Item("Defumador",
+            "Cozinha alimentos 2x mais rápido",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        defumadorNovo.adicionarIngrediente("4x Tronco + 1x Fornalha");
+        itens.add(defumadorNovo);
+
+        Item bancadaNova = new Item("Bancada de Trabalho",
+            "Grade de crafting 3x3",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        bancadaNova.adicionarIngrediente("4x Tábuas");
+        itens.add(bancadaNova);
+
+        Item mesaEncantamentoNova = new Item("Mesa de Encantamento",
+            "Encanta itens com magia",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        mesaEncantamentoNova.adicionarIngrediente("4x Obsidiana + 2x Diamante + 1x Livro");
+        itens.add(mesaEncantamentoNova);
+
+        Item bigovaNova = new Item("Bigorna",
+            "Repara e combina itens",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        bigovaNova.adicionarIngrediente("3x Bloco de Ferro + 4x Lingote de Ferro");
+        itens.add(bigovaNova);
+
+        Item pedraAmolarNova = new Item("Pedra de Amolar",
+            "Repara itens gastando menos XP",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        pedraAmolarNova.adicionarIngrediente("2x Graveto + 1x Laje de Pedra + 2x Tábuas");
+        itens.add(pedraAmolarNova);
+
+        Item suporteArmaduraNovo = new Item("Suporte de Armadura",
+            "Exibe armaduras e equipamentos",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        suporteArmaduraNovo.adicionarIngrediente("6x Graveto + 1x Laje de Pedra");
+        itens.add(suporteArmaduraNovo);
+
+        Item compostorNovo = new Item("Compostor",
+            "Converte itens vegetais em farinha de osso",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        compostorNovo.adicionarIngrediente("7x Laje de Madeira");
+        itens.add(compostorNovo);
+
+        Item barrilNovo = new Item("Barril",
+            "Armazena itens como um baú",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        barrilNovo.adicionarIngrediente("6x Tábuas + 2x Laje de Madeira");
+        itens.add(barrilNovo);
     }
 
     private void carregarPocoes() {

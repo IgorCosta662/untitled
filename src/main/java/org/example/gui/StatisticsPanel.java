@@ -1,10 +1,23 @@
 package org.example.gui;
 
-import org.example.MinecraftWiki;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+
+import org.example.MinecraftWiki;
 
 public class StatisticsPanel extends JPanel {
     private MinecraftWiki wiki;
@@ -69,8 +82,9 @@ public class StatisticsPanel extends JPanel {
 
         // Card de Poções
         gbc.gridx = 1;
-        mainPanel.add(createStatCard(
-            "⚗️ POÇÕES",
+        mainPanel.add(createStatCardWithIcon(
+            "BREWING",
+            " POÇÕES",
             String.valueOf(wiki.listarTodasPocoes().size()),
             "Poções e efeitos catalogados",
             MinecraftWikiGUI.MINECRAFT_PURPLE
@@ -118,6 +132,39 @@ public class StatisticsPanel extends JPanel {
         ));
 
         JLabel titleLabel = new JLabel(title);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        titleLabel.setForeground(color);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel valueLabel = new JLabel(value);
+        valueLabel.setFont(new Font("SansSerif", Font.BOLD, 72));
+        valueLabel.setForeground(color.brighter());
+        valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        JLabel descLabel = new JLabel(description);
+        descLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        descLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GRAY);
+        descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        card.add(titleLabel);
+        card.add(Box.createVerticalStrut(20));
+        card.add(valueLabel);
+        card.add(Box.createVerticalStrut(10));
+        card.add(descLabel);
+
+        return card;
+    }
+
+    private JPanel createStatCardWithIcon(String iconName, String title, String value, String description, Color color) {
+        JPanel card = new JPanel();
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBackground(new Color(60, 60, 60));
+        card.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(color, 3),
+            new EmptyBorder(30, 30, 30, 30)
+        ));
+
+        JLabel titleLabel = ImageManager.createIconLabel(iconName, title, 24);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         titleLabel.setForeground(color);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
