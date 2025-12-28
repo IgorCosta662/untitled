@@ -16,7 +16,7 @@ public class MinecraftWikiGUI extends JFrame {
     private static MinecraftWiki wiki;
     private JPanel mainPanel;
     private CardLayout cardLayout;
-    private Stack<String> navigationHistory;
+    private final Stack<String> navigationHistory;
     private String currentPanel;
 
     // Cores temáticas do Minecraft
@@ -34,6 +34,10 @@ public class MinecraftWikiGUI extends JFrame {
         wiki = new MinecraftWiki();
         navigationHistory = new Stack<>();
         currentPanel = "HOME";
+        
+        // Iniciar pré-carregamento de imagens em background
+        ImageManager.preloadAllImages();
+        
         setupUI();
     }
 
@@ -47,15 +51,16 @@ public class MinecraftWikiGUI extends JFrame {
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Adicionar todas as telas
+        // Adicionar painéis consolidados
         mainPanel.add(new HomePanel(this, wiki), "HOME");
-        mainPanel.add(new ItemsPanel(wiki), "ITEMS");
-        mainPanel.add(new PotionsPanel(wiki), "POTIONS");
-        mainPanel.add(new EnchantmentsPanel(wiki), "ENCHANTMENTS");
-        mainPanel.add(new ItemsPanel(wiki, true), "ARMOR");  // true = mostrar apenas armaduras
-        mainPanel.add(new CraftingSimulatorPanel(), "CRAFTING");
+        
+        // PAINEL CONSOLIDADO DE ITENS (com abas: Itens, Encantamentos, Poções, Crafting, Fornalha, Ferraria, Redstone)
+        mainPanel.add(new ItemsPanel(wiki, this), "ITEMS");
+        mainPanel.add(new WorldPanel(this), "WORLD");           // Criaturas + Biomas + Estruturas
+        mainPanel.add(new SystemsPanel(this), "SYSTEMS");       // Comandos + Comércio + Tutoriais
+        
+        // PAINÉIS INFORMATIVOS
         mainPanel.add(new StatisticsPanel(wiki), "STATISTICS");
-        mainPanel.add(new APITestPanel(), "API_TEST");  // Novo painel de teste de APIs
         mainPanel.add(new AboutPanel(this), "ABOUT");
 
         add(mainPanel);
@@ -82,26 +87,31 @@ public class MinecraftWikiGUI extends JFrame {
         
         mainPanel.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(homeKey, "goHome");
         mainPanel.getActionMap().put("goHome", new javax.swing.AbstractAction() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) { showPanel("HOME"); }
         });
         
         mainPanel.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(itemsKey, "goItems");
         mainPanel.getActionMap().put("goItems", new javax.swing.AbstractAction() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) { showPanel("ITEMS"); }
         });
         
         mainPanel.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(potionsKey, "goPotions");
         mainPanel.getActionMap().put("goPotions", new javax.swing.AbstractAction() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) { showPanel("POTIONS"); }
         });
         
         mainPanel.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(armorKey, "goArmor");
         mainPanel.getActionMap().put("goArmor", new javax.swing.AbstractAction() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) { showPanel("ARMOR"); }
         });
         
         mainPanel.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW).put(backKey, "goBack");
         mainPanel.getActionMap().put("goBack", new javax.swing.AbstractAction() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent e) { goBack(); }
         });
     }

@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -176,7 +177,7 @@ public class ImageManager {
             } else {
                 // Baixar da wiki
                 String imageUrl = WIKI_IMAGE_BASE + wikiImageName;
-                URL url = new URL(imageUrl);
+                URL url = URI.create(imageUrl).toURL();
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestProperty("User-Agent", "MinecraftWikiApp/2.0");
                 conn.setConnectTimeout(3000);
@@ -445,7 +446,7 @@ public class ImageManager {
             
             for (String urlString : possibleUrls) {
                 try {
-                    URL url = new URL(urlString);
+                    URL url = URI.create(urlString).toURL();
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setConnectTimeout(5000);
                     connection.setReadTimeout(5000);
@@ -523,7 +524,7 @@ public class ImageManager {
      * Salva automaticamente as imagens de um item ao adicioná-lo
      * @param item Item do Minecraft
      */
-    public static void autoSaveItemImages(org.example.Item item) {
+    public static void autoSaveItemImages(org.example.MinecraftWiki.Item item) {
         if (item == null) return;
         
         String itemName = item.getNome();
@@ -604,5 +605,152 @@ public class ImageManager {
                 file.delete();
             }
         }
+    }
+    
+    /**
+     * Pré-carrega todas as imagens disponíveis em uma thread separada
+     */
+    public static void preloadAllImages() {
+        new Thread(() -> {
+            System.out.println("🔄 Iniciando pré-carregamento de imagens...");
+            long startTime = System.currentTimeMillis();
+            int loaded = 0;
+            int craftingLoaded = 0;
+            
+            // Lista de todas as imagens disponíveis
+            String[] allImages = {
+                // Menu principal
+                "ITEMS", "ARMOR", "ENCHANTMENTS", "BREWING", "CRAFTING", 
+                "STATISTICS", "API_TEST", "ABOUT", "EXIT",
+                
+                // Ferramentas
+                "PICKAXE", "AXE", "SHOVEL", "HOE", "DIAMOND_PICKAXE", "DIAMOND_AXE",
+                "DIAMOND_SHOVEL", "DIAMOND_HOE", "IRON_PICKAXE", "IRON_AXE",
+                "IRON_SHOVEL", "IRON_HOE", "STONE_PICKAXE", "STONE_AXE",
+                "STONE_SHOVEL", "STONE_HOE", "WOODEN_PICKAXE", "WOODEN_AXE",
+                "WOODEN_SHOVEL", "WOODEN_HOE", "GOLDEN_PICKAXE", "GOLDEN_AXE",
+                "GOLDEN_SHOVEL", "GOLDEN_HOE", "NETHERITE_PICKAXE", "NETHERITE_AXE",
+                "NETHERITE_SHOVEL", "NETHERITE_HOE",
+                
+                // Armas
+                "SWORD", "BOW", "CROSSBOW", "TRIDENT", "DIAMOND_SWORD", "IRON_SWORD",
+                "STONE_SWORD", "WOODEN_SWORD", "GOLDEN_SWORD", "NETHERITE_SWORD",
+                
+                // Armaduras
+                "HELMET", "CHESTPLATE", "LEGGINGS", "BOOTS", "SHIELD",
+                "DIAMOND_HELMET", "DIAMOND_CHESTPLATE", "DIAMOND_LEGGINGS", "DIAMOND_BOOTS",
+                "IRON_HELMET", "IRON_CHESTPLATE", "IRON_LEGGINGS", "IRON_BOOTS",
+                "GOLDEN_HELMET", "GOLDEN_CHESTPLATE", "GOLDEN_LEGGINGS", "GOLDEN_BOOTS",
+                "LEATHER_HELMET", "LEATHER_CHESTPLATE", "LEATHER_LEGGINGS", "LEATHER_BOOTS",
+                "CHAINMAIL_HELMET", "CHAINMAIL_CHESTPLATE", "CHAINMAIL_LEGGINGS", "CHAINMAIL_BOOTS",
+                "NETHERITE_HELMET", "NETHERITE_CHESTPLATE", "NETHERITE_LEGGINGS", "NETHERITE_BOOTS",
+                "TURTLE_HELMET", "ELYTRA",
+                
+                // Encantamentos e poções
+                "ENCHANTED_BOOK", "BOOK", "BOTTLE", "GLASS_BOTTLE", "EXPERIENCE_BOTTLE",
+                "POTION", "SPLASH_POTION", "LINGERING_POTION",
+                "POTION_HEALING", "POTION_STRENGTH", "POTION_SWIFTNESS", "POTION_REGENERATION",
+                "POTION_FIRE_RESISTANCE", "POTION_POISON", "POTION_WEAKNESS", "POTION_SLOWNESS",
+                "POTION_HARMING", "POTION_NIGHT_VISION", "POTION_INVISIBILITY", "POTION_LEAPING",
+                "POTION_WATER_BREATHING", "POTION_SLOW_FALLING", "POTION_LUCK", "POTION_TURTLE_MASTER",
+                
+                // Ingredientes de poção
+                "NETHER_WART", "GLOWSTONE_DUST", "REDSTONE", "GUNPOWDER", "DRAGON_BREATH",
+                "FERMENTED_SPIDER_EYE", "GLISTERING_MELON_SLICE", "BLAZE_POWDER", "SUGAR",
+                "GHAST_TEAR", "MAGMA_CREAM", "SPIDER_EYE", "GOLDEN_CARROT", "PUFFERFISH",
+                "PHANTOM_MEMBRANE", "RABBIT_FOOT", "TURTLE_SHELL",
+                
+                // Blocos comuns
+                "GRASS_BLOCK", "DIRT", "STONE", "COBBLESTONE", "BEDROCK", "SAND", "GRAVEL",
+                "OAK_LOG", "OAK_PLANKS", "GLASS", "OBSIDIAN", "NETHERRACK", "END_STONE",
+                "CRAFTING_TABLE", "FURNACE", "CHEST", "ANVIL", "ENCHANTING_TABLE",
+                "BREWING_STAND", "BEACON", "ENDER_CHEST", "SHULKER_BOX",
+                
+                // Minérios
+                "COAL_ORE", "IRON_ORE", "GOLD_ORE", "DIAMOND_ORE", "EMERALD_ORE",
+                "LAPIS_ORE", "REDSTONE_ORE", "COPPER_ORE", "ANCIENT_DEBRIS",
+                "COAL", "IRON_INGOT", "GOLD_INGOT", "DIAMOND", "EMERALD",
+                "LAPIS_LAZULI", "COPPER_INGOT", "NETHERITE_INGOT",
+                
+                // Alimentos
+                "APPLE", "GOLDEN_APPLE", "BREAD", "COOKED_BEEF", "COOKED_PORKCHOP",
+                "COOKED_CHICKEN", "COOKED_MUTTON", "COOKED_SALMON", "COOKED_COD",
+                "COOKIE", "CAKE", "PUMPKIN_PIE", "GOLDEN_CARROT",
+                
+                // Itens especiais
+                "ENDER_PEARL", "ENDER_EYE", "TOTEM_OF_UNDYING", "ELYTRA",
+                "FIREWORK_ROCKET", "TNT", "FLINT_AND_STEEL", "BUCKET",
+                "WATER_BUCKET", "LAVA_BUCKET", "MILK_BUCKET", "SADDLE",
+                "NAME_TAG", "LEAD", "COMPASS", "CLOCK", "FISHING_ROD",
+                "CARROT_ON_A_STICK", "SHEARS", "COMMAND_BLOCK", "BARRIER",
+                "STRUCTURE_BLOCK", "STRUCTURE_VOID", "KNOWLEDGE_BOOK",
+                
+                // Redstone
+                "REDSTONE_TORCH", "LEVER", "BUTTON", "PRESSURE_PLATE",
+                "TRIPWIRE_HOOK", "PISTON", "STICKY_PISTON", "OBSERVER",
+                "HOPPER", "DROPPER", "DISPENSER", "COMPARATOR", "REPEATER"
+            };
+            
+            // Pré-carregar ícones de itens em diferentes tamanhos comuns
+            int[] sizes = {16, 24, 32, 48, 64};
+            
+            for (String imageName : allImages) {
+                for (int size : sizes) {
+                    try {
+                        getItemIcon(imageName, size);
+                        loaded++;
+                    } catch (RuntimeException e) {
+                        // Ignorar erros individuais
+                    }
+                }
+            }
+            
+            System.out.println("📦 Pré-carregando imagens de crafting da API...");
+            
+            // Baixar imagens de crafting de itens comuns
+            String[] craftingItems = {
+                "Diamond Sword", "Diamond Pickaxe", "Diamond Axe", "Diamond Shovel", "Diamond Hoe",
+                "Iron Sword", "Iron Pickaxe", "Iron Axe", "Iron Shovel", "Iron Hoe",
+                "Stone Sword", "Stone Pickaxe", "Stone Axe", "Stone Shovel", "Stone Hoe",
+                "Wooden Sword", "Wooden Pickaxe", "Wooden Axe", "Wooden Shovel", "Wooden Hoe",
+                "Golden Sword", "Golden Pickaxe", "Golden Axe", "Golden Shovel", "Golden Hoe",
+                "Netherite Sword", "Netherite Pickaxe", "Netherite Axe", "Netherite Shovel", "Netherite Hoe",
+                "Diamond Helmet", "Diamond Chestplate", "Diamond Leggings", "Diamond Boots",
+                "Iron Helmet", "Iron Chestplate", "Iron Leggings", "Iron Boots",
+                "Golden Helmet", "Golden Chestplate", "Golden Leggings", "Golden Boots",
+                "Leather Helmet", "Leather Chestplate", "Leather Leggings", "Leather Boots",
+                "Chainmail Helmet", "Chainmail Chestplate", "Chainmail Leggings", "Chainmail Boots",
+                "Netherite Helmet", "Netherite Chestplate", "Netherite Leggings", "Netherite Boots",
+                "Bow", "Crossbow", "Shield", "Trident",
+                "Crafting Table", "Furnace", "Chest", "Anvil", "Enchanting Table",
+                "Brewing Stand", "Beacon", "Ender Chest", "Shulker Box",
+                "Torch", "Ladder", "Bed", "Door", "Trapdoor", "Fence", "Gate",
+                "TNT", "Piston", "Sticky Piston", "Hopper", "Dropper", "Dispenser",
+                "Redstone Torch", "Lever", "Button", "Pressure Plate", "Comparator", "Repeater",
+                "Bread", "Cookie", "Cake", "Golden Apple", "Bucket", "Clock", "Compass",
+                "Flint and Steel", "Fishing Rod", "Shears", "Lead", "Name Tag"
+            };
+            
+            for (String itemName : craftingItems) {
+                try {
+                    String craftingPath = downloadCraftingImage(itemName);
+                    if (craftingPath != null) {
+                        craftingLoaded++;
+                    }
+                    // Pequena pausa para não sobrecarregar a rede
+                    Thread.sleep(50);
+                } catch (Exception e) {
+                    // Ignorar erros individuais
+                }
+            }
+            
+            long endTime = System.currentTimeMillis();
+            long duration = (endTime - startTime) / 1000;
+            System.out.println("✅ Pré-carregamento concluído!");
+            System.out.println("   📦 " + loaded + " ícones de itens carregados");
+            System.out.println("   🔨 " + craftingLoaded + " imagens de crafting baixadas");
+            System.out.println("   ⏱️ Tempo: " + duration + " segundos");
+            System.out.println("   💾 " + getCacheStats());
+        }, "ImagePreloader").start();
     }
 }

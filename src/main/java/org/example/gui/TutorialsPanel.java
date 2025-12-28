@@ -33,20 +33,21 @@ public class TutorialsPanel extends JPanel {
         setBackground(DARK_BG);
         setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        JLabel titleLabel = new JLabel("📚 TUTORIAIS E GUIAS", SwingConstants.CENTER);
+        JLabel titleLabel = ImageManager.createIconLabel("BOOK", "TUTORIAIS E GUIAS", 32);
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 28));
         titleLabel.setForeground(MINECRAFT_GOLD);
+        titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(titleLabel, BorderLayout.NORTH);
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        tabbedPane.addTab("🌱 Iniciantes", createBeginnersPanel());
-        tabbedPane.addTab("⚔️ Sobrevivência", createSurvivalPanel());
-        tabbedPane.addTab("🏗️ Construção", createBuildingPanel());
+        tabbedPane.addTab("Iniciantes", ImageManager.getItemIcon("GRASS_BLOCK", 16), createBeginnersPanel());
+        tabbedPane.addTab("Sobrevivência", ImageManager.getItemIcon("SWORD", 16), createSurvivalPanel());
+        tabbedPane.addTab("Construção", ImageManager.getItemIcon("CRAFTING_TABLE", 16), createBuildingPanel());
 
         add(tabbedPane, BorderLayout.CENTER);
 
-        JButton backButton = new JButton("🏠 Voltar ao Menu");
+        JButton backButton = new JButton("Voltar ao Menu", ImageManager.getItemIcon("BARRIER", 16));
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         backButton.setBackground(MINECRAFT_GREEN);
         backButton.setForeground(Color.BLACK);

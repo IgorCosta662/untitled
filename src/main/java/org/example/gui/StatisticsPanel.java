@@ -20,7 +20,7 @@ import javax.swing.border.EmptyBorder;
 import org.example.MinecraftWiki;
 
 public class StatisticsPanel extends JPanel {
-    private MinecraftWiki wiki;
+    private final MinecraftWiki wiki;
 
     public StatisticsPanel(MinecraftWiki wiki) {
         this.wiki = wiki;
@@ -73,8 +73,9 @@ public class StatisticsPanel extends JPanel {
         // Card de Itens
         gbc.gridx = 0;
         gbc.gridy = 0;
-        mainPanel.add(createStatCard(
-            "📦 ITENS",
+        mainPanel.add(createStatCardWithIcon(
+            "CHEST",
+            " ITENS",
             String.valueOf(wiki.listarTodosItens().size()),
             "Receitas de crafting disponíveis",
             MinecraftWikiGUI.MINECRAFT_BROWN
@@ -93,8 +94,9 @@ public class StatisticsPanel extends JPanel {
         // Card de Encantamentos
         gbc.gridx = 0;
         gbc.gridy = 1;
-        mainPanel.add(createStatCard(
-            "✨ ENCANTAMENTOS",
+        mainPanel.add(createStatCardWithIcon(
+            "ENCHANTED_BOOK",
+            " ENCANTAMENTOS",
             String.valueOf(wiki.listarTodosEncantamentos().size()),
             "Encantamentos registrados",
             MinecraftWikiGUI.MINECRAFT_BLUE
@@ -105,8 +107,9 @@ public class StatisticsPanel extends JPanel {
         int total = wiki.listarTodosItens().size() +
                     wiki.listarTodasPocoes().size() +
                     wiki.listarTodosEncantamentos().size();
-        mainPanel.add(createStatCard(
-            "🎯 TOTAL",
+        mainPanel.add(createStatCardWithIcon(
+            "DIAMOND",
+            " TOTAL",
             String.valueOf(total),
             "Entradas no banco de dados",
             MinecraftWikiGUI.MINECRAFT_GREEN
@@ -120,39 +123,6 @@ public class StatisticsPanel extends JPanel {
         mainPanel.add(createInfoPanel(), gbc);
 
         return mainPanel;
-    }
-
-    private JPanel createStatCard(String title, String value, String description, Color color) {
-        JPanel card = new JPanel();
-        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBackground(new Color(60, 60, 60));
-        card.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(color, 3),
-            new EmptyBorder(30, 30, 30, 30)
-        ));
-
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
-        titleLabel.setForeground(color);
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel valueLabel = new JLabel(value);
-        valueLabel.setFont(new Font("SansSerif", Font.BOLD, 72));
-        valueLabel.setForeground(color.brighter());
-        valueLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel descLabel = new JLabel(description);
-        descLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        descLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GRAY);
-        descLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        card.add(titleLabel);
-        card.add(Box.createVerticalStrut(20));
-        card.add(valueLabel);
-        card.add(Box.createVerticalStrut(10));
-        card.add(descLabel);
-
-        return card;
     }
 
     private JPanel createStatCardWithIcon(String iconName, String title, String value, String description, Color color) {

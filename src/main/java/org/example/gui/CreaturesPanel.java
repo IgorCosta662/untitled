@@ -88,7 +88,26 @@ public class CreaturesPanel extends JPanel {
             {"🐴", "Cavalo", "15-30 ❤️", "Couro (montável)"},
             {"🐱", "Gato", "10 ❤️", "Espanta Creepers"},
             {"🐺", "Lobo", "8 ❤️", "Domesticável (osso)"},
-            {"🦙", "Lhama", "15-30 ❤️", "Couro, transporte"}
+            {"🦙", "Lhama", "15-30 ❤️", "Couro, transporte"},
+            {"🐰", "Coelho", "3 ❤️", "Couro, Carne de Coelho, Pata"},
+            {"🐢", "Tartaruga", "30 ❤️", "Casco, Ovo, Scute"},
+            {"🐟", "Bacalhau", "3 ❤️", "Bacalhau Cru"},
+            {"🐠", "Salmão", "3 ❤️", "Salmão Cru"},
+            {"🐡", "Baiacu", "3 ❤️", "Baiacu (venenoso)"},
+            {"🦑", "Lula", "10 ❤️", "Saco de Tinta"},
+            {"🐙", "Lula Brilhante", "10 ❤️", "Saco de Tinta Brilhante"},
+            {"🦜", "Papagaio", "6 ❤️", "Penas (domesticável)"},
+            {"🦇", "Morcego", "6 ❤️", "Nenhum drop"},
+            {"🐪", "Camelo", "32 ❤️", "Transporte para 2 jogadores"},
+            {"🐸", "Sapo", "10 ❤️", "Luz de Sapo (come slimes)"},
+            {"🦘", "Sniffer", "14 ❤️", "Mob antigo (escava sementes)"},
+            {"🐎", "Mula", "15-30 ❤️", "Transporte com baú"},
+            {"🦓", "Jumento", "15-30 ❤️", "Híbrido (cavalo + burro)"},
+            {"🦛", "Cogumelo (Mooshroom)", "10 ❤️", "Cogumelo, Ensopado, Couro"},
+            {"🦌", "Axolote", "14 ❤️", "Balde de Axolote (ataca mobs aquáticos)"},
+            {"🦎", "Goat (Cabra)", "10 ❤️", "Chifre de Cabra, Leite"},
+            {"🦨", "Strider", "20 ❤️", "Linha (montável na lava)"},
+            {"🐌", "Girino", "6 ❤️", "Balde de Girino (vira sapo)"}
         };
 
         for (String[] mob : passiveMobs) {
@@ -111,8 +130,16 @@ public class CreaturesPanel extends JPanel {
             {"🐼", "Panda", "20 ❤️", "Agressivo se atacado"},
             {"🐺", "Lobo (Selvagem)", "8 ❤️", "Ataca ovelhas"},
             {"🦊", "Raposa", "10 ❤️", "Foge de jogadores"},
-            {"🐢", "Tartaruga", "30 ❤️", "Defensiva"},
-            {"🐬", "Golfinho", "10 ❤️", "Ajuda na água"}
+            {"�", "Golfinho", "10 ❤️", "Ajuda na água"},
+            {"🧟", "Enderman", "40 ❤️", "Ataca se olhar nos olhos"},
+            {"🐷", "Piglin", "16 ❤️", "Ataca sem armadura de ouro"},
+            {"🗡️", "Piglin Bruto", "50 ❤️", "Sempre hostil (bastion)"},
+            {"🧟", "Zumbi Piglin", "20 ❤️", "Ataca se provocado"},
+            {"🐕", "Lobo Bravo", "20 ❤️", "Hostil, ataca em grupo"},
+            {"🦙", "Lhama (Selvagem)", "15-30 ❤️", "Cospe se provocada"},
+            {"🦅", "Iron Golem", "100 ❤️", "Defende vilarejos"},
+            {"⛄", "Golem de Neve", "4 ❤️", "Ataca mobs hostis (não dá dano)"},
+            {"🧊", "Aranha da Caverna", "12 ❤️", "Sobe paredes, veneno"}
         };
 
         for (String[] mob : neutralMobs) {
@@ -135,8 +162,32 @@ public class CreaturesPanel extends JPanel {
             {"🕸️", "Aranha da Caverna", "12 ❤️", "Linha, Olhos"},
             {"👻", "Ghast", "10 ❤️", "Lágrima de Ghast"},
             {"🔥", "Blaze", "20 ❤️", "Vara de Blaze"},
-            {"🗡️", "Enderman", "40 ❤️", "Pérola do End"},
-            {"⚡", "Witch", "26 ❤️", "Poções, Pó Luminoso"}
+            {"⚡", "Witch (Bruxa)", "26 ❤️", "Poções, Pó Luminoso"},
+            {"🧟‍♂️", "Zumbi Afogado", "20 ❤️", "Carne Podre, Ouro, Tridente"},
+            {"🏜️", "Husk (Zumbi do Deserto)", "20 ❤️", "Carne Podre, Areia"},
+            {"❄️", "Stray (Esqueleto Gelado)", "20 ❤️", "Ossos, Flechas de Lentidão"},
+            {"🧟‍♀️", "Zumbi Aldeão", "20 ❤️", "Carne Podre (curável)"},
+            {"🕷️", "Silverfish", "8 ❤️", "Nenhum (infesta blocos)"},
+            {"🐛", "Endermite", "8 ❤️", "Nenhum drop"},
+            {"🦇", "Phantom", "20 ❤️", "Membrana de Phantom"},
+            {"💥", "Creeper Carregado", "20 ❤️", "Pólvora (explosão maior)"},
+            {"🔱", "Guardian", "30 ❤️", "Prismarinho, Peixe"},
+            {"👑", "Elder Guardian", "80 ❤️", "Esponja, Prismarinho"},
+            {"🧱", "Shulker", "30 ❤️", "Casca de Shulker"},
+            {"🎯", "Pillager", "24 ❤️", "Flechas, Besta"},
+            {"🪓", "Vindicator", "24 ❤️", "Esmeralda, Machado"},
+            {"🧙", "Evoker", "24 ❤️", "Totem da Imortalidade"},
+            {"🦷", "Ravager", "100 ❤️", "Sela (raid boss)"},
+            {"🧠", "Vex", "14 ❤️", "Nenhum drop (invocado)"},
+            {"🌊", "Slime", "1-16 ❤️", "Bola de Slime"},
+            {"🟢", "Slime de Magma", "2-16 ❤️", "Creme de Magma"},
+            {"🗿", "Wither Skeleton", "20 ❤️", "Carvão, Crânio, Espada de Pedra"},
+            {"👾", "Hoglin", "40 ❤️", "Couro, Carne de Porco"},
+            {"🧟‍♂️", "Zoglin", "40 ❤️", "Carne Podre (hoglin zumbificado)"},
+            {"🦴", "Esqueleto Wither", "20 ❤️", "Carvão, Crânio (raro)"},
+            {"🌀", "Vex", "14 ❤️", "Invocado por Evoker"},
+            {"🏹", "Illusioner", "32 ❤️", "Arco (não spawna naturalmente)"},
+            {"🧊", "Warden", "500 ❤️", "Sculk Catalyst (mais forte do jogo)"}
         };
 
         for (String[] mob : hostileMobs) {
@@ -153,9 +204,12 @@ public class CreaturesPanel extends JPanel {
         panel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
         String[][] bosses = {
-            {"🐉", "Ender Dragon", "200 ❤️", "Ovo de Dragão, 12000 XP - Chefe final do End"},
-            {"💀", "Wither", "300 ❤️", "Estrela do Nether, 50 XP - Invocado com 4 Soul Sand + 3 Crânios de Wither"},
-            {"🛡️", "Elder Guardian", "80 ❤️", "Esponja, Prismarinho - Guardião dos Monumentos Oceânicos"}
+            {"🐉", "Ender Dragon", "200 ❤️", "Ovo de Dragão, 12000 XP - Chefe final do End. Ataque: Bola de fogo, investida. Invoca cristais de End que a curam. Pode ser revivido com cristais de End."},
+            {"💀", "Wither", "300 ❤️", "Estrela do Nether, 50 XP - Invocado com 4 Soul Sand + 3 Crânios de Wither Skeleton. Ataque: Projéteis explosivos com efeito Wither. Fase 2: Imune a flechas, causa explosão ao aparecer."},
+            {"🛡️", "Elder Guardian", "80 ❤️", "Esponja, Prismarinho, Cristal do Mar - Guardião dos Monumentos Oceânicos. Aplica Mining Fatigue III. 3 por monumento. Laser poderoso."},
+            {"🌀", "Warden", "500 ❤️", "Sculk Catalyst (não spawna naturalmente) - Mob mais forte do jogo. Cego, detecta por som e vibração. Ataque sônico atravessa blocos. Encontrado em Deep Dark."},
+            {"🦅", "Evoker (Mini-Chefe)", "24 ❤️", "Totem da Imortalidade - Chefe de Woodland Mansion e Raids. Invoca Vex e presas de terra. Raro e perigoso."},
+            {"🦏", "Ravager (Mini-Chefe)", "100 ❤️", "Sela - Aparece em Raids de nível alto. Ataque corpo a corpo devastador. Quebra plantações e pode carregar outros illagers."}
         };
 
         for (String[] boss : bosses) {

@@ -71,7 +71,7 @@ public class HomePanel extends JPanel {
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Subtítulo
-        JLabel subtitleLabel = new JLabel("🎮 Edição Completa e Interativa 🎮");
+        JLabel subtitleLabel = new JLabel("Edição Completa e Interativa");
         subtitleLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
         subtitleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -141,24 +141,19 @@ public class HomePanel extends JPanel {
     }
 
     private JPanel createCenterPanel() {
-        JPanel panel = new JPanel(new GridLayout(3, 3, 15, 15));
+        JPanel panel = new JPanel(new GridLayout(2, 3, 20, 20));
         panel.setBackground(new Color(40, 40, 40));
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
+        panel.setBorder(BorderFactory.createEmptyBorder(50, 60, 50, 60));
 
-        // Linha 1
-        panel.add(createCategoryButton("ITEMS", "Itens", MinecraftWikiGUI.MINECRAFT_BLUE, "ITEMS"));
-        panel.add(createCategoryButton("ARMOR", "Armaduras", new Color(192, 192, 192), "ARMOR"));
-        panel.add(createCategoryButton("ENCHANTMENTS", "Encantamento", MinecraftWikiGUI.MINECRAFT_PURPLE, "ENCHANTMENTS"));
+        // === LINHA 1: CATEGORIAS PRINCIPAIS ===
+        panel.add(createCategoryButton("ITEMS", "📦 Itens", MinecraftWikiGUI.MINECRAFT_BLUE, "ITEMS"));
+        panel.add(createCategoryButton("SYSTEMS", "⚙️ Sistemas", new Color(85, 255, 255), "SYSTEMS"));
+        panel.add(createCategoryButton("STATISTICS", "📊 Estatísticas", MinecraftWikiGUI.MINECRAFT_GOLD, "STATISTICS"));
 
-        // Linha 2
-        panel.add(createCategoryButton("BREWING", "Poções", MinecraftWikiGUI.MINECRAFT_PURPLE, "BREWING"));
-        panel.add(createCategoryButton("CRAFTING", "Fabricação", new Color(139, 90, 43), "CRAFTING"));
-        panel.add(createCategoryButton("STATISTICS", "Estatísticas", MinecraftWikiGUI.MINECRAFT_GOLD, "STATISTICS"));
-
-        // Linha 3
-        panel.add(createCategoryButton("API_TEST", "API Test", new Color(0, 150, 200), "API_TEST"));
-        panel.add(createCategoryButton("ABOUT", "Sobre", MinecraftWikiGUI.MINECRAFT_BLUE, "ABOUT"));
-        panel.add(createCategoryButton("EXIT", "Sair", MinecraftWikiGUI.MINECRAFT_RED, "EXIT"));
+        // === LINHA 2: UTILIDADES ===
+        panel.add(createCategoryButton("WORLD", "🌍 Mundo", MinecraftWikiGUI.MINECRAFT_GREEN, "WORLD"));
+        panel.add(createCategoryButton("ABOUT", "ℹ️ Sobre", new Color(100, 149, 237), "ABOUT"));
+        panel.add(createCategoryButton("EXIT", "❌ Sair", MinecraftWikiGUI.MINECRAFT_RED, "EXIT"));
 
         return panel;
     }
@@ -218,15 +213,14 @@ public class HomePanel extends JPanel {
 
     private void handleCategoryClick(String category) {
         switch (category) {
+            // Painéis Consolidados
             case "ITEMS" -> parent.showPanel("ITEMS");
-            case "ARMOR" -> parent.showPanel("ARMOR");
-            case "ENCHANTMENTS" -> parent.showPanel("ENCHANTMENTS");
-            case "BREWING" -> parent.showPanel("POTIONS");
-            case "CRAFTING" -> parent.showPanel("CRAFTING");
+            case "WORLD" -> parent.showPanel("WORLD");
+            case "SYSTEMS" -> parent.showPanel("SYSTEMS");
             case "STATISTICS" -> parent.showPanel("STATISTICS");
-            case "API_TEST" -> parent.showPanel("API_TEST");
             case "ABOUT" -> parent.showPanel("ABOUT");
             case "EXIT" -> System.exit(0);
+            
             default -> parent.showPanel("HOME");
         }
     }

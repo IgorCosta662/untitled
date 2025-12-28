@@ -4,12 +4,450 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Repositório centralizado de dados do Minecraft.
+ * Contém todos os modelos de dados como classes internas para maior coesão.
+ */
 public class MinecraftWiki {
     private final List<Item> itens;
     private final List<Pocao> pocoes;
     private final List<Encantamento> encantamentos;
     private final List<Armadura> armaduras;
     private final List<MoldeFerraria> moldesFerraria;
+    
+    // ==================== CLASSES DE MODELO (INNER CLASSES) ====================
+    
+    /**
+     * Classe Item - Representa um item do Minecraft
+     */
+    public static class Item {
+        private final String nome;
+        private final String descricao;
+        private final MinecraftEdition edicao;
+        private final List<String> ingredientes;
+        private String padraoCrafting;
+        private final String categoria;
+        private String imagemItem;
+        private String imagemCrafting;
+
+        public Item(String nome, String descricao, MinecraftEdition edicao, String categoria) {
+            this.nome = nome;
+            this.descricao = descricao;
+            this.edicao = edicao;
+            this.categoria = categoria;
+            this.ingredientes = new ArrayList<>();
+        }
+
+        public void adicionarIngrediente(String ingrediente) {
+            ingredientes.add(ingrediente);
+        }
+
+        public void setPadraoCrafting(String padrao) {
+            this.padraoCrafting = padrao;
+        }
+
+        public String getNome() { return nome; }
+        public String getDescricao() { return descricao; }
+        public MinecraftEdition getEdicao() { return edicao; }
+        public String getCategoria() { return categoria; }
+        public List<String> getIngredientes() { return ingredientes; }
+        public String getPadraoCrafting() { return padraoCrafting; }
+        public String getImagemItem() { return imagemItem; }
+        public void setImagemItem(String imagemItem) { this.imagemItem = imagemItem; }
+        public String getImagemCrafting() { return imagemCrafting; }
+        public void setImagemCrafting(String imagemCrafting) { this.imagemCrafting = imagemCrafting; }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n╔════════════════════════════════════════════════════════════╗\n");
+            sb.append(String.format("  ITEM: %s\n", nome));
+            sb.append("╠════════════════════════════════════════════════════════════╣\n");
+            sb.append(String.format("  Categoria: %s\n", categoria));
+            sb.append(String.format("  Edição: %s\n", edicao.getDisplayName()));
+            sb.append(String.format("  Descrição: %s\n", descricao));
+
+            if (!ingredientes.isEmpty()) {
+                sb.append("\n  ► Ingredientes necessários:\n");
+                for (String ing : ingredientes) {
+                    sb.append(String.format("    • %s\n", ing));
+                }
+            }
+
+            if (padraoCrafting != null && !padraoCrafting.isEmpty()) {
+                sb.append("\n  ► Padrão de Crafting:\n");
+                sb.append(padraoCrafting);
+            }
+
+            sb.append("╚════════════════════════════════════════════════════════════╝\n");
+            return sb.toString();
+        }
+    }
+    
+    /**
+     * Classe Pocao - Representa uma poção do Minecraft
+     */
+    public static class Pocao {
+        private final String nome;
+        private final String efeito;
+        private final String duracao;
+        private final MinecraftEdition edicao;
+        private final List<String> ingredientes;
+        private String basePotion;
+
+        public Pocao(String nome, String efeito, String duracao, MinecraftEdition edicao) {
+            this.nome = nome;
+            this.efeito = efeito;
+            this.duracao = duracao;
+            this.edicao = edicao;
+            this.ingredientes = new ArrayList<>();
+        }
+
+        public void adicionarIngrediente(String ingrediente) {
+            ingredientes.add(ingrediente);
+        }
+
+        public void setBasePotion(String base) {
+            this.basePotion = base;
+        }
+
+        public String getNome() { return nome; }
+        public String getEfeito() { return efeito; }
+        public String getDuracao() { return duracao; }
+        public MinecraftEdition getEdicao() { return edicao; }
+        public List<String> getIngredientes() { return new ArrayList<>(ingredientes); }
+        public String getBasePotion() { return basePotion; }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n╔════════════════════════════════════════════════════════════╗\n");
+            sb.append(String.format("  POÇÃO: %s\n", nome));
+            sb.append("╠════════════════════════════════════════════════════════════╣\n");
+            sb.append(String.format("  Edição: %s\n", edicao.getDisplayName()));
+            sb.append(String.format("  Efeito: %s\n", efeito));
+            sb.append(String.format("  Duração: %s\n", duracao));
+
+            if (basePotion != null) {
+                sb.append(String.format("\n  ► Base: %s\n", basePotion));
+            }
+
+            if (!ingredientes.isEmpty()) {
+                sb.append("\n  ► Ingredientes para preparar:\n");
+                for (String ing : ingredientes) {
+                    sb.append(String.format("    • %s\n", ing));
+                }
+            }
+
+            sb.append("\n  ► Como preparar:\n");
+            sb.append("    1. Coloque garrafas de água no suporte de poções\n");
+            sb.append("    2. Adicione Verruga do Nether (para Poção Estranha)\n");
+            sb.append("    3. Adicione o ingrediente principal\n");
+            sb.append("    4. [Opcional] Pó de Pedra Luminosa (aumenta potência)\n");
+            sb.append("    5. [Opcional] Pó de Redstone (aumenta duração)\n");
+
+            sb.append("╚════════════════════════════════════════════════════════════╝\n");
+            return sb.toString();
+        }
+    }
+    
+    /**
+     * Classe Armadura - Representa uma peça de armadura do Minecraft
+     */
+    public static class Armadura {
+        private final String nome;
+        private final String tipo;
+        private final String material;
+        private final String descricao;
+        private final int defesa;
+        private final double durabilidade;
+        private final MinecraftEdition edicao;
+        private final List<String> ingredientes;
+        private String moldeFerraria;
+        private String receitaMolde;
+        private String imagemPath;
+
+        public Armadura(String nome, String tipo, String material, String descricao, 
+                       int defesa, double durabilidade, MinecraftEdition edicao) {
+            this.nome = nome;
+            this.tipo = tipo;
+            this.material = material;
+            this.descricao = descricao;
+            this.defesa = defesa;
+            this.durabilidade = durabilidade;
+            this.edicao = edicao;
+            this.ingredientes = new ArrayList<>();
+        }
+
+        public void adicionarIngrediente(String ingrediente) {
+            ingredientes.add(ingrediente);
+        }
+
+        public void setMoldeFerraria(String molde) {
+            this.moldeFerraria = molde;
+        }
+
+        public void setReceitaMolde(String receita) {
+            this.receitaMolde = receita;
+        }
+
+        public void setImagemPath(String path) {
+            this.imagemPath = path;
+        }
+
+        public String getNome() { return nome; }
+        public String getTipo() { return tipo; }
+        public String getMaterial() { return material; }
+        public String getDescricao() { return descricao; }
+        public int getDefesa() { return defesa; }
+        public double getDurabilidade() { return durabilidade; }
+        public MinecraftEdition getEdicao() { return edicao; }
+        public List<String> getIngredientes() { return ingredientes; }
+        public String getMoldeFerraria() { return moldeFerraria; }
+        public String getReceitaMolde() { return receitaMolde; }
+        public String getImagemPath() { return imagemPath; }
+
+        public String getDefesaCompleta() {
+            return defesa + " pontos de defesa";
+        }
+
+        public String getDurabilidadeCompleta() {
+            return (int) durabilidade + " de durabilidade";
+        }
+    }
+    
+    /**
+     * Classe MoldeFerraria - Representa um molde de ferraria (smithing templates)
+     */
+    public static class MoldeFerraria {
+        private final String nome;
+        private final String tipo;
+        private final String descricao;
+        private final String localizacao;
+        private final String uso;
+        private final MinecraftEdition edicao;
+
+        public MoldeFerraria(String nome, String tipo, String descricao, String localizacao, String uso, MinecraftEdition edicao) {
+            this.nome = nome;
+            this.tipo = tipo;
+            this.descricao = descricao;
+            this.localizacao = localizacao;
+            this.uso = uso;
+            this.edicao = edicao;
+        }
+
+        public String getNome() { return nome; }
+        public String getTipo() { return tipo; }
+        public String getDescricao() { return descricao; }
+        public String getLocalizacao() { return localizacao; }
+        public String getUso() { return uso; }
+        public MinecraftEdition getEdicao() { return edicao; }
+
+        public boolean isUpgrade() {
+            return "upgrade".equals(tipo);
+        }
+
+        public boolean isTrim() {
+            return "trim".equals(tipo);
+        }
+    }
+    
+    /**
+     * Classe Encantamento - Representa um encantamento do Minecraft
+     */
+    public static class Encantamento {
+        private final String id;
+        private final String nome;
+        private final String nomeIngles;
+        private final String tipo;
+        private final String raridade;
+        private final int nivelMaximo;
+        private final int nivelMinimo;
+        private final int custoXpPorNivel;
+        private final String itensAplicaveis;
+        private final String itensPrimarios;
+        private final String itensSecundarios;
+        private final String incompatibilidades;
+        private final String fontesObtencao;
+        private final boolean tesouro;
+        private final int peso;
+        private final boolean amaldicoado;
+        private final String descricaoCurta;
+        private final String descricaoDetalhada;
+        private final String efeitoPorNivel;
+        private final String efeitoNumerico;
+        private final String condicoesEspeciais;
+        private final int prioridade;
+        private final String versaoAdicionada;
+        private final String versaoRemovida;
+        private final boolean stackavel;
+        private final String icone;
+        private final String observacoes;
+        private final MinecraftEdition edicao;
+
+        public Encantamento(String nome, String descricao, boolean tesouro, String incompativel, 
+                           int nivelMaximo, String itensPrimarios, String itensSecundarios, 
+                           int peso, MinecraftEdition edicao) {
+            this.id = nome.toLowerCase().replace(" ", "_");
+            this.nome = nome;
+            this.nomeIngles = nome;
+            this.tipo = "Comum";
+            this.raridade = tesouro ? "Tesouro" : "Comum";
+            this.nivelMaximo = nivelMaximo;
+            this.nivelMinimo = 1;
+            this.custoXpPorNivel = 1;
+            this.itensAplicaveis = itensPrimarios;
+            this.itensPrimarios = itensPrimarios;
+            this.itensSecundarios = itensSecundarios;
+            this.incompatibilidades = incompativel;
+            this.fontesObtencao = tesouro ? "Tesouro, Bibliotecário" : "Mesa de Encantamento, Bigorna";
+            this.tesouro = tesouro;
+            this.peso = peso;
+            this.amaldicoado = nome.toLowerCase().contains("maldição");
+            this.descricaoCurta = descricao;
+            this.descricaoDetalhada = descricao;
+            this.efeitoPorNivel = "";
+            this.efeitoNumerico = "";
+            this.condicoesEspeciais = "";
+            this.prioridade = 1;
+            this.versaoAdicionada = "1.0";
+            this.versaoRemovida = null;
+            this.stackavel = false;
+            this.icone = "enchanted_book";
+            this.observacoes = "";
+            this.edicao = edicao;
+        }
+
+        public Encantamento(String id, String nome, String nomeIngles, String tipo, String raridade,
+                           int nivelMaximo, int nivelMinimo, int custoXpPorNivel,
+                           String itensAplicaveis, String incompatibilidades, String fontesObtencao,
+                           String descricaoCurta, String descricaoDetalhada, String efeitoPorNivel,
+                           String efeitoNumerico, String condicoesEspeciais, int prioridade,
+                           String versaoAdicionada, String versaoRemovida, boolean stackavel,
+                           boolean amaldicoado, String icone, String observacoes,
+                           int peso, boolean tesouro, MinecraftEdition edicao) {
+            this.id = id;
+            this.nome = nome;
+            this.nomeIngles = nomeIngles;
+            this.tipo = tipo;
+            this.raridade = raridade;
+            this.nivelMaximo = nivelMaximo;
+            this.nivelMinimo = nivelMinimo;
+            this.custoXpPorNivel = custoXpPorNivel;
+            this.itensAplicaveis = itensAplicaveis;
+            this.itensPrimarios = itensAplicaveis;
+            this.itensSecundarios = "";
+            this.incompatibilidades = incompatibilidades;
+            this.fontesObtencao = fontesObtencao;
+            this.tesouro = tesouro;
+            this.peso = peso;
+            this.amaldicoado = amaldicoado;
+            this.descricaoCurta = descricaoCurta;
+            this.descricaoDetalhada = descricaoDetalhada;
+            this.efeitoPorNivel = efeitoPorNivel;
+            this.efeitoNumerico = efeitoNumerico;
+            this.condicoesEspeciais = condicoesEspeciais;
+            this.prioridade = prioridade;
+            this.versaoAdicionada = versaoAdicionada;
+            this.versaoRemovida = versaoRemovida;
+            this.stackavel = stackavel;
+            this.icone = icone;
+            this.observacoes = observacoes;
+            this.edicao = edicao;
+        }
+
+        public String getId() { return id; }
+        public String getNome() { return nome; }
+        public String getNomeIngles() { return nomeIngles; }
+        public String getTipo() { return tipo; }
+        public String getRaridade() { return raridade; }
+        public int getNivelMaximo() { return nivelMaximo; }
+        public int getNivelMinimo() { return nivelMinimo; }
+        public int getCustoXpPorNivel() { return custoXpPorNivel; }
+        public String getItensAplicaveis() { return itensAplicaveis; }
+        public String getItensPrimarios() { return itensPrimarios; }
+        public String getItensSecundarios() { return itensSecundarios; }
+        public String getIncompatibilidades() { return incompatibilidades; }
+        public String getFontesObtencao() { return fontesObtencao; }
+        public boolean isTesouro() { return tesouro; }
+        public int getPeso() { return peso; }
+        public boolean isAmaldicoado() { return amaldicoado; }
+        public String getDescricaoCurta() { return descricaoCurta; }
+        public String getDescricaoDetalhada() { return descricaoDetalhada; }
+        public String getEfeitoPorNivel() { return efeitoPorNivel; }
+        public String getEfeitoNumerico() { return efeitoNumerico; }
+        public String getCondicoesEspeciais() { return condicoesEspeciais; }
+        public int getPrioridade() { return prioridade; }
+        public String getVersaoAdicionada() { return versaoAdicionada; }
+        public String getVersaoRemovida() { return versaoRemovida; }
+        public boolean isStackavel() { return stackavel; }
+        public String getIcone() { return icone; }
+        public String getObservacoes() { return observacoes; }
+        public MinecraftEdition getEdicao() { return edicao; }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("\n╔════════════════════════════════════════════════════════════╗\n");
+            sb.append(String.format("  ENCANTAMENTO: %s%s\n", nome, amaldicoado ? " 💀" : ""));
+            sb.append(String.format("  ID: %s | Nome em Inglês: %s\n", id, nomeIngles));
+            sb.append("╠════════════════════════════════════════════════════════════╣\n");
+            sb.append(String.format("  📌 Tipo: %s | Raridade: %s\n", tipo, raridade));
+            sb.append(String.format("  ⭐ Edição: %s\n", edicao.getDisplayName()));
+            sb.append(String.format("  📊 Nível: %d-%d (Máximo: %d)\n", nivelMinimo, nivelMaximo, nivelMaximo));
+            sb.append(String.format("  💎 Custo XP/Nível: %d | Peso: %d | Prioridade: %d\n", custoXpPorNivel, peso, prioridade));
+            sb.append(String.format("  🏆 Tesouro: %s | Amaldiçoado: %s | Stackável: %s\n", 
+                tesouro ? "Sim" : "Não", amaldicoado ? "Sim" : "Não", stackavel ? "Sim" : "Não"));
+            sb.append(String.format("\n  📝 Descrição: %s\n", descricaoCurta));
+            if (descricaoDetalhada != null && !descricaoDetalhada.equals(descricaoCurta)) {
+                sb.append(String.format("  📖 Detalhes: %s\n", descricaoDetalhada));
+            }
+            if (efeitoPorNivel != null && !efeitoPorNivel.isEmpty()) {
+                sb.append(String.format("\n  ✨ Efeito por Nível: %s\n", efeitoPorNivel));
+            }
+            if (efeitoNumerico != null && !efeitoNumerico.isEmpty()) {
+                sb.append(String.format("  🔢 Valores Numéricos: %s\n", efeitoNumerico));
+            }
+            sb.append(String.format("\n  🛠️ Itens Aplicáveis: %s\n", itensAplicaveis));
+            if (itensPrimarios != null && !itensPrimarios.isEmpty()) {
+                sb.append(String.format("  ► Item Primário: %s\n", itensPrimarios));
+            }
+            if (itensSecundarios != null && !itensSecundarios.isEmpty()) {
+                sb.append(String.format("  ► Item Secundário: %s\n", itensSecundarios));
+            }
+            if (incompatibilidades != null && !incompatibilidades.isEmpty()) {
+                sb.append(String.format("\n  ⚠️ Incompatível com: %s\n", incompatibilidades));
+            }
+            if (condicoesEspeciais != null && !condicoesEspeciais.isEmpty()) {
+                sb.append(String.format("\n  ⚡ Condições Especiais: %s\n", condicoesEspeciais));
+            }
+            sb.append(String.format("\n  📦 Fontes de Obtenção: %s\n", fontesObtencao));
+            sb.append("  ► Como obter:\n");
+            if (tesouro) {
+                sb.append("    • Baús de estruturas (tesouros)\n");
+                sb.append("    • Pescaria (livros encantados raros)\n");
+                sb.append("    • Troca com Aldeões Bibliotecários\n");
+            } else {
+                sb.append("    • Mesa de Encantamento (requer Lápis-lazúli e XP)\n");
+                sb.append("    • Bigorna (combinar livros encantados)\n");
+                sb.append("    • Pescaria (livros encantados)\n");
+                sb.append("    • Baús de estruturas\n");
+                sb.append("    • Troca com Aldeões Bibliotecários\n");
+            }
+            sb.append(String.format("\n  📅 Adicionado em: %s", versaoAdicionada));
+            if (versaoRemovida != null && !versaoRemovida.isEmpty()) {
+                sb.append(String.format(" | Removido em: %s", versaoRemovida));
+            }
+            sb.append("\n");
+            if (observacoes != null && !observacoes.isEmpty()) {
+                sb.append(String.format("\n  💡 Observações: %s\n", observacoes));
+            }
+            sb.append("╚════════════════════════════════════════════════════════════╝\n");
+            return sb.toString();
+        }
+    }
+    
+    // ==================== CONSTRUTOR E MÉTODOS PRINCIPAIS ====================
 
     public MinecraftWiki() {
         this.itens = new ArrayList<>();
@@ -2223,6 +2661,556 @@ public class MinecraftWiki {
             MinecraftEdition.BOTH, "Bloco Funcional");
         barrilNovo.adicionarIngrediente("6x Tábuas + 2x Laje de Madeira");
         itens.add(barrilNovo);
+
+        // ==================== MAIS ITENS ESSENCIAIS ====================
+        
+        Item blocoComandos = new Item("Bloco de Comandos",
+            "Executa comandos automaticamente (apenas modo criativo/operador)",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        blocoComandos.adicionarIngrediente("Obter com /give @p command_block");
+        itens.add(blocoComandos);
+
+        Item estruturaVazia = new Item("Bloco de Estrutura",
+            "Salva e carrega estruturas (modo criativo)",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        estruturaVazia.adicionarIngrediente("Obter com /give @p structure_block");
+        itens.add(estruturaVazia);
+
+        Item barreira = new Item("Barreira",
+            "Bloco invisível e indestrutível (modo criativo)",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        barreira.adicionarIngrediente("Obter com /give @p barrier");
+        itens.add(barreira);
+
+        Item luz = new Item("Bloco de Luz",
+            "Fonte de luz invisível configurável (modo criativo)",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        luz.adicionarIngrediente("Obter com /give @p light");
+        itens.add(luz);
+
+        Item shulkerBox = new Item("Caixa de Shulker",
+            "Baú portátil que mantém itens ao quebrar",
+            MinecraftEdition.BOTH, "Bloco de Armazenamento");
+        shulkerBox.adicionarIngrediente("2x Casca de Shulker + 1x Baú");
+        itens.add(shulkerBox);
+
+        Item enderChest = new Item("Baú do Ender",
+            "Armazenamento pessoal acessível de qualquer lugar",
+            MinecraftEdition.BOTH, "Bloco de Armazenamento");
+        enderChest.adicionarIngrediente("8x Obsidiana + 1x Olho do Ender");
+        itens.add(enderChest);
+
+        Item anvilNew = new Item("Bigorna",
+            "Repara, renomeia e combina encantamentos de itens",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        anvilNew.adicionarIngrediente("3x Bloco de Ferro + 4x Lingote de Ferro");
+        itens.add(anvilNew);
+
+        Item mesaFerraria = new Item("Mesa de Ferraria",
+            "Melhora diamante para netherite e adiciona enfeites",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        mesaFerraria.adicionarIngrediente("2x Lingote de Ferro + 4x Tábuas");
+        itens.add(mesaFerraria);
+
+        Item mesaCartucho = new Item("Mesa de Cartografia",
+            "Cria, clona e expande mapas",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        mesaCartucho.adicionarIngrediente("2x Papel + 4x Tábuas");
+        itens.add(mesaCartucho);
+
+        Item pedraAmolar = new Item("Pedra de Amolar",
+            "Repara itens sem gastar XP extra",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        pedraAmolar.adicionarIngrediente("2x Graveto + 1x Laje de Pedra + 2x Tábuas");
+        itens.add(pedraAmolar);
+
+        Item tecelagem = new Item("Tear",
+            "Cria padrões complexos em bandeiras",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        tecelagem.adicionarIngrediente("2x Linha + 2x Tábuas");
+        itens.add(tecelagem);
+
+        Item mesaCortador = new Item("Cortador de Pedra",
+            "Converte pedra em variações de forma eficiente",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        mesaCortador.adicionarIngrediente("3x Pedra + 1x Lingote de Ferro");
+        itens.add(mesaCortador);
+
+        Item escudoNovo = new Item("Escudo",
+            "Bloqueia ataques corpo a corpo e à distância",
+            MinecraftEdition.BOTH, "Armadura");
+        escudoNovo.adicionarIngrediente("6x Tábuas + 1x Lingote de Ferro");
+        itens.add(escudoNovo);
+
+        Item livroPenaVelho = new Item("Livro e Pena",
+            "Permite escrever livros personalizados",
+            MinecraftEdition.BOTH, "Utilitário");
+        livroPenaVelho.adicionarIngrediente("1x Livro + 1x Pena + 1x Saco de Tinta");
+        itens.add(livroPenaVelho);
+
+        Item livroEncantado = new Item("Livro Encantado",
+            "Armazena encantamentos para combinar na bigorna",
+            MinecraftEdition.BOTH, "Material");
+        livroEncantado.adicionarIngrediente("Encantar um livro na mesa de encantamento");
+        itens.add(livroEncantado);
+
+        Item garrafa = new Item("Garrafa de Vidro",
+            "Recipiente para poções e água",
+            MinecraftEdition.BOTH, "Material");
+        garrafa.adicionarIngrediente("3x Vidro");
+        itens.add(garrafa);
+
+        Item garrafaAgua = new Item("Garrafa de Água",
+            "Base para criar poções",
+            MinecraftEdition.BOTH, "Material");
+        garrafaAgua.adicionarIngrediente("Garrafa + Fonte de Água");
+        itens.add(garrafaAgua);
+
+        Item barraExperiencia = new Item("Garrafa de Experiência",
+            "Armazena XP para uso posterior",
+            MinecraftEdition.BOTH, "Item Especial");
+        barraExperiencia.adicionarIngrediente("Obtida de comércio com clérigos");
+        itens.add(barraExperiencia);
+
+        Item tabuleiro = new Item("Placa",
+            "Permite escrever texto em blocos",
+            MinecraftEdition.BOTH, "Utilitário");
+        tabuleiro.adicionarIngrediente("6x Tábuas + 1x Graveto");
+        itens.add(tabuleiro);
+
+        Item placaSuspensa = new Item("Placa Suspensa",
+            "Placa pendurada decorativa",
+            MinecraftEdition.BOTH, "Utilitário");
+        placaSuspensa.adicionarIngrediente("2x Corrente + 6x Tábuas Descascadas");
+        itens.add(placaSuspensa);
+
+        Item corrente = new Item("Corrente",
+            "Decoração e âncora para lanternas",
+            MinecraftEdition.BOTH, "Utilitário");
+        corrente.adicionarIngrediente("2x Pepita de Ferro + 1x Lingote de Ferro");
+        itens.add(corrente);
+
+        Item estanteLivros = new Item("Estante de Livros",
+            "Aumenta poder da mesa de encantamento (máx 15)",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        estanteLivros.adicionarIngrediente("6x Tábuas + 3x Livros");
+        itens.add(estanteLivros);
+
+        Item estanteEncantada = new Item("Estante Encantada",
+            "Armazena livros encantados visualmente",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        estanteEncantada.adicionarIngrediente("6x Tábuas + 3x Lajes de Madeira");
+        itens.add(estanteEncantada);
+
+        Item quadroBrilhante = new Item("Quadro Brilhante",
+            "Quadro que emite luz quando tem item",
+            MinecraftEdition.BOTH, "Utilitário");
+        quadroBrilhante.adicionarIngrediente("1x Quadro + 1x Saco de Tinta Brilhante");
+        itens.add(quadroBrilhante);
+
+        Item moldura = new Item("Moldura",
+            "Exibe itens em paredes",
+            MinecraftEdition.BOTH, "Utilitário");
+        moldura.adicionarIngrediente("8x Graveto + 1x Couro");
+        itens.add(moldura);
+
+        Item blocoNota = new Item("Bloco Musical",
+            "Emite notas musicais quando acionado",
+            MinecraftEdition.BOTH, "Redstone");
+        blocoNota.adicionarIngrediente("8x Tábuas + 1x Pó de Redstone");
+        itens.add(blocoNota);
+
+        Item blocoAlvo = new Item("Bloco Alvo",
+            "Emite sinal de redstone ao ser atingido",
+            MinecraftEdition.BOTH, "Redstone");
+        blocoAlvo.adicionarIngrediente("4x Pó de Redstone + 1x Fardo de Feno");
+        itens.add(blocoAlvo);
+
+        Item sensor = new Item("Sensor Sculk",
+            "Detecta vibrações e emite sinal de redstone",
+            MinecraftEdition.BOTH, "Redstone");
+        sensor.adicionarIngrediente("Minerar em Ancient Cities com Toque Suave");
+        itens.add(sensor);
+
+        Item catalystSculk = new Item("Catalisador Sculk",
+            "Espalha sculk quando mobs morrem perto",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        catalystSculk.adicionarIngrediente("Minerar em Ancient Cities com Toque Suave");
+        itens.add(catalystSculk);
+
+        Item shriekerSculk = new Item("Gritador Sculk",
+            "Invoca o Warden após 4 ativações",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        shriekerSculk.adicionarIngrediente("Minerar em Ancient Cities com Toque Suave");
+        itens.add(shriekerSculk);
+
+        Item cobre = new Item("Bloco de Cobre",
+            "Bloco decorativo que oxida com o tempo",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        cobre.adicionarIngrediente("9x Lingote de Cobre");
+        itens.add(cobre);
+
+        Item cobreCerado = new Item("Bloco de Cobre Cerado",
+            "Bloco de cobre que não oxida",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        cobreCerado.adicionarIngrediente("Bloco de Cobre + Favo de Mel");
+        itens.add(cobreCerado);
+
+        Item ametista = new Item("Bloco de Ametista",
+            "Bloco decorativo de geodos",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        ametista.adicionarIngrediente("4x Fragmento de Ametista");
+        itens.add(ametista);
+
+        Item vidroAmetista = new Item("Vidro de Ametista",
+            "Vidro translúcido roxo",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroAmetista.adicionarIngrediente("Minerar Broto de Ametista");
+        itens.add(vidroAmetista);
+
+        Item farolRespawn = new Item("Âncora de Respawn",
+            "Define ponto de renascimento no Nether",
+            MinecraftEdition.BOTH, "Utilitário");
+        farolRespawn.adicionarIngrediente("6x Choro de Obsidiana + 3x Pedra Luminosa");
+        itens.add(farolRespawn);
+
+        Item magnetita = new Item("Magnetita (Lodestone)",
+            "Ancora bússolas para localização fixa",
+            MinecraftEdition.BOTH, "Utilitário");
+        magnetita.adicionarIngrediente("8x Pedregulho Talhado + 1x Lingote de Netherite");
+        itens.add(magnetita);
+
+        Item campoForca = new Item("Conduit",
+            "Dá poder debaixo d'água (visão, respiração, velocidade)",
+            MinecraftEdition.BOTH, "Item Especial");
+        campoForca.adicionarIngrediente("8x Concha de Nautilus + 1x Coração do Mar");
+        itens.add(campoForca);
+
+        Item sinalizador = new Item("Beacon (Sinalizador)",
+            "Concede efeitos em área grande",
+            MinecraftEdition.BOTH, "Item Especial");
+        sinalizador.adicionarIngrediente("3x Obsidiana + 5x Vidro + 1x Estrela do Nether");
+        itens.add(sinalizador);
+
+        Item golem = new Item("Bloco de Ferro",
+            "Construção para Golem de Ferro ou Beacon",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        golem.adicionarIngrediente("9x Lingote de Ferro");
+        itens.add(golem);
+
+        Item blocoOuro = new Item("Bloco de Ouro",
+            "Armazenamento compacto ou Beacon",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoOuro.adicionarIngrediente("9x Lingote de Ouro");
+        itens.add(blocoOuro);
+
+        Item blocoDiamante = new Item("Bloco de Diamante",
+            "Armazenamento compacto ou Beacon",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoDiamante.adicionarIngrediente("9x Diamante");
+        itens.add(blocoDiamante);
+
+        Item blocoEsmeralda = new Item("Bloco de Esmeralda",
+            "Armazenamento compacto ou Beacon",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoEsmeralda.adicionarIngrediente("9x Esmeralda");
+        itens.add(blocoEsmeralda);
+
+        Item blocoNetherite = new Item("Bloco de Netherite",
+            "Armazenamento do material mais raro",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoNetherite.adicionarIngrediente("9x Lingote de Netherite");
+        itens.add(blocoNetherite);
+
+        Item blocoLapis = new Item("Bloco de Lápis-lazúli",
+            "Armazenamento compacto de lapis",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoLapis.adicionarIngrediente("9x Lápis-lazúli");
+        itens.add(blocoLapis);
+
+        Item blocoRedstone = new Item("Bloco de Redstone",
+            "Fonte permanente de sinal de redstone",
+            MinecraftEdition.BOTH, "Redstone");
+        blocoRedstone.adicionarIngrediente("9x Pó de Redstone");
+        itens.add(blocoRedstone);
+
+        Item blocoQuartzo = new Item("Bloco de Quartzo",
+            "Bloco decorativo branco do Nether",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoQuartzo.adicionarIngrediente("4x Quartzo do Nether");
+        itens.add(blocoQuartzo);
+
+        Item blocoCarv = new Item("Bloco de Carvão",
+            "Combustível ultra-eficiente",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoCarv.adicionarIngrediente("9x Carvão");
+        itens.add(blocoCarv);
+
+        Item secador = new Item("Esponja",
+            "Absorve água em área grande",
+            MinecraftEdition.BOTH, "Utilitário");
+        secador.adicionarIngrediente("Encontrada em Monumentos Oceânicos");
+        itens.add(secador);
+
+        Item esponjaSeca = new Item("Esponja Seca",
+            "Esponja pronta para absorver água novamente",
+            MinecraftEdition.BOTH, "Utilitário");
+        esponjaSeca.adicionarIngrediente("Cozinhar Esponja molhada");
+        itens.add(esponjaSeca);
+
+        Item polvora2 = new Item("TNT",
+            "Explosivo potente",
+            MinecraftEdition.BOTH, "Utilitário");
+        polvora2.adicionarIngrediente("5x Pólvora + 4x Areia");
+        itens.add(polvora2);
+
+        Item pederneiraNova = new Item("Isqueiro (Pederneira)",
+            "Cria fogo e aciona TNT",
+            MinecraftEdition.BOTH, "Utilitário");
+        pederneiraNova.adicionarIngrediente("1x Lingote de Ferro + 1x Sílex");
+        itens.add(pederneiraNova);
+
+        // ==================== ITENS DE COMBATE ADICIONAIS ====================
+
+        Item fogo = new Item("Carga de Fogo",
+            "Projétil usado por Blazes e Ghasts",
+            MinecraftEdition.BOTH, "Material");
+        fogo.adicionarIngrediente("Drop de Blaze ou Ghast");
+        itens.add(fogo);
+
+        Item bolaNeve = new Item("Bola de Neve",
+            "Projétil que causa dano de knockback",
+            MinecraftEdition.BOTH, "Arma");
+        bolaNeve.adicionarIngrediente("Quebrar neve");
+        itens.add(bolaNeve);
+
+        Item ovoGalinha = new Item("Ovo",
+            "Ingrediente ou projétil leve",
+            MinecraftEdition.BOTH, "Material");
+        ovoGalinha.adicionarIngrediente("Galinhas botam ovos");
+        itens.add(ovoGalinha);
+
+        Item perolaBrilho = new Item("Pérola do Ender",
+            "Teleporta o jogador ao ser arremessada",
+            MinecraftEdition.BOTH, "Item Especial");
+        perolaBrilho.adicionarIngrediente("Drop de Enderman");
+        itens.add(perolaBrilho);
+
+        Item pocaoArremesso = new Item("Poção Arremessável",
+            "Poção que pode ser lançada",
+            MinecraftEdition.BOTH, "Poção");
+        pocaoArremesso.adicionarIngrediente("Adicionar Pólvora a qualquer poção");
+        itens.add(pocaoArremesso);
+
+        Item pocaoLingering = new Item("Poção Persistente",
+            "Cria nuvem de efeito ao arremessar",
+            MinecraftEdition.BOTH, "Poção");
+        pocaoLingering.adicionarIngrediente("Adicionar Bafo de Dragão a poção arremessável");
+        itens.add(pocaoLingering);
+
+        Item bafoDragao = new Item("Bafo de Dragão",
+            "Captura o bafo do Ender Dragon",
+            MinecraftEdition.BOTH, "Material");
+        bafoDragao.adicionarIngrediente("Usar garrafa vazia no ataque do dragão");
+        itens.add(bafoDragao);
+
+        Item flechaPonta = new Item("Flecha com Ponta",
+            "Flecha com efeito de poção",
+            MinecraftEdition.BOTH, "Arma");
+        flechaPonta.adicionarIngrediente("8x Flechas + 1x Poção Persistente");
+        itens.add(flechaPonta);
+
+        // ==================== ITENS DE AGRICULTURA E FAZENDA ====================
+
+        Item ossoFarinha = new Item("Farinha de Osso",
+            "Fertilizante instantâneo para plantas",
+            MinecraftEdition.BOTH, "Material");
+        ossoFarinha.adicionarIngrediente("1x Osso ou composto completo");
+        itens.add(ossoFarinha);
+
+        Item mudaTempo = new Item("Relógio",
+            "Mostra a hora do dia",
+            MinecraftEdition.BOTH, "Utilitário");
+        mudaTempo.adicionarIngrediente("4x Lingote de Ouro + 1x Pó de Redstone");
+        itens.add(mudaTempo);
+
+        Item nomeTag = new Item("Etiqueta de Nome",
+            "Nomeia e protege mobs de despawn",
+            MinecraftEdition.BOTH, "Item Especial");
+        nomeTag.adicionarIngrediente("Encontrado em baús ou pescando");
+        itens.add(nomeTag);
+
+        Item cenouraDourada = new Item("Cenoura Dourada",
+            "Ingrediente de poção de visão noturna",
+            MinecraftEdition.BOTH, "Material");
+        cenouraDourada.adicionarIngrediente("8x Pepita de Ouro + 1x Cenoura");
+        itens.add(cenouraDourada);
+
+        Item melanciaDourada = new Item("Melancia Reluzente",
+            "Ingrediente de poção de cura",
+            MinecraftEdition.BOTH, "Material");
+        melanciaDourada.adicionarIngrediente("8x Pepita de Ouro + 1x Fatia de Melancia");
+        itens.add(melanciaDourada);
+
+        Item lagrimaGhast = new Item("Lágrima de Ghast",
+            "Ingrediente de poção de regeneração",
+            MinecraftEdition.BOTH, "Material");
+        lagrimaGhast.adicionarIngrediente("Drop de Ghast");
+        itens.add(lagrimaGhast);
+
+        Item peDragao = new Item("Cabeça de Dragão",
+            "Troféu decorativo do Ender Dragon",
+            MinecraftEdition.BOTH, "Item Especial");
+        peDragao.adicionarIngrediente("Encontrado em End Ships");
+        itens.add(peDragao);
+
+        Item cabecaZumbi = new Item("Cabeça de Zumbi",
+            "Troféu decorativo",
+            MinecraftEdition.BOTH, "Item Especial");
+        cabecaZumbi.adicionarIngrediente("Drop raro de zumbi morto por Creeper carregado");
+        itens.add(cabecaZumbi);
+
+        Item cabecaEsqueleto = new Item("Caveira de Esqueleto",
+            "Troféu decorativo",
+            MinecraftEdition.BOTH, "Item Especial");
+        cabecaEsqueleto.adicionarIngrediente("Drop raro de esqueleto morto por Creeper carregado");
+        itens.add(cabecaEsqueleto);
+
+        Item cabecaCreeper = new Item("Cabeça de Creeper",
+            "Troféu que reduz alcance de detecção",
+            MinecraftEdition.BOTH, "Item Especial");
+        cabecaCreeper.adicionarIngrediente("Drop raro de Creeper morto por Creeper carregado");
+        itens.add(cabecaCreeper);
+
+        Item cabecaWither = new Item("Caveira de Wither Skeleton",
+            "Necessária para invocar o Wither",
+            MinecraftEdition.BOTH, "Item Especial");
+        cabecaWither.adicionarIngrediente("Drop de Wither Skeleton (2,5% com Looting III: 5,5%)");
+        itens.add(cabecaWither);
+
+        Item cabecaJogador = new Item("Cabeça de Jogador",
+            "Cabeça de player específico",
+            MinecraftEdition.BOTH, "Item Especial");
+        cabecaJogador.adicionarIngrediente("Obter com comando /give");
+        itens.add(cabecaJogador);
+
+        // ==================== ITENS DE MÚSICA E DECORAÇÃO ====================
+
+        Item disco13 = new Item("Disco de Música - 13",
+            "Música ambiente e misteriosa",
+            MinecraftEdition.BOTH, "Item Especial");
+        disco13.adicionarIngrediente("Creeper morto por Esqueleto");
+        itens.add(disco13);
+
+        Item discoCat = new Item("Disco de Música - Cat",
+            "Música calma e alegre",
+            MinecraftEdition.BOTH, "Item Especial");
+        discoCat.adicionarIngrediente("Creeper morto por Esqueleto");
+        itens.add(discoCat);
+
+        Item discoOtherside = new Item("Disco de Música - Otherside",
+            "Música misteriosa das profundezas",
+            MinecraftEdition.BOTH, "Item Especial");
+        discoOtherside.adicionarIngrediente("Encontrado em baús de Ancient City");
+        itens.add(discoOtherside);
+
+        Item disco5 = new Item("Disco de Música - 5",
+            "Música enigmática e sombria",
+            MinecraftEdition.BOTH, "Item Especial");
+        disco5.adicionarIngrediente("Fragmento de Disco encontrado em Ancient City");
+        itens.add(disco5);
+
+        Item fragmentoDisco = new Item("Fragmento de Disco",
+            "Peça para criar o disco '5'",
+            MinecraftEdition.BOTH, "Material");
+        fragmentoDisco.adicionarIngrediente("Encontrado em baús de Ancient City");
+        itens.add(fragmentoDisco);
+
+        Item chifre = new Item("Chifre de Cabra",
+            "Instrumento musical tocável",
+            MinecraftEdition.BOTH, "Item Especial");
+        chifre.adicionarIngrediente("Drop de cabra ao bater em blocos sólidos");
+        itens.add(chifre);
+
+        // ==================== ITENS DE EXPLORAÇÃO ====================
+
+        Item mapaTesoureo = new Item("Mapa do Tesouro",
+            "Mapa que leva a tesouros enterrados",
+            MinecraftEdition.BOTH, "Utilitário");
+        mapaTesoureo.adicionarIngrediente("Encontrado em naufrágios");
+        itens.add(mapaTesoureo);
+
+        Item mapaExplorador = new Item("Mapa de Explorador",
+            "Mapa que leva a estruturas específicas",
+            MinecraftEdition.BOTH, "Utilitário");
+        mapaExplorador.adicionarIngrediente("Comércio com Cartógrafo");
+        itens.add(mapaExplorador);
+
+        Item peCoelho = new Item("Pé de Coelho",
+            "Ingrediente de poção de salto",
+            MinecraftEdition.BOTH, "Material");
+        peCoelho.adicionarIngrediente("Drop raro de coelho");
+        itens.add(peCoelho);
+
+        Item membranaPhantom = new Item("Membrana de Phantom",
+            "Ingrediente de poção de queda lenta",
+            MinecraftEdition.BOTH, "Material");
+        membranaPhantom.adicionarIngrediente("Drop de Phantom");
+        itens.add(membranaPhantom);
+
+        Item carapacaTartaruga = new Item("Escama de Tartaruga",
+            "Material para capacete de tartaruga",
+            MinecraftEdition.BOTH, "Material");
+        carapacaTartaruga.adicionarIngrediente("Drop de tartaruga bebê ao crescer");
+        itens.add(carapacaTartaruga);
+
+        Item cascaShulker = new Item("Casca de Shulker",
+            "Material para caixa de Shulker",
+            MinecraftEdition.BOTH, "Material");
+        cascaShulker.adicionarIngrediente("Drop de Shulker");
+        itens.add(cascaShulker);
+
+        Item aneisIron = new Item("Anel de Armadilha",
+            "Componente de besta",
+            MinecraftEdition.BOTH, "Material");
+        aneisIron.adicionarIngrediente("4x Lingote de Ferro + 1x Tábua + 1x Graveto");
+        itens.add(aneisIron);
+
+        Item foguete = new Item("Foguete",
+            "Propulsor para élitros",
+            MinecraftEdition.BOTH, "Item Especial");
+        foguete.adicionarIngrediente("1x Papel + 1-3x Pólvora + Opcional: Estrela de fogo");
+        itens.add(foguete);
+
+        Item estrelaFogos = new Item("Estrela de Fogos",
+            "Cria efeitos coloridos no céu",
+            MinecraftEdition.BOTH, "Item Especial");
+        estrelaFogos.adicionarIngrediente("1x Pólvora + Corantes + Opcional: Diamante/Pena/Glowstone");
+        itens.add(estrelaFogos);
+
+        Item fungoDistorcido = new Item("Fungo Distorcido",
+            "Fungo do Nether para controlar Striders",
+            MinecraftEdition.BOTH, "Material");
+        fungoDistorcido.adicionarIngrediente("Encontrado na Floresta Distorcida (Nether)");
+        itens.add(fungoDistorcido);
+
+        Item fungoCarmesim = new Item("Fungo Carmesim",
+            "Fungo do Nether para criar Hoglins",
+            MinecraftEdition.BOTH, "Material");
+        fungoCarmesim.adicionarIngrediente("Encontrado na Floresta Carmesim (Nether)");
+        itens.add(fungoCarmesim);
+
+        Item nylium = new Item("Nylium",
+            "Bloco de terra do Nether",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        nylium.adicionarIngrediente("Minerar com Toque Suave no Nether");
+        itens.add(nylium);
+
+        Item raizes = new Item("Raízes",
+            "Planta decorativa do Nether",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        raizes.adicionarIngrediente("Encontrado no Nether");
+        itens.add(raizes);
     }
 
     private void carregarPocoes() {
@@ -2618,6 +3606,369 @@ public class MinecraftWiki {
         pocaoMundana.adicionarIngrediente("Garrafa de Água");
         pocaoMundana.adicionarIngrediente("Pó de Redstone, Açúcar, Olho de Aranha, etc");
         pocoes.add(pocaoMundana);
+
+        // ==================== POÇÕES ADICIONAIS DO MINECRAFT ====================
+
+        Pocao azar = new Pocao("Poção de Azar",
+            "Reduz chances de encontrar itens melhores (Java Only)",
+            "5 minutos",
+            MinecraftEdition.JAVA);
+        azar.setBasePotion("Não pode ser fabricada normalmente");
+        azar.adicionarIngrediente("Obtida por comandos apenas");
+        pocoes.add(azar);
+
+        Pocao levitacao = new Pocao("Poção de Levitação",
+            "Faz o jogador flutuar lentamente para cima (Bedrock Only)",
+            "Varia",
+            MinecraftEdition.BEDROCK);
+        levitacao.setBasePotion("Obtida por comandos no Bedrock");
+        levitacao.adicionarIngrediente("Não pode ser fabricada");
+        pocoes.add(levitacao);
+
+        Pocao decaimento = new Pocao("Poção de Decaimento",
+            "Aplica o efeito Wither, causando dano ao longo do tempo (Bedrock Only)",
+            "Varia",
+            MinecraftEdition.BEDROCK);
+        decaimento.setBasePotion("Poção Estranha");
+        decaimento.adicionarIngrediente("Rosa de Wither (Bedrock Edition)");
+        pocoes.add(decaimento);
+
+        // ==================== POÇÕES ARREMESSÁVEIS (SPLASH POTIONS) ====================
+
+        Pocao splashCura = new Pocao("Poção Arremessável de Cura",
+            "Restaura 3 corações em área (75% de eficácia)",
+            "Instantâneo",
+            MinecraftEdition.BOTH);
+        splashCura.setBasePotion("Poção de Cura");
+        splashCura.adicionarIngrediente("Poção de Cura");
+        splashCura.adicionarIngrediente("Pólvora");
+        pocoes.add(splashCura);
+
+        Pocao splashCuraII = new Pocao("Poção Arremessável de Cura II",
+            "Restaura 6 corações em área (75% de eficácia)",
+            "Instantâneo",
+            MinecraftEdition.BOTH);
+        splashCuraII.setBasePotion("Poção de Cura II");
+        splashCuraII.adicionarIngrediente("Poção de Cura II");
+        splashCuraII.adicionarIngrediente("Pólvora");
+        pocoes.add(splashCuraII);
+
+        Pocao splashForca = new Pocao("Poção Arremessável de Força",
+            "Aumenta dano corpo a corpo em área",
+            "2:15 minutos",
+            MinecraftEdition.BOTH);
+        splashForca.setBasePotion("Poção de Força");
+        splashForca.adicionarIngrediente("Poção de Força");
+        splashForca.adicionarIngrediente("Pólvora");
+        pocoes.add(splashForca);
+
+        Pocao splashForcaII = new Pocao("Poção Arremessável de Força II",
+            "Aumenta muito o dano corpo a corpo em área",
+            "1:07 minutos",
+            MinecraftEdition.BOTH);
+        splashForcaII.setBasePotion("Poção de Força II");
+        splashForcaII.adicionarIngrediente("Poção de Força II");
+        splashForcaII.adicionarIngrediente("Pólvora");
+        pocoes.add(splashForcaII);
+
+        Pocao splashVelocidade = new Pocao("Poção Arremessável de Velocidade",
+            "Aumenta velocidade de movimento em área",
+            "2:15 minutos",
+            MinecraftEdition.BOTH);
+        splashVelocidade.setBasePotion("Poção de Velocidade");
+        splashVelocidade.adicionarIngrediente("Poção de Velocidade");
+        splashVelocidade.adicionarIngrediente("Pólvora");
+        pocoes.add(splashVelocidade);
+
+        Pocao splashVelocidadeII = new Pocao("Poção Arremessável de Velocidade II",
+            "Aumenta muito a velocidade em área",
+            "1:07 minutos",
+            MinecraftEdition.BOTH);
+        splashVelocidadeII.setBasePotion("Poção de Velocidade II");
+        splashVelocidadeII.adicionarIngrediente("Poção de Velocidade II");
+        splashVelocidadeII.adicionarIngrediente("Pólvora");
+        pocoes.add(splashVelocidadeII);
+
+        Pocao splashRegeneracao = new Pocao("Poção Arremessável de Regeneração",
+            "Regenera vida ao longo do tempo em área",
+            "33 segundos",
+            MinecraftEdition.BOTH);
+        splashRegeneracao.setBasePotion("Poção de Regeneração");
+        splashRegeneracao.adicionarIngrediente("Poção de Regeneração");
+        splashRegeneracao.adicionarIngrediente("Pólvora");
+        pocoes.add(splashRegeneracao);
+
+        Pocao splashRegeneracaoII = new Pocao("Poção Arremessável de Regeneração II",
+            "Regenera vida rapidamente em área",
+            "16 segundos",
+            MinecraftEdition.BOTH);
+        splashRegeneracaoII.setBasePotion("Poção de Regeneração II");
+        splashRegeneracaoII.adicionarIngrediente("Poção de Regeneração II");
+        splashRegeneracaoII.adicionarIngrediente("Pólvora");
+        pocoes.add(splashRegeneracaoII);
+
+        Pocao splashResistenciaFogo = new Pocao("Poção Arremessável de Resistência ao Fogo",
+            "Imunidade a fogo em área",
+            "2:15 minutos",
+            MinecraftEdition.BOTH);
+        splashResistenciaFogo.setBasePotion("Poção de Resistência ao Fogo");
+        splashResistenciaFogo.adicionarIngrediente("Poção de Resistência ao Fogo");
+        splashResistenciaFogo.adicionarIngrediente("Pólvora");
+        pocoes.add(splashResistenciaFogo);
+
+        Pocao splashVisaoNoturna = new Pocao("Poção Arremessável de Visão Noturna",
+            "Visão noturna em área",
+            "2:15 minutos",
+            MinecraftEdition.BOTH);
+        splashVisaoNoturna.setBasePotion("Poção de Visão Noturna");
+        splashVisaoNoturna.adicionarIngrediente("Poção de Visão Noturna");
+        splashVisaoNoturna.adicionarIngrediente("Pólvora");
+        pocoes.add(splashVisaoNoturna);
+
+        Pocao splashInvisibilidade = new Pocao("Poção Arremessável de Invisibilidade",
+            "Invisibilidade em área",
+            "2:15 minutos",
+            MinecraftEdition.BOTH);
+        splashInvisibilidade.setBasePotion("Poção de Invisibilidade");
+        splashInvisibilidade.adicionarIngrediente("Poção de Invisibilidade");
+        splashInvisibilidade.adicionarIngrediente("Pólvora");
+        pocoes.add(splashInvisibilidade);
+
+        Pocao splashSalto = new Pocao("Poção Arremessável de Salto",
+            "Aumenta altura de pulo em área",
+            "2:15 minutos",
+            MinecraftEdition.BOTH);
+        splashSalto.setBasePotion("Poção de Salto");
+        splashSalto.adicionarIngrediente("Poção de Salto");
+        splashSalto.adicionarIngrediente("Pólvora");
+        pocoes.add(splashSalto);
+
+        Pocao splashSaltoII = new Pocao("Poção Arremessável de Salto II",
+            "Permite pular muito alto em área",
+            "1:07 minutos",
+            MinecraftEdition.BOTH);
+        splashSaltoII.setBasePotion("Poção de Salto II");
+        splashSaltoII.adicionarIngrediente("Poção de Salto II");
+        splashSaltoII.adicionarIngrediente("Pólvora");
+        pocoes.add(splashSaltoII);
+
+        Pocao splashVeneno = new Pocao("Poção Arremessável de Veneno",
+            "Envenena criaturas em área",
+            "33 segundos",
+            MinecraftEdition.BOTH);
+        splashVeneno.setBasePotion("Poção de Veneno");
+        splashVeneno.adicionarIngrediente("Poção de Veneno");
+        splashVeneno.adicionarIngrediente("Pólvora");
+        pocoes.add(splashVeneno);
+
+        Pocao splashVenenoII = new Pocao("Poção Arremessável de Veneno II",
+            "Envenena severamente em área",
+            "16 segundos",
+            MinecraftEdition.BOTH);
+        splashVenenoII.setBasePotion("Poção de Veneno II");
+        splashVenenoII.adicionarIngrediente("Poção de Veneno II");
+        splashVenenoII.adicionarIngrediente("Pólvora");
+        pocoes.add(splashVenenoII);
+
+        Pocao splashFraqueza = new Pocao("Poção Arremessável de Fraqueza",
+            "Reduz dano em área",
+            "1:07 minutos",
+            MinecraftEdition.BOTH);
+        splashFraqueza.setBasePotion("Poção de Fraqueza");
+        splashFraqueza.adicionarIngrediente("Poção de Fraqueza");
+        splashFraqueza.adicionarIngrediente("Pólvora");
+        pocoes.add(splashFraqueza);
+
+        Pocao splashLentidao = new Pocao("Poção Arremessável de Lentidão",
+            "Reduz velocidade em área",
+            "1:07 minutos",
+            MinecraftEdition.BOTH);
+        splashLentidao.setBasePotion("Poção de Lentidão");
+        splashLentidao.adicionarIngrediente("Poção de Lentidão");
+        splashLentidao.adicionarIngrediente("Pólvora");
+        pocoes.add(splashLentidao);
+
+        Pocao splashDano = new Pocao("Poção Arremessável de Dano",
+            "Causa 4,5 pontos de dano em área",
+            "Instantâneo",
+            MinecraftEdition.BOTH);
+        splashDano.setBasePotion("Poção de Dano");
+        splashDano.adicionarIngrediente("Poção de Dano");
+        splashDano.adicionarIngrediente("Pólvora");
+        pocoes.add(splashDano);
+
+        Pocao splashDanoII = new Pocao("Poção Arremessável de Dano II",
+            "Causa 9 pontos de dano em área",
+            "Instantâneo",
+            MinecraftEdition.BOTH);
+        splashDanoII.setBasePotion("Poção de Dano II");
+        splashDanoII.adicionarIngrediente("Poção de Dano II");
+        splashDanoII.adicionarIngrediente("Pólvora");
+        pocoes.add(splashDanoII);
+
+        Pocao splashRespiracaoAquatica = new Pocao("Poção Arremessável de Respiração Aquática",
+            "Respiração aquática em área",
+            "2:15 minutos",
+            MinecraftEdition.BOTH);
+        splashRespiracaoAquatica.setBasePotion("Poção de Respiração Aquática");
+        splashRespiracaoAquatica.adicionarIngrediente("Poção de Respiração Aquática");
+        splashRespiracaoAquatica.adicionarIngrediente("Pólvora");
+        pocoes.add(splashRespiracaoAquatica);
+
+        Pocao splashQuedaLenta = new Pocao("Poção Arremessável de Queda Lenta",
+            "Queda lenta em área",
+            "1:07 minutos",
+            MinecraftEdition.BOTH);
+        splashQuedaLenta.setBasePotion("Poção de Queda Lenta");
+        splashQuedaLenta.adicionarIngrediente("Poção de Queda Lenta");
+        splashQuedaLenta.adicionarIngrediente("Pólvora");
+        pocoes.add(splashQuedaLenta);
+
+        Pocao splashTartaruga = new Pocao("Poção Arremessável da Tartaruga Mestre",
+            "Resistência e lentidão em área",
+            "15 segundos",
+            MinecraftEdition.BOTH);
+        splashTartaruga.setBasePotion("Poção da Tartaruga Mestre");
+        splashTartaruga.adicionarIngrediente("Poção da Tartaruga Mestre");
+        splashTartaruga.adicionarIngrediente("Pólvora");
+        pocoes.add(splashTartaruga);
+
+        // ==================== POÇÕES PERSISTENTES (LINGERING POTIONS) ====================
+
+        Pocao lingeringCura = new Pocao("Poção Persistente de Cura",
+            "Cria nuvem de cura que persiste por 10 segundos",
+            "Instantâneo",
+            MinecraftEdition.BOTH);
+        lingeringCura.setBasePotion("Poção Arremessável de Cura");
+        lingeringCura.adicionarIngrediente("Poção Arremessável de Cura");
+        lingeringCura.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringCura);
+
+        Pocao lingeringForca = new Pocao("Poção Persistente de Força",
+            "Cria nuvem de força que persiste",
+            "33 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringForca.setBasePotion("Poção Arremessável de Força");
+        lingeringForca.adicionarIngrediente("Poção Arremessável de Força");
+        lingeringForca.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringForca);
+
+        Pocao lingeringVelocidade = new Pocao("Poção Persistente de Velocidade",
+            "Cria nuvem de velocidade que persiste",
+            "33 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringVelocidade.setBasePotion("Poção Arremessável de Velocidade");
+        lingeringVelocidade.adicionarIngrediente("Poção Arremessável de Velocidade");
+        lingeringVelocidade.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringVelocidade);
+
+        Pocao lingeringDano = new Pocao("Poção Persistente de Dano",
+            "Cria nuvem venenosa que causa dano",
+            "Instantâneo (área)",
+            MinecraftEdition.BOTH);
+        lingeringDano.setBasePotion("Poção Arremessável de Dano");
+        lingeringDano.adicionarIngrediente("Poção Arremessável de Dano");
+        lingeringDano.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringDano);
+
+        Pocao lingeringVeneno = new Pocao("Poção Persistente de Veneno",
+            "Cria nuvem de veneno que persiste",
+            "11 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringVeneno.setBasePotion("Poção Arremessável de Veneno");
+        lingeringVeneno.adicionarIngrediente("Poção Arremessável de Veneno");
+        lingeringVeneno.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringVeneno);
+
+        Pocao lingeringFraqueza = new Pocao("Poção Persistente de Fraqueza",
+            "Cria nuvem de fraqueza que persiste",
+            "22 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringFraqueza.setBasePotion("Poção Arremessável de Fraqueza");
+        lingeringFraqueza.adicionarIngrediente("Poção Arremessável de Fraqueza");
+        lingeringFraqueza.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringFraqueza);
+
+        Pocao lingeringLentidao = new Pocao("Poção Persistente de Lentidão",
+            "Cria nuvem de lentidão que persiste",
+            "22 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringLentidao.setBasePotion("Poção Arremessável de Lentidão");
+        lingeringLentidao.adicionarIngrediente("Poção Arremessável de Lentidão");
+        lingeringLentidao.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringLentidao);
+
+        Pocao lingeringRegeneracao = new Pocao("Poção Persistente de Regeneração",
+            "Cria nuvem de regeneração que persiste",
+            "11 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringRegeneracao.setBasePotion("Poção Arremessável de Regeneração");
+        lingeringRegeneracao.adicionarIngrediente("Poção Arremessável de Regeneração");
+        lingeringRegeneracao.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringRegeneracao);
+
+        Pocao lingeringResistenciaFogo = new Pocao("Poção Persistente de Resistência ao Fogo",
+            "Cria nuvem de resistência ao fogo",
+            "33 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringResistenciaFogo.setBasePotion("Poção Arremessável de Resistência ao Fogo");
+        lingeringResistenciaFogo.adicionarIngrediente("Poção Arremessável de Resistência ao Fogo");
+        lingeringResistenciaFogo.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringResistenciaFogo);
+
+        Pocao lingeringVisaoNoturna = new Pocao("Poção Persistente de Visão Noturna",
+            "Cria nuvem de visão noturna",
+            "33 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringVisaoNoturna.setBasePotion("Poção Arremessável de Visão Noturna");
+        lingeringVisaoNoturna.adicionarIngrediente("Poção Arremessável de Visão Noturna");
+        lingeringVisaoNoturna.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringVisaoNoturna);
+
+        Pocao lingeringInvisibilidade = new Pocao("Poção Persistente de Invisibilidade",
+            "Cria nuvem de invisibilidade",
+            "33 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringInvisibilidade.setBasePotion("Poção Arremessável de Invisibilidade");
+        lingeringInvisibilidade.adicionarIngrediente("Poção Arremessável de Invisibilidade");
+        lingeringInvisibilidade.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringInvisibilidade);
+
+        Pocao lingeringSalto = new Pocao("Poção Persistente de Salto",
+            "Cria nuvem de impulso de salto",
+            "33 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringSalto.setBasePotion("Poção Arremessável de Salto");
+        lingeringSalto.adicionarIngrediente("Poção Arremessável de Salto");
+        lingeringSalto.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringSalto);
+
+        Pocao lingeringRespiracaoAquatica = new Pocao("Poção Persistente de Respiração Aquática",
+            "Cria nuvem de respiração aquática",
+            "33 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringRespiracaoAquatica.setBasePotion("Poção Arremessável de Respiração Aquática");
+        lingeringRespiracaoAquatica.adicionarIngrediente("Poção Arremessável de Respiração Aquática");
+        lingeringRespiracaoAquatica.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringRespiracaoAquatica);
+
+        Pocao lingeringQuedaLenta = new Pocao("Poção Persistente de Queda Lenta",
+            "Cria nuvem de queda lenta",
+            "22 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringQuedaLenta.setBasePotion("Poção Arremessável de Queda Lenta");
+        lingeringQuedaLenta.adicionarIngrediente("Poção Arremessável de Queda Lenta");
+        lingeringQuedaLenta.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringQuedaLenta);
+
+        Pocao lingeringTartaruga = new Pocao("Poção Persistente da Tartaruga Mestre",
+            "Cria nuvem de resistência",
+            "5 segundos (área)",
+            MinecraftEdition.BOTH);
+        lingeringTartaruga.setBasePotion("Poção Arremessável da Tartaruga Mestre");
+        lingeringTartaruga.adicionarIngrediente("Poção Arremessável da Tartaruga Mestre");
+        lingeringTartaruga.adicionarIngrediente("Bafo de Dragão");
+        pocoes.add(lingeringTartaruga);
     }
 
     private void carregarEncantamentos() {
@@ -3103,6 +4454,126 @@ public class MinecraftWiki {
             5,
             MinecraftEdition.BOTH
         ));
+
+        // ==================== ENCANTAMENTOS ADICIONAIS ====================
+
+        // Densidade (1.19+)
+        encantamentos.add(new Encantamento(
+            "Densidade (Density)",
+            "Aumenta o dano da maça quando cai de grande altura.",
+            false,
+            "Ruptura, Quebra-vento",
+            5,
+            "🔨",
+            "",
+            2,
+            MinecraftEdition.BOTH
+        ));
+
+        // Ruptura (1.19+)
+        encantamentos.add(new Encantamento(
+            "Ruptura (Breach)",
+            "Reduz a eficácia da armadura do alvo.",
+            false,
+            "Densidade, Quebra-vento",
+            4,
+            "🔨",
+            "",
+            2,
+            MinecraftEdition.BOTH
+        ));
+
+        // Quebra-vento (1.19+)
+        encantamentos.add(new Encantamento(
+            "Quebra-vento (Wind Burst)",
+            "Lança o jogador para o ar ao atingir algo enquanto cai.",
+            false,
+            "Densidade, Ruptura",
+            3,
+            "🔨",
+            "",
+            2,
+            MinecraftEdition.BOTH
+        ));
+
+        // Pescaria Sortuda (Luck of the Sea)
+        encantamentos.add(new Encantamento(
+            "Pescaria Sortuda (Luck of the Sea)",
+            "Aumenta chances de pescar itens do tesouro e reduz lixo.",
+            false,
+            "",
+            3,
+            "🎣",
+            "",
+            2,
+            MinecraftEdition.BOTH
+        ));
+
+        // Isca (Lure)
+        encantamentos.add(new Encantamento(
+            "Isca (Lure)",
+            "Reduz o tempo de espera da pescaria.",
+            false,
+            "",
+            3,
+            "🎣",
+            "",
+            2,
+            MinecraftEdition.BOTH
+        ));
+
+        // Retorno (Riptide) - verificar se já não existe
+        // Já existe como "Correnteza"
+
+        // Proteção explosão - verificar duplicatas
+        // Já existe
+
+        // Aqua Affinity - verificar
+        // Já existe como "Afinidade Aquática"
+
+        // Vanguarda (Knockback II para arcos) - não existe no jogo base
+        
+        // Maldição do Encolhimento (Bedrock exclusivo - legacy)
+        encantamentos.add(new Encantamento(
+            "Maldição do Encolhimento (Curse of Binding - legacy name)",
+            "Item não pode ser removido exceto ao morrer ou quebrar.",
+            true,
+            "",
+            1,
+            "🪖🦺🩳🥾",
+            "",
+            1,
+            MinecraftEdition.BOTH
+        ));
+
+        // Thorns - já existe como "Espinhos"
+
+        // Soul Speed - já existe como "Caminhada das Almas"
+
+        // Swift Sneak (Esgueirar Veloz) - 1.19+
+        encantamentos.add(new Encantamento(
+            "Esgueirar Veloz (Swift Sneak)",
+            "Aumenta a velocidade de movimento ao agachar (sneaking).",
+            true,
+            "",
+            3,
+            "🩳",
+            "",
+            1,
+            MinecraftEdition.BOTH
+        ));
+
+        // Frost Walker - já existe como "Passos Gelados"
+
+        // Depth Strider - já existe como "Passos Profundos"
+
+        // Feather Falling - já existe como "Peso-pena"
+
+        // Verificando outros encantamentos raros ou especiais
+
+        // Binding (Curse of Binding) - já existe como "Maldição do Ligamento"
+
+        // Vanishing (Curse of Vanishing) - já existe como "Maldição do Desaparecimento"
     }
 
     public List<Item> buscarItens(String termo) {

@@ -1,8 +1,22 @@
 package org.example.gui;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class StructuresPanel extends JPanel {
     private final MinecraftWikiGUI parent;
@@ -59,7 +73,7 @@ public class StructuresPanel extends JPanel {
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         add(scrollPane, BorderLayout.CENTER);
 
-        JButton backButton = new JButton("🏠 Voltar ao Menu");
+        JButton backButton = new JButton("Voltar ao Menu", ImageManager.getItemIcon("BARRIER", 16));
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         backButton.setBackground(MINECRAFT_GREEN);
         backButton.setForeground(Color.BLACK);
@@ -92,12 +106,12 @@ public class StructuresPanel extends JPanel {
         nameLabel.setForeground(MINECRAFT_GOLD);
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel locationLabel = new JLabel("📍 " + location, SwingConstants.CENTER);
+        JLabel locationLabel = new JLabel(location, SwingConstants.CENTER);
         locationLabel.setFont(new Font("Segoe UI", Font.ITALIC, 12));
         locationLabel.setForeground(Color.LIGHT_GRAY);
         locationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel lootLabel = new JLabel("💎 " + loot, SwingConstants.CENTER);
+        JLabel lootLabel = new JLabel(loot, SwingConstants.CENTER);
         lootLabel.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         lootLabel.setForeground(Color.GRAY);
         lootLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

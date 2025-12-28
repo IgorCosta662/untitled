@@ -1,11 +1,22 @@
 package org.example.gui;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 
 public class AboutPanel extends JPanel {
-    private MinecraftWikiGUI parent;
+    private final MinecraftWikiGUI parent;
 
     public AboutPanel(MinecraftWikiGUI parent) {
         this.parent = parent;
@@ -25,13 +36,13 @@ public class AboutPanel extends JPanel {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBackground(new Color(40, 40, 40));
 
-        JLabel titleLabel = new JLabel("ℹ️ SOBRE A MINECRAFT WIKI");
+        JLabel titleLabel = ImageManager.createIconLabel("BOOK", "SOBRE A MINECRAFT WIKI", 28);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
 
         panel.add(titleLabel, BorderLayout.CENTER);
 
-        JButton backButton = new JButton("⬅️ Voltar");
+        JButton backButton = new JButton("Voltar", ImageManager.getItemIcon("BARRIER", 16));
         backButton.setFont(new Font("SansSerif", Font.BOLD, 14));
         backButton.setBackground(MinecraftWikiGUI.MINECRAFT_GRAY);
         backButton.setForeground(Color.WHITE);
@@ -59,7 +70,7 @@ public class AboutPanel extends JPanel {
 
         // Informações principais
         mainPanel.add(createInfoCard(
-            "📚 O QUE É ESTA WIKI?",
+            "O QUE É ESTA WIKI?",
             "A Minecraft Wiki Completa é uma aplicação desktop desenvolvida em Java " +
             "que oferece um guia completo e interativo sobre Minecraft. " +
             "Contém informações detalhadas sobre itens, receitas de crafting, " +
@@ -69,31 +80,33 @@ public class AboutPanel extends JPanel {
         mainPanel.add(Box.createVerticalStrut(15));
 
         mainPanel.add(createInfoCard(
-            "🎯 FUNCIONALIDADES",
-            "• Sistema de busca avançado para encontrar rapidamente o que você precisa\n" +
-            "• Receitas de crafting detalhadas com padrões visuais\n" +
-            "• Guias completos de preparação de poções\n" +
-            "• Informações sobre encantamentos e incompatibilidades\n" +
-            "• Simulador de crafting interativo\n" +
-            "• Interface gráfica moderna estilo Minecraft\n" +
-            "• Suporte para Java Edition e Bedrock Edition",
+            "FUNCIONALIDADES",
+            """
+            • Sistema de busca avançado para encontrar rapidamente o que você precisa
+            • Receitas de crafting detalhadas com padrões visuais
+            • Guias completos de preparação de poções
+            • Informações sobre encantamentos e incompatibilidades
+            • Simulador de crafting interativo
+            • Interface gráfica moderna estilo Minecraft
+            • Suporte para Java Edition e Bedrock Edition""",
             MinecraftWikiGUI.MINECRAFT_GREEN
         ));
         mainPanel.add(Box.createVerticalStrut(15));
 
         mainPanel.add(createInfoCard(
-            "🛠️ TECNOLOGIAS UTILIZADAS",
-            "• Java 21 - Linguagem de programação principal\n" +
-            "• Maven - Gerenciamento de dependências e build\n" +
-            "• Swing - Framework para interface gráfica\n" +
-            "• FlatLaf - Look and Feel moderno para Swing\n" +
-            "• IntelliJ IDEA - IDE de desenvolvimento",
+            "TECNOLOGIAS UTILIZADAS",
+            """
+            • Java 21 - Linguagem de programação principal
+            • Maven - Gerenciamento de dependências e build
+            • Swing - Framework para interface gráfica
+            • FlatLaf - Look and Feel moderno para Swing
+            • IntelliJ IDEA - IDE de desenvolvimento""",
             MinecraftWikiGUI.MINECRAFT_BROWN
         ));
         mainPanel.add(Box.createVerticalStrut(15));
 
         mainPanel.add(createInfoCard(
-            "🎮 EDIÇÕES SUPORTADAS",
+            "EDIÇÕES SUPORTADAS",
             "JAVA EDITION:\n" +
             "A versão original do Minecraft para PC, com recursos exclusivos " +
             "como mods extensivos e comandos avançados.\n\n" +
@@ -105,7 +118,7 @@ public class AboutPanel extends JPanel {
         mainPanel.add(Box.createVerticalStrut(15));
 
         mainPanel.add(createInfoCard(
-            "💡 COMO USAR",
+            "COMO USAR",
             "1. Navegue pelo menu principal para escolher uma seção\n" +
             "2. Use a barra de busca para encontrar itens específicos\n" +
             "3. Clique nos cards para ver informações detalhadas\n" +
@@ -117,7 +130,7 @@ public class AboutPanel extends JPanel {
         mainPanel.add(Box.createVerticalStrut(15));
 
         mainPanel.add(createInfoCard(
-            "📝 NOTAS IMPORTANTES",
+            "NOTAS IMPORTANTES",
             "• Esta wiki é baseada nas mecânicas atuais do Minecraft\n" +
             "• Algumas funcionalidades podem variar entre Java e Bedrock\n" +
             "• O conteúdo é atualizado regularmente\n" +
