@@ -206,7 +206,7 @@ public class ImageManager {
     }
     
     /**
-     * Cria ícone fallback com cor e letra
+     * Cria ícone fallback com cor e iniciais
      */
     private static ImageIcon createFallbackIcon(String itemName, int size) {
         BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
@@ -228,10 +228,10 @@ public class ImageManager {
         g2d.setStroke(new BasicStroke(2));
         g2d.drawRoundRect(1, 1, size-2, size-2, size/4, size/4);
         
-        // Desenhar texto/emoji
-        String text = getEmojiForItem(itemName);
+        // Desenhar iniciais do item
+        String text = getInitialsForItem(itemName);
         g2d.setColor(Color.WHITE);
-        g2d.setFont(new Font("Segoe UI Emoji", Font.BOLD, size * 6 / 10));
+        g2d.setFont(new Font("Arial", Font.BOLD, size / 3));
         
         FontMetrics fm = g2d.getFontMetrics();
         int x = (size - fm.stringWidth(text)) / 2;
@@ -241,6 +241,81 @@ public class ImageManager {
         g2d.dispose();
         
         return new ImageIcon(img);
+    }
+    
+    /**
+     * Retorna iniciais para o item (usado no fallback)
+     */
+    private static String getInitialsForItem(String itemName) {
+        return switch (itemName) {
+            // Menu principal
+            case "ITEMS" -> "IT";
+            case "ARMOR" -> "AR";
+            case "ENCHANTMENTS" -> "EN";
+            case "BREWING" -> "BR";
+            case "CRAFTING" -> "CR";
+            case "STATISTICS" -> "ST";
+            case "API_TEST" -> "API";
+            case "ABOUT" -> "AB";
+            case "EXIT" -> "EX";
+            
+            // Ferramentas
+            case "PICKAXE" -> "PK";
+            case "AXE" -> "AX";
+            case "SHOVEL" -> "SH";
+            case "HOE" -> "HO";
+            
+            // Armas
+            case "SWORD" -> "SW";
+            case "BOW" -> "BO";
+            case "CROSSBOW" -> "CB";
+            case "TRIDENT" -> "TR";
+            case "ATTACK" -> "AT";
+            
+            // Armaduras
+            case "HELMET" -> "HE";
+            case "CHESTPLATE" -> "CP";
+            case "LEGGINGS" -> "LG";
+            case "BOOTS" -> "BT";
+            case "SHIELD" -> "SH";
+            case "DEFENSE" -> "DF";
+            
+            // Minérios
+            case "DIAMOND" -> "DI";
+            case "EMERALD" -> "EM";
+            case "GOLD_INGOT" -> "AU";
+            case "IRON_INGOT" -> "FE";
+            case "NETHERITE" -> "NT";
+            case "COAL" -> "CO";
+            case "REDSTONE" -> "RS";
+            
+            // Poções
+            case "POTION_HEALING" -> "HP";
+            case "POTION_STRENGTH" -> "ST";
+            case "POTION_SPEED" -> "SP";
+            case "BREWING_STAND" -> "BS";
+            
+            // Encantamentos
+            case "ENCHANTED_BOOK" -> "EB";
+            case "ENCHANTING_TABLE" -> "ET";
+            case "ANVIL" -> "AN";
+            
+            // Crafting
+            case "CRAFTING_TABLE" -> "CT";
+            case "FURNACE" -> "FU";
+            case "BLAST_FURNACE" -> "BF";
+            case "SMITHING_TABLE" -> "SM";
+            
+            // Livros
+            case "BOOK" -> "BK";
+            case "RECIPE" -> "RC";
+            
+            default -> {
+                // Para outros itens, pegar as primeiras 2 letras
+                String name = itemName.replace("_", "");
+                yield name.length() >= 2 ? name.substring(0, 2).toUpperCase() : name.toUpperCase();
+            }
+        };
     }
     
     /**
@@ -296,69 +371,11 @@ public class ImageManager {
     }
     
     /**
-     * Retorna emoji para fallback
-     */
-    private static String getEmojiForItem(String itemName) {
-        return switch (itemName) {
-            // Menu principal
-            case "ITEMS" -> "⛏️";
-            case "ARMOR" -> "🛡️";
-            case "ENCHANTMENTS" -> "📖";
-            case "BREWING" -> "⚗️";
-            case "CRAFTING" -> "🔨";
-            case "STATISTICS" -> "📊";
-            case "API_TEST" -> "🌐";
-            case "ABOUT" -> "ℹ️";
-            case "EXIT" -> "🚪";
-            
-            // Ferramentas
-            case "PICKAXE" -> "⛏️";
-            case "AXE" -> "🪓";
-            case "SHOVEL" -> "🏗️";
-            case "HOE" -> "🌾";
-            
-            // Armas
-            case "SWORD", "ATTACK" -> "⚔️";
-            case "BOW" -> "🏹";
-            case "CROSSBOW" -> "🏹";
-            case "TRIDENT" -> "🔱";
-            
-            // Armaduras
-            case "HELMET", "CHESTPLATE", "LEGGINGS", "BOOTS", "SHIELD", "DEFENSE" -> "🛡️";
-            
-            // Minérios
-            case "DIAMOND", "EMERALD" -> "💎";
-            case "GOLD_INGOT" -> "🥇";
-            case "IRON_INGOT" -> "⚙️";
-            case "NETHERITE" -> "🔥";
-            case "COAL" -> "⚫";
-            case "REDSTONE" -> "🔴";
-            
-            // Poções
-            case "POTION_HEALING", "POTION_STRENGTH", "POTION_SPEED" -> "⚗️";
-            case "BREWING_STAND" -> "🧪";
-            
-            // Encantamentos
-            case "ENCHANTED_BOOK" -> "📖";
-            case "ENCHANTING_TABLE" -> "✨";
-            case "ANVIL" -> "🔨";
-            
-            // Crafting
-            case "CRAFTING_TABLE", "FURNACE", "BLAST_FURNACE", "SMITHING_TABLE" -> "🔨";
-            
-            // Livros
-            case "BOOK", "RECIPE" -> "📖";
-            
-            default -> "❓";
-        };
-    }
-    
-    /**
      * Pré-carrega imagens em background para modo offline
      */
     public static void preloadImages() {
         new Thread(() -> {
-            System.out.println("📦 Iniciando pré-carregamento de imagens para modo offline...");
+            System.out.println("Iniciando pré-carregamento de imagens para modo offline...");
             
             // Imagens do menu principal
             String[] menuItems = {"ITEMS", "ARMOR", "ENCHANTMENTS", "BREWING", 
@@ -417,9 +434,9 @@ public class ImageManager {
                 }
             }
             
-            System.out.println("✅ Pré-carregamento concluído: " + downloaded + "/" + total + " imagens disponíveis");
-            System.out.println("💾 Cache local criado em: " + CACHE_DIR);
-            System.out.println("🌐 Modo offline disponível!");
+            System.out.println("Pré-carregamento concluído: " + downloaded + "/" + total + " imagens disponíveis");
+            System.out.println("Cache local criado em: " + CACHE_DIR);
+            System.out.println("Modo offline disponível!");
         }).start();
     }
     
@@ -456,7 +473,7 @@ public class ImageManager {
                         BufferedImage img = ImageIO.read(connection.getInputStream());
                         if (img != null) {
                             ImageIO.write(img, "PNG", cacheFile);
-                            System.out.println("📥 Imagem de crafting baixada: " + craftingFileName);
+                            System.out.println("Imagem de crafting baixada: " + craftingFileName);
                             return cacheFile.getAbsolutePath();
                         }
                     }
@@ -465,7 +482,7 @@ public class ImageManager {
                 }
             }
         } catch (Exception e) {
-            System.err.println("❌ Erro ao baixar imagem de crafting: " + craftingFileName);
+            System.err.println("Erro ao baixar imagem de crafting: " + craftingFileName);
         }
         
         return null;
@@ -528,7 +545,7 @@ public class ImageManager {
         if (item == null) return;
         
         String itemName = item.getNome();
-        System.out.println("💾 Salvando imagens para: " + itemName);
+        System.out.println("Salvando imagens para: " + itemName);
         
         // Baixar imagem do item em vários tamanhos
         getItemIcon(itemName.toUpperCase().replace(" ", "_"), 16);
@@ -705,7 +722,7 @@ public class ImageManager {
                 }
             }
             
-            System.out.println("📦 Pré-carregando imagens de crafting da API...");
+            System.out.println("Pré-carregando imagens de crafting da API...");
             
             // Baixar imagens de crafting de itens comuns
             String[] craftingItems = {

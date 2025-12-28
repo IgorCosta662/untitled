@@ -108,7 +108,7 @@ public class ItemsPanel extends JPanel {
         itemsGeneralPanel = createItemsGeneralPanel();
         
         // Adicionar apenas a aba de Itens Gerais (outras abas removidas temporariamente)
-        tabbedPane.addTab("📦 Itens Gerais", itemsGeneralPanel);
+        tabbedPane.addTab("[ITEMS] Itens Gerais", itemsGeneralPanel);
 
         add(tabbedPane, BorderLayout.CENTER);
 
@@ -196,7 +196,7 @@ public class ItemsPanel extends JPanel {
         headerPanel.setBorder(new EmptyBorder(20, 25, 20, 25));
 
         // Título moderno com efeito
-        JLabel titleLabel = new JLabel("📦 BIBLIOTECA DE ITENS");
+        JLabel titleLabel = new JLabel("[BIBLIOTECA] BIBLIOTECA DE ITENS");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 32));
         titleLabel.setForeground(new Color(255, 200, 100));
         
@@ -335,7 +335,7 @@ public class ItemsPanel extends JPanel {
         categoryPanel.removeAll();
         
         // Título da seção
-        JLabel sectionTitle = new JLabel("📦 SISTEMA DE CATEGORIAS DE ITENS", SwingConstants.CENTER);
+        JLabel sectionTitle = new JLabel("[CATEGORIAS] SISTEMA DE CATEGORIAS DE ITENS", SwingConstants.CENTER);
         sectionTitle.setFont(new Font("SansSerif", Font.BOLD, 28));
         sectionTitle.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         sectionTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -710,7 +710,7 @@ public class ItemsPanel extends JPanel {
             case "Barco" -> "⛵";
             case "Carrinho" -> "🚂";
             case "Mapa" -> "🗺️";
-            case "Baú" -> "📦";
+            case "Baú" -> "[BAU]";
             case "Livro Encantado" -> "📖";
             case "Poção Normal", "Poção Arremessável", "Poção Persistente" -> "🧪";
             case "Minério" -> "💎";
@@ -718,8 +718,79 @@ public class ItemsPanel extends JPanel {
             case "Gema" -> "💠";
             case "Comida Crua", "Comida Cozida" -> "🍖";
             case "Alimento Raro" -> "🍯";
-            default -> "📦";
+            default -> "[ITEM]";
         };
+    }
+    
+    /**
+     * Cria um JLabel com ícone do item
+     */
+    private JLabel createItemLabel(String itemName, int iconSize) {
+        JLabel label = new JLabel(itemName);
+        
+        // Tentar obter ícone do ImageManager
+        String iconKey = getIconKeyForItem(itemName);
+        if (iconKey != null) {
+            ImageIcon icon = ImageManager.getItemIcon(iconKey, iconSize);
+            if (icon != null) {
+                label.setIcon(icon);
+                label.setIconTextGap(8);
+            }
+        }
+        
+        return label;
+    }
+    
+    /**
+     * Mapeia nome do item para chave de ícone do ImageManager
+     */
+    private String getIconKeyForItem(String itemName) {
+        String nameLower = itemName.toLowerCase();
+        
+        // Ferramentas
+        if (nameLower.contains("picareta") || nameLower.contains("pickaxe")) return "PICKAXE";
+        if (nameLower.contains("machado") || nameLower.contains("axe") || nameLower.contains("enxó")) return "AXE";
+        if (nameLower.contains("pá") || nameLower.contains("shovel")) return "SHOVEL";
+        if (nameLower.contains("enxada") || nameLower.contains("hoe")) return "HOE";
+        
+        // Armas
+        if (nameLower.contains("espada") || nameLower.contains("sword")) return "SWORD";
+        if (nameLower.contains("arco") || nameLower.contains("bow")) return "BOW";
+        if (nameLower.contains("besta") || nameLower.contains("crossbow")) return "CROSSBOW";
+        if (nameLower.contains("tridente") || nameLower.contains("trident")) return "TRIDENT";
+        
+        // Armaduras
+        if (nameLower.contains("capacete") || nameLower.contains("helmet")) return "HELMET";
+        if (nameLower.contains("peitoral") || nameLower.contains("chestplate")) return "CHESTPLATE";
+        if (nameLower.contains("calça") || nameLower.contains("leggings")) return "LEGGINGS";
+        if (nameLower.contains("bota") || nameLower.contains("boots")) return "BOOTS";
+        if (nameLower.contains("escudo") || nameLower.contains("shield")) return "SHIELD";
+        
+        // Materiais
+        if (nameLower.contains("diamante") || nameLower.contains("diamond")) return "DIAMOND";
+        if (nameLower.contains("esmeralda") || nameLower.contains("emerald")) return "EMERALD";
+        if (nameLower.contains("ouro") || nameLower.contains("gold")) return "GOLD_INGOT";
+        if (nameLower.contains("ferro") || nameLower.contains("iron")) return "IRON_INGOT";
+        if (nameLower.contains("netherite")) return "NETHERITE";
+        if (nameLower.contains("carvão") || nameLower.contains("coal")) return "COAL";
+        if (nameLower.contains("redstone")) return "REDSTONE";
+        
+        // Poções
+        if (nameLower.contains("poção") || nameLower.contains("potion")) return "POTION_HEALING";
+        if (nameLower.contains("suporte") || nameLower.contains("brewing")) return "BREWING_STAND";
+        
+        // Encantamentos
+        if (nameLower.contains("livro encantado") || nameLower.contains("enchanted book")) return "ENCHANTED_BOOK";
+        if (nameLower.contains("mesa de encantamento") || nameLower.contains("enchanting table")) return "ENCHANTING_TABLE";
+        if (nameLower.contains("bigorna") || nameLower.contains("anvil")) return "ANVIL";
+        
+        // Crafting
+        if (nameLower.contains("bancada") || nameLower.contains("crafting table")) return "CRAFTING_TABLE";
+        if (nameLower.contains("fornalha") || nameLower.contains("furnace")) return "FURNACE";
+        if (nameLower.contains("alto-forno") || nameLower.contains("blast furnace")) return "BLAST_FURNACE";
+        if (nameLower.contains("mesa de ferraria") || nameLower.contains("smithing")) return "SMITHING_TABLE";
+        
+        return null;
     }
     
     /**
@@ -791,7 +862,7 @@ public class ItemsPanel extends JPanel {
         headerPanel.add(Box.createVerticalStrut(10));
         
         List<Item> allItems = wiki.listarTodosItens();
-        JLabel countLabel = new JLabel("✅ " + allItems.size() + " itens cadastrados no total", SwingConstants.CENTER);
+        JLabel countLabel = new JLabel("[OK] " + allItems.size() + " itens cadastrados no total", SwingConstants.CENTER);
         countLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         countLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
         countLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -822,14 +893,14 @@ public class ItemsPanel extends JPanel {
         resultsPanel.removeAll();
 
         if (items.isEmpty()) {
-            JLabel noResults = new JLabel("❌ Nenhum item encontrado");
+            JLabel noResults = new JLabel("[!] Nenhum item encontrado");
             noResults.setFont(new Font("SansSerif", Font.BOLD, 18));
             noResults.setForeground(MinecraftWikiGUI.MINECRAFT_RED);
             noResults.setAlignmentX(Component.CENTER_ALIGNMENT);
             resultsPanel.add(Box.createVerticalStrut(50));
             resultsPanel.add(noResults);
         } else {
-            JLabel countLabel = new JLabel("✅ " + items.size() + " item(ns) encontrado(s)");
+            JLabel countLabel = new JLabel("[OK] " + items.size() + " item(ns) encontrado(s)");
             countLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
             countLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
             countLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -852,7 +923,7 @@ public class ItemsPanel extends JPanel {
         resultsPanel.removeAll();
 
         if (potions.isEmpty()) {
-            JLabel noResults = new JLabel("❌ Nenhuma poção encontrada");
+            JLabel noResults = new JLabel("[!] Nenhuma poção encontrada");
             noResults.setFont(new Font("SansSerif", Font.BOLD, 18));
             noResults.setForeground(MinecraftWikiGUI.MINECRAFT_RED);
             noResults.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -977,7 +1048,7 @@ public class ItemsPanel extends JPanel {
         rightPanel.setPreferredSize(new Dimension(250, 120));
 
         if (!potion.getIngredientes().isEmpty()) {
-            JLabel ingLabel = new JLabel("📦 Ingredientes:");
+            JLabel ingLabel = new JLabel("[ING] Ingredientes:");
             ingLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
             ingLabel.setForeground(new Color(100, 100, 100));
             ingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1502,7 +1573,7 @@ public class ItemsPanel extends JPanel {
         // Peças no conjunto
         gbc.gridx = 2;
         gbc.gridy = 0;
-        JLabel pecasLabel = new JLabel("📦 PEÇAS");
+        JLabel pecasLabel = new JLabel("[PECAS] PEÇAS");
         pecasLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         pecasLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         statsPanel.add(pecasLabel, gbc);
@@ -1776,7 +1847,7 @@ public class ItemsPanel extends JPanel {
         ingredientesPanel.setLayout(new BoxLayout(ingredientesPanel, BoxLayout.Y_AXIS));
         ingredientesPanel.setOpaque(false);
         
-        JLabel ingLabel = new JLabel("📦 Ingredientes:");
+        JLabel ingLabel = new JLabel("[ING] Ingredientes:");
         ingLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
         ingLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         ingredientesPanel.add(ingLabel);

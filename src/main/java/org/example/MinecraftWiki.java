@@ -392,37 +392,37 @@ public class MinecraftWiki {
             sb.append(String.format("  ENCANTAMENTO: %s%s\n", nome, amaldicoado ? " 💀" : ""));
             sb.append(String.format("  ID: %s | Nome em Inglês: %s\n", id, nomeIngles));
             sb.append("╠════════════════════════════════════════════════════════════╣\n");
-            sb.append(String.format("  📌 Tipo: %s | Raridade: %s\n", tipo, raridade));
-            sb.append(String.format("  ⭐ Edição: %s\n", edicao.getDisplayName()));
-            sb.append(String.format("  📊 Nível: %d-%d (Máximo: %d)\n", nivelMinimo, nivelMaximo, nivelMaximo));
-            sb.append(String.format("  💎 Custo XP/Nível: %d | Peso: %d | Prioridade: %d\n", custoXpPorNivel, peso, prioridade));
-            sb.append(String.format("  🏆 Tesouro: %s | Amaldiçoado: %s | Stackável: %s\n", 
+            sb.append(String.format("  [TIPO] Tipo: %s | Raridade: %s\n", tipo, raridade));
+            sb.append(String.format("  [ED] Edição: %s\n", edicao.getDisplayName()));
+            sb.append(String.format("  [NIVEL] Nível: %d-%d (Máximo: %d)\n", nivelMinimo, nivelMaximo, nivelMaximo));
+            sb.append(String.format("  [XP] Custo XP/Nível: %d | Peso: %d | Prioridade: %d\n", custoXpPorNivel, peso, prioridade));
+            sb.append(String.format("  [INFO] Tesouro: %s | Amaldiçoado: %s | Stackável: %s\n", 
                 tesouro ? "Sim" : "Não", amaldicoado ? "Sim" : "Não", stackavel ? "Sim" : "Não"));
-            sb.append(String.format("\n  📝 Descrição: %s\n", descricaoCurta));
+            sb.append(String.format("\n  [DESC] Descrição: %s\n", descricaoCurta));
             if (descricaoDetalhada != null && !descricaoDetalhada.equals(descricaoCurta)) {
-                sb.append(String.format("  📖 Detalhes: %s\n", descricaoDetalhada));
+                sb.append(String.format("  [DET] Detalhes: %s\n", descricaoDetalhada));
             }
             if (efeitoPorNivel != null && !efeitoPorNivel.isEmpty()) {
-                sb.append(String.format("\n  ✨ Efeito por Nível: %s\n", efeitoPorNivel));
+                sb.append(String.format("\n  [EFEITO] Efeito por Nível: %s\n", efeitoPorNivel));
             }
             if (efeitoNumerico != null && !efeitoNumerico.isEmpty()) {
-                sb.append(String.format("  🔢 Valores Numéricos: %s\n", efeitoNumerico));
+                sb.append(String.format("  [NUM] Valores Numéricos: %s\n", efeitoNumerico));
             }
-            sb.append(String.format("\n  🛠️ Itens Aplicáveis: %s\n", itensAplicaveis));
+            sb.append(String.format("\n  [ITEM] Itens Aplicáveis: %s\n", itensAplicaveis));
             if (itensPrimarios != null && !itensPrimarios.isEmpty()) {
-                sb.append(String.format("  ► Item Primário: %s\n", itensPrimarios));
+                sb.append(String.format("  > Item Primário: %s\n", itensPrimarios));
             }
             if (itensSecundarios != null && !itensSecundarios.isEmpty()) {
-                sb.append(String.format("  ► Item Secundário: %s\n", itensSecundarios));
+                sb.append(String.format("  > Item Secundário: %s\n", itensSecundarios));
             }
             if (incompatibilidades != null && !incompatibilidades.isEmpty()) {
-                sb.append(String.format("\n  ⚠️ Incompatível com: %s\n", incompatibilidades));
+                sb.append(String.format("\n  [X] Incompatível com: %s\n", incompatibilidades));
             }
             if (condicoesEspeciais != null && !condicoesEspeciais.isEmpty()) {
-                sb.append(String.format("\n  ⚡ Condições Especiais: %s\n", condicoesEspeciais));
+                sb.append(String.format("\n  [!] Condições Especiais: %s\n", condicoesEspeciais));
             }
-            sb.append(String.format("\n  📦 Fontes de Obtenção: %s\n", fontesObtencao));
-            sb.append("  ► Como obter:\n");
+            sb.append(String.format("\n  [FONTE] Fontes de Obtenção: %s\n", fontesObtencao));
+            sb.append("  > Como obter:\n");
             if (tesouro) {
                 sb.append("    • Baús de estruturas (tesouros)\n");
                 sb.append("    • Pescaria (livros encantados raros)\n");
@@ -3211,6 +3211,1631 @@ public class MinecraftWiki {
             MinecraftEdition.BOTH, "Bloco Natural");
         raizes.adicionarIngrediente("Encontrado no Nether");
         itens.add(raizes);
+
+        // ==================== NOVOS ITENS ADICIONADOS ====================
+        
+        // Comidas
+        Item baiaDoce = new Item("Bagas Doces",
+            "Alimento que cresce em arbustos, causa dano ao colher",
+            MinecraftEdition.BOTH, "Alimento");
+        baiaDoce.adicionarIngrediente("Colher de arbustos de bagas doces");
+        itens.add(baiaDoce);
+
+        Item baiasBrilhantes = new Item("Bagas Brilhantes",
+            "Alimento luminoso encontrado em cavernas exuberantes",
+            MinecraftEdition.BOTH, "Alimento");
+        baiasBrilhantes.adicionarIngrediente("Colher em cavernas exuberantes");
+        itens.add(baiasBrilhantes);
+
+        Item sopaCogumelo = new Item("Sopa de Cogumelo",
+            "Restaura 6 pontos de fome",
+            MinecraftEdition.BOTH, "Alimento");
+        sopaCogumelo.adicionarIngrediente("1x Cogumelo Vermelho + 1x Cogumelo Marrom + 1x Tigela");
+        itens.add(sopaCogumelo);
+
+        Item ensopadoSuspeitoso = new Item("Ensopado Suspeito",
+            "Dá efeito de poção baseado na flor usada",
+            MinecraftEdition.BOTH, "Alimento");
+        ensopadoSuspeitoso.adicionarIngrediente("1x Cogumelo Vermelho + 1x Cogumelo Marrom + 1x Flor + 1x Tigela");
+        itens.add(ensopadoSuspeitoso);
+
+        Item tigela = new Item("Tigela",
+            "Recipiente para sopas e ensopados",
+            MinecraftEdition.BOTH, "Item Especial");
+        tigela.adicionarIngrediente("3x Tábuas");
+        itens.add(tigela);
+
+        Item macaPodre = new Item("Maçã Podre",
+            "Alimento que causa fome e veneno",
+            MinecraftEdition.BOTH, "Alimento");
+        macaPodre.adicionarIngrediente("Drop raro de zumbis");
+        itens.add(macaPodre);
+
+        // Lãs Coloridas
+        Item laVermelha = new Item("Lã Vermelha",
+            "Bloco decorativo vermelho",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        laVermelha.adicionarIngrediente("1x Lã Branca + 1x Corante Vermelho");
+        itens.add(laVermelha);
+
+        Item laAzul = new Item("Lã Azul",
+            "Bloco decorativo azul",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        laAzul.adicionarIngrediente("1x Lã Branca + 1x Corante Azul");
+        itens.add(laAzul);
+
+        Item laVerde = new Item("Lã Verde",
+            "Bloco decorativo verde",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        laVerde.adicionarIngrediente("1x Lã Branca + 1x Corante Verde");
+        itens.add(laVerde);
+
+        Item laAmarela = new Item("Lã Amarela",
+            "Bloco decorativo amarelo",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        laAmarela.adicionarIngrediente("1x Lã Branca + 1x Corante Amarelo");
+        itens.add(laAmarela);
+
+        Item laPreta = new Item("Lã Preta",
+            "Bloco decorativo preto",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        laPreta.adicionarIngrediente("1x Lã Branca + 1x Corante Preto");
+        itens.add(laPreta);
+
+        Item laRoxa = new Item("Lã Roxa",
+            "Bloco decorativo roxo",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        laRoxa.adicionarIngrediente("1x Lã Branca + 1x Corante Roxo");
+        itens.add(laRoxa);
+
+        Item laRosa = new Item("Lã Rosa",
+            "Bloco decorativo rosa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        laRosa.adicionarIngrediente("1x Lã Branca + 1x Corante Rosa");
+        itens.add(laRosa);
+
+        // Minérios Deepslate
+        Item minerioCobreDeepslate = new Item("Minério de Cobre Deepslate",
+            "Variante deepslate do minério de cobre",
+            MinecraftEdition.BOTH, "Minério");
+        minerioCobreDeepslate.adicionarIngrediente("Minerar em camadas profundas (Y < 0)");
+        itens.add(minerioCobreDeepslate);
+
+        Item minerioFerroDeepslate = new Item("Minério de Ferro Deepslate",
+            "Variante deepslate do minério de ferro",
+            MinecraftEdition.BOTH, "Minério");
+        minerioFerroDeepslate.adicionarIngrediente("Minerar em camadas profundas (Y < 0)");
+        itens.add(minerioFerroDeepslate);
+
+        Item minerioOuroDeepslate = new Item("Minério de Ouro Deepslate",
+            "Variante deepslate do minério de ouro",
+            MinecraftEdition.BOTH, "Minério");
+        minerioOuroDeepslate.adicionarIngrediente("Minerar em camadas profundas (Y < 0)");
+        itens.add(minerioOuroDeepslate);
+
+        Item minerioDiamanteDeepslate = new Item("Minério de Diamante Deepslate",
+            "Variante deepslate do minério de diamante",
+            MinecraftEdition.BOTH, "Minério");
+        minerioDiamanteDeepslate.adicionarIngrediente("Minerar em camadas profundas (Y < 0)");
+        itens.add(minerioDiamanteDeepslate);
+
+        Item minerioLapisDeepslate = new Item("Minério de Lápis-Lazúli Deepslate",
+            "Variante deepslate do minério de lápis-lazúli",
+            MinecraftEdition.BOTH, "Minério");
+        minerioLapisDeepslate.adicionarIngrediente("Minerar em camadas profundas (Y < 0)");
+        itens.add(minerioLapisDeepslate);
+
+        Item minerioRedstoneDeepslate = new Item("Minério de Redstone Deepslate",
+            "Variante deepslate do minério de redstone",
+            MinecraftEdition.BOTH, "Minério");
+        minerioRedstoneDeepslate.adicionarIngrediente("Minerar em camadas profundas (Y < 0)");
+        itens.add(minerioRedstoneDeepslate);
+
+        Item minerioEsmeraldaDeepslate = new Item("Minério de Esmeralda Deepslate",
+            "Variante deepslate do minério de esmeralda",
+            MinecraftEdition.BOTH, "Minério");
+        minerioEsmeraldaDeepslate.adicionarIngrediente("Minerar em montanhas profundas (Y < 0)");
+        itens.add(minerioEsmeraldaDeepslate);
+
+        // Blocos de Pedra Especiais
+        Item granitoPolido = new Item("Granito Polido",
+            "Versão polida do granito",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        granitoPolido.adicionarIngrediente("4x Granito");
+        itens.add(granitoPolido);
+
+        Item dioritoPolido = new Item("Diorito Polido",
+            "Versão polida do diorito",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        dioritoPolido.adicionarIngrediente("4x Diorito");
+        itens.add(dioritoPolido);
+
+        Item andesitoPolido = new Item("Andesito Polido",
+            "Versão polida do andesito",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        andesitoPolido.adicionarIngrediente("4x Andesito");
+        itens.add(andesitoPolido);
+
+        Item basalto = new Item("Basalto",
+            "Bloco de pedra do Nether",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        basalto.adicionarIngrediente("Encontrado em deltas de basalto no Nether");
+        itens.add(basalto);
+
+        Item basaltoPolido = new Item("Basalto Polido",
+            "Versão decorativa do basalto",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        basaltoPolido.adicionarIngrediente("4x Basalto");
+        itens.add(basaltoPolido);
+
+        Item calcite = new Item("Calcita",
+            "Bloco branco encontrado em geodos",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        calcite.adicionarIngrediente("Encontrado em geodos de ametista");
+        itens.add(calcite);
+
+        Item tufo = new Item("Tufo",
+            "Bloco cinza encontrado no subsolo",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        tufo.adicionarIngrediente("Encontrado em camadas inferiores (Y < 16)");
+        itens.add(tufo);
+
+        Item musgo = new Item("Bloco de Musgo",
+            "Bloco natural verdejante",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        musgo.adicionarIngrediente("Encontrado em cavernas exuberantes");
+        itens.add(musgo);
+
+        // Itens de Iluminação
+        Item torchaAlma = new Item("Tocha de Alma",
+            "Tocha azul que emite luz mais fraca",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        torchaAlma.adicionarIngrediente("1x Graveto + 1x Areia de Alma ou Terra de Alma");
+        itens.add(torchaAlma);
+
+        Item lanternaAlma = new Item("Lanterna de Alma",
+            "Lanterna azul decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        lanternaAlma.adicionarIngrediente("8x Pepita de Ferro + 1x Tocha de Alma");
+        itens.add(lanternaAlma);
+
+        Item campfireAlma = new Item("Fogueira de Alma",
+            "Fogueira azul que causa mais dano",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        campfireAlma.adicionarIngrediente("3x Graveto + 3x Areia de Alma + 3x Madeira");
+        itens.add(campfireAlma);
+
+        Item campfire = new Item("Fogueira",
+            "Fonte de luz e cozimento",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        campfire.adicionarIngrediente("3x Graveto + 1x Carvão + 3x Madeira");
+        itens.add(campfire);
+
+        Item lanterna = new Item("Lanterna",
+            "Fonte de luz pendurável",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        lanterna.adicionarIngrediente("8x Pepita de Ferro + 1x Tocha");
+        itens.add(lanterna);
+
+        // Itens de Redstone
+        Item sensorLuz = new Item("Sensor de Luz do Dia",
+            "Detecta luz solar e emite sinal de redstone",
+            MinecraftEdition.BOTH, "Redstone");
+        sensorLuz.adicionarIngrediente("3x Vidro + 3x Quartzo do Nether + 3x Laje de Madeira");
+        itens.add(sensorLuz);
+
+        Item alvo = new Item("Alvo",
+            "Bloco que emite sinal de redstone ao ser atingido",
+            MinecraftEdition.BOTH, "Redstone");
+        alvo.adicionarIngrediente("1x Fardo de Feno + 4x Pó de Redstone");
+        itens.add(alvo);
+
+        Item sensorSculk = new Item("Sensor Sculk",
+            "Detecta vibrações e emite sinal de redstone",
+            MinecraftEdition.BOTH, "Redstone");
+        sensorSculk.adicionarIngrediente("Minerar com Toque Suave em Deep Dark");
+        itens.add(sensorSculk);
+
+        // Outros Itens Importantes
+        Item spawner = new Item("Gerador de Monstros",
+            "Spawna mobs periodicamente",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        spawner.adicionarIngrediente("Não craftável - encontrado em masmorras");
+        itens.add(spawner);
+
+        Item carvaoVegetal = new Item("Carvão Vegetal",
+            "Combustível alternativo ao carvão",
+            MinecraftEdition.BOTH, "Material");
+        carvaoVegetal.adicionarIngrediente("Queimar madeira na fornalha");
+        itens.add(carvaoVegetal);
+
+        Item pepitaOuro = new Item("Pepita de Ouro",
+            "Fragmento de ouro",
+            MinecraftEdition.BOTH, "Material");
+        pepitaOuro.adicionarIngrediente("1x Lingote de Ouro = 9x Pepitas");
+        itens.add(pepitaOuro);
+
+        Item pepitaFerro = new Item("Pepita de Ferro",
+            "Fragmento de ferro",
+            MinecraftEdition.BOTH, "Material");
+        pepitaFerro.adicionarIngrediente("1x Lingote de Ferro = 9x Pepitas");
+        itens.add(pepitaFerro);
+
+        Item farinhaOsso = new Item("Farinha de Osso",
+            "Fertilizante para plantas",
+            MinecraftEdition.BOTH, "Material");
+        farinhaOsso.adicionarIngrediente("1x Osso = 3x Farinha de Osso");
+        itens.add(farinhaOsso);
+
+        Item colar = new Item("Coleira",
+            "Amarra animais passivos",
+            MinecraftEdition.BOTH, "Item Especial");
+        colar.adicionarIngrediente("4x Linha + 1x Bola de Slime");
+        itens.add(colar);
+
+        Item cenouraVara = new Item("Cenoura no Graveto",
+            "Controla porcos montados",
+            MinecraftEdition.BOTH, "Item Especial");
+        cenouraVara.adicionarIngrediente("1x Vara de Pescar + 1x Cenoura");
+        itens.add(cenouraVara);
+
+        Item fungoVara = new Item("Fungo Distorcido no Graveto",
+            "Controla Striders montados",
+            MinecraftEdition.BOTH, "Item Especial");
+        fungoVara.adicionarIngrediente("1x Vara de Pescar + 1x Fungo Distorcido");
+        itens.add(fungoVara);
+
+        Item bandeira = new Item("Bandeira",
+            "Bloco decorativo personalizável",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        bandeira.adicionarIngrediente("6x Lã + 1x Graveto");
+        itens.add(bandeira);
+
+        Item vitral = new Item("Vidro Colorido",
+            "Vidro decorativo transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vitral.adicionarIngrediente("8x Vidro + 1x Corante");
+        itens.add(vitral);
+
+        Item dripleaf = new Item("Grande Folha-Goteira",
+            "Planta que funciona como plataforma temporária",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        dripleaf.adicionarIngrediente("Encontrado em cavernas exuberantes");
+        itens.add(dripleaf);
+
+        // ==================== BLOCOS ADICIONAIS IMPORTANTES ====================
+        
+        // Blocos de Nether
+        Item soulSoil = new Item("Terra de Alma",
+            "Bloco decorativo do Nether, base para fogo azul",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        soulSoil.adicionarIngrediente("Encontrado em vales de areia de alma");
+        itens.add(soulSoil);
+
+        Item blackstone = new Item("Blackstone",
+            "Pedra escura do Nether",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blackstone.adicionarIngrediente("Encontrado em bastion remnants");
+        itens.add(blackstone);
+
+        Item blackstonePolido = new Item("Blackstone Polido",
+            "Versão polida do blackstone",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blackstonePolido.adicionarIngrediente("4x Blackstone");
+        itens.add(blackstonePolido);
+
+        Item netherWartBlock = new Item("Bloco de Verruga do Nether",
+            "Bloco decorativo vermelho",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        netherWartBlock.adicionarIngrediente("9x Verruga do Nether");
+        itens.add(netherWartBlock);
+
+        Item cryingObsidian = new Item("Obsidiana Chorona",
+            "Obsidiana que emite luz e serve para âncora de respawn",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        cryingObsidian.adicionarIngrediente("Encontrar em ruínas do Nether ou negociar com Piglins");
+        itens.add(cryingObsidian);
+
+        Item ancientDebris = new Item("Detritos Ancestrais",
+            "Minério mais raro do jogo, fonte de Netherite",
+            MinecraftEdition.BOTH, "Minério");
+        ancientDebris.adicionarIngrediente("Minerar no Nether (Y 8-22)");
+        itens.add(ancientDebris);
+
+        Item lodestone = new Item("Lodestone",
+            "Ancora bússolas para localização específica",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        lodestone.adicionarIngrediente("8x Pedregulho Talhado + 1x Lingote de Netherite");
+        itens.add(lodestone);
+
+        // Madeiras do Nether
+        Item warpedPlanks = new Item("Tábuas Distorcidas",
+            "Madeira ciano do Nether, não queima",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        warpedPlanks.adicionarIngrediente("1x Tronco Distorcido");
+        itens.add(warpedPlanks);
+
+        Item crimsonPlanks = new Item("Tábuas Carmesim",
+            "Madeira vermelha do Nether, não queima",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        crimsonPlanks.adicionarIngrediente("1x Tronco Carmesim");
+        itens.add(crimsonPlanks);
+
+        // Blocos do End
+        Item endStoneBricks = new Item("Tijolos de Pedra do End",
+            "Versão decorativa da pedra do End",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        endStoneBricks.adicionarIngrediente("4x Pedra do End");
+        itens.add(endStoneBricks);
+
+        Item chorusPlant = new Item("Planta Chorus",
+            "Planta roxa do End",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        chorusPlant.adicionarIngrediente("Quebrar flores chorus no End");
+        itens.add(chorusPlant);
+
+        Item chorusFlower = new Item("Flor Chorus",
+            "Topo da planta chorus",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        chorusFlower.adicionarIngrediente("Cresce no topo de plantas chorus");
+        itens.add(chorusFlower);
+
+        // Blocos de Redstone e Mecanismos
+        Item observer = new Item("Observer",
+            "Detecta mudanças de blocos e emite pulso",
+            MinecraftEdition.BOTH, "Redstone");
+        observer.adicionarIngrediente("6x Pedregulho + 2x Pó de Redstone + 1x Quartzo do Nether");
+        itens.add(observer);
+
+        Item dispenser = new Item("Dispenser",
+            "Dispara itens automaticamente",
+            MinecraftEdition.BOTH, "Redstone");
+        dispenser.adicionarIngrediente("7x Pedregulho + 1x Arco + 1x Pó de Redstone");
+        itens.add(dispenser);
+
+        Item dropper = new Item("Dropper",
+            "Solta itens automaticamente",
+            MinecraftEdition.BOTH, "Redstone");
+        dropper.adicionarIngrediente("7x Pedregulho + 1x Pó de Redstone");
+        itens.add(dropper);
+
+        Item hopper = new Item("Hopper",
+            "Transfere itens entre contêineres",
+            MinecraftEdition.BOTH, "Redstone");
+        hopper.adicionarIngrediente("5x Lingote de Ferro + 1x Baú");
+        itens.add(hopper);
+
+        Item piston = new Item("Pistão",
+            "Empurra blocos",
+            MinecraftEdition.BOTH, "Redstone");
+        piston.adicionarIngrediente("3x Tábuas + 4x Pedregulho + 1x Lingote de Ferro + 1x Pó de Redstone");
+        itens.add(piston);
+
+        Item stickyPiston = new Item("Pistão Grudento",
+            "Pistão que puxa blocos de volta",
+            MinecraftEdition.BOTH, "Redstone");
+        stickyPiston.adicionarIngrediente("1x Pistão + 1x Bola de Slime");
+        itens.add(stickyPiston);
+
+        // Trilhos
+        Item rail = new Item("Trilho",
+            "Trilho simples para minecarts",
+            MinecraftEdition.BOTH, "Transporte");
+        rail.adicionarIngrediente("6x Lingote de Ferro + 1x Graveto");
+        itens.add(rail);
+
+        Item poweredRail = new Item("Trilho Elétrico",
+            "Acelera ou desacelera minecarts",
+            MinecraftEdition.BOTH, "Transporte");
+        poweredRail.adicionarIngrediente("6x Lingote de Ouro + 1x Graveto + 1x Pó de Redstone");
+        itens.add(poweredRail);
+
+        Item detectorRail = new Item("Trilho Detector",
+            "Emite sinal de redstone quando minecart passa",
+            MinecraftEdition.BOTH, "Transporte");
+        detectorRail.adicionarIngrediente("6x Lingote de Ferro + 1x Placa de Pressão + 1x Pó de Redstone");
+        itens.add(detectorRail);
+
+        Item activatorRail = new Item("Trilho Ativador",
+            "Ativa minecarts especiais",
+            MinecraftEdition.BOTH, "Transporte");
+        activatorRail.adicionarIngrediente("6x Lingote de Ferro + 2x Graveto + 1x Tocha de Redstone");
+        itens.add(activatorRail);
+
+        // Blocos Oceânicos
+        Item prismarine = new Item("Prismarine",
+            "Bloco ciano encontrado em monumentos oceânicos",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        prismarine.adicionarIngrediente("4x Fragmento de Prismarine");
+        itens.add(prismarine);
+
+        Item prismarineBricks = new Item("Tijolos de Prismarine",
+            "Variante decorativa de prismarine",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        prismarineBricks.adicionarIngrediente("9x Fragmento de Prismarine");
+        itens.add(prismarineBricks);
+
+        Item darkPrismarine = new Item("Prismarine Escuro",
+            "Variante escura de prismarine",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        darkPrismarine.adicionarIngrediente("8x Fragmento de Prismarine + 1x Saco de Tinta");
+        itens.add(darkPrismarine);
+
+        Item seaLantern = new Item("Lanterna do Mar",
+            "Bloco de iluminação oceânico",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        seaLantern.adicionarIngrediente("4x Fragmento de Prismarine + 5x Cristal de Prismarine");
+        itens.add(seaLantern);
+
+        Item coral = new Item("Coral",
+            "Bloco decorativo subaquático (requer água)",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        coral.adicionarIngrediente("Encontrado em recifes de coral");
+        itens.add(coral);
+
+        Item coralBlock = new Item("Bloco de Coral",
+            "Versão em bloco do coral",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        coralBlock.adicionarIngrediente("Encontrado em recifes de coral");
+        itens.add(coralBlock);
+
+        Item kelp = new Item("Alga Marinha",
+            "Planta aquática que cresce rapidamente",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        kelp.adicionarIngrediente("Encontrada em oceanos");
+        itens.add(kelp);
+
+        // Blocos de Gelo
+        Item packedIce = new Item("Gelo Compactado",
+            "Não derrete e é muito escorregadio",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        packedIce.adicionarIngrediente("9x Gelo");
+        itens.add(packedIce);
+
+        Item blueIce = new Item("Gelo Azul",
+            "Gelo mais escorregadio do jogo",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        blueIce.adicionarIngrediente("9x Gelo Compactado");
+        itens.add(blueIce);
+
+        // Blocos Especiais
+        Item slimeBlock = new Item("Bloco de Slime",
+            "Bloco que faz entidades quicarem",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        slimeBlock.adicionarIngrediente("9x Bola de Slime");
+        itens.add(slimeBlock);
+
+        Item honeyBlock = new Item("Bloco de Mel",
+            "Bloco pegajoso que diminui velocidade de queda",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        honeyBlock.adicionarIngrediente("4x Garrafa de Mel");
+        itens.add(honeyBlock);
+
+        Item scaffolding = new Item("Andaime",
+            "Bloco temporário para construção",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        scaffolding.adicionarIngrediente("6x Bambu + 1x Linha");
+        itens.add(scaffolding);
+
+        Item chain = new Item("Corrente",
+            "Bloco decorativo de corrente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        chain.adicionarIngrediente("2x Pepita de Ferro + 1x Lingote de Ferro");
+        itens.add(chain);
+
+        Item shroomlight = new Item("Luz de Cogumelo",
+            "Bloco de iluminação das florestas do Nether",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        shroomlight.adicionarIngrediente("Encontrado em árvores enormes do Nether");
+        itens.add(shroomlight);
+
+        // Variantes de Cobre
+        Item copperBlock = new Item("Bloco de Cobre",
+            "Bloco de cobre que oxida com o tempo",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        copperBlock.adicionarIngrediente("9x Lingote de Cobre");
+        itens.add(copperBlock);
+
+        Item cutCopper = new Item("Cobre Cortado",
+            "Variante decorativa de cobre",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        cutCopper.adicionarIngrediente("4x Bloco de Cobre");
+        itens.add(cutCopper);
+
+        Item lightningRod = new Item("Para-raios",
+            "Atrai raios em área de 128 blocos",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        lightningRod.adicionarIngrediente("3x Lingote de Cobre");
+        itens.add(lightningRod);
+
+        // Blocos Sculk
+        Item sculk = new Item("Sculk",
+            "Bloco do Deep Dark que se espalha com XP",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        sculk.adicionarIngrediente("Encontrado em Deep Dark");
+        itens.add(sculk);
+
+        Item sculkVein = new Item("Veia de Sculk",
+            "Textura decorativa de sculk",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        sculkVein.adicionarIngrediente("Encontrada em Deep Dark");
+        itens.add(sculkVein);
+
+        Item sculkCatalyst = new Item("Catalisador de Sculk",
+            "Espalha sculk quando mob morre perto",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        sculkCatalyst.adicionarIngrediente("Encontrado em Deep Dark");
+        itens.add(sculkCatalyst);
+
+        Item sculkShrieker = new Item("Gritador de Sculk",
+            "Invoca o Warden após 4 ativações",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        sculkShrieker.adicionarIngrediente("Encontrado em Deep Dark");
+        itens.add(sculkShrieker);
+
+        // Blocos de Lama
+        Item mud = new Item("Lama",
+            "Bloco de terra molhada",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        mud.adicionarIngrediente("1x Terra + 1x Garrafa de Água");
+        itens.add(mud);
+
+        Item packedMud = new Item("Lama Compactada",
+            "Lama seca e compactada",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        packedMud.adicionarIngrediente("Secar Lama");
+        itens.add(packedMud);
+
+        Item mudBricks = new Item("Tijolos de Lama",
+            "Tijolos feitos de lama compactada",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        mudBricks.adicionarIngrediente("4x Lama Compactada");
+        itens.add(mudBricks);
+
+        // Madeiras Novas
+        Item mangroveWood = new Item("Madeira de Mangue",
+            "Madeira encontrada em pântanos de mangue",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        mangroveWood.adicionarIngrediente("Árvores de mangue");
+        itens.add(mangroveWood);
+
+        Item mangrovePlanks = new Item("Tábuas de Mangue",
+            "Tábuas vermelhas de mangue",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        mangrovePlanks.adicionarIngrediente("1x Madeira de Mangue");
+        itens.add(mangrovePlanks);
+
+        Item cherryWood = new Item("Madeira de Cerejeira",
+            "Madeira rosa encontrada em biomas de cerejeira",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        cherryWood.adicionarIngrediente("Árvores de cerejeira");
+        itens.add(cherryWood);
+
+        Item cherryPlanks = new Item("Tábuas de Cerejeira",
+            "Tábuas rosa de cerejeira",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        cherryPlanks.adicionarIngrediente("1x Madeira de Cerejeira");
+        itens.add(cherryPlanks);
+
+        Item bambooBlock = new Item("Bloco de Bambu",
+            "Bloco feito de bambu",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        bambooBlock.adicionarIngrediente("9x Bambu");
+        itens.add(bambooBlock);
+
+        Item bambooPlanks = new Item("Tábuas de Bambu",
+            "Tábuas amareladas de bambu",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        bambooPlanks.adicionarIngrediente("1x Bloco de Bambu");
+        itens.add(bambooPlanks);
+
+        // Blocos Diversos
+        Item sponge = new Item("Esponja",
+            "Absorve água em área de 7x7x7",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        sponge.adicionarIngrediente("Encontrada em monumentos oceânicos");
+        itens.add(sponge);
+
+        Item bookshelf = new Item("Estante de Livros",
+            "Aumenta nível de encantamentos",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        bookshelf.adicionarIngrediente("6x Tábuas + 3x Livro");
+        itens.add(bookshelf);
+
+        Item lectern = new Item("Atril",
+            "Segura livros abertos e emite sinal de redstone",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        lectern.adicionarIngrediente("4x Laje de Madeira + 1x Estante de Livros");
+        itens.add(lectern);
+
+        // ===== ITENS DE EXPLORAÇÃO E AVENTURA =====
+        // (tridente, elytra já existem anteriormente)
+        
+        Item totem = new Item("Totem da Imortalidade",
+            "Previne morte uma vez, restaura vida",
+            MinecraftEdition.BOTH, "Item Especial");
+        totem.adicionarIngrediente("Drop de Evocador em Mansões");
+        itens.add(totem);
+
+        // ===== MATERIAIS RAROS =====
+        
+        Item estrelaNether = new Item("Estrela do Nether",
+            "Material raro usado para criar Beacon",
+            MinecraftEdition.BOTH, "Material");
+        estrelaNether.adicionarIngrediente("Drop do Wither");
+        itens.add(estrelaNether);
+
+        Item conchaNautilus = new Item("Concha de Nautilus",
+            "Material usado para criar Conduite",
+            MinecraftEdition.BOTH, "Material");
+        conchaNautilus.adicionarIngrediente("Pescaria ou drop de Afogado");
+        itens.add(conchaNautilus);
+
+        Item membrana = new Item("Membrana Fantasma",
+            "Material para reparar Élitros",
+            MinecraftEdition.BOTH, "Material");
+        membrana.adicionarIngrediente("Drop de Phantom");
+        itens.add(membrana);
+
+        Item carapaca = new Item("Carapaça de Tartaruga",
+            "Material para criar capacete de tartaruga",
+            MinecraftEdition.BOTH, "Material");
+        carapaca.adicionarIngrediente("Drop quando filhote de tartaruga cresce");
+        itens.add(carapaca);
+
+        // ===== BLOCOS UTILITÁRIOS =====
+        // (tear, beacon já existem anteriormente)
+        
+        Item bancadaCartografia = new Item("Bancada de Cartografia",
+            "Usada para criar e clonar mapas",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        bancadaCartografia.adicionarIngrediente("4x Tábuas + 2x Papel");
+        itens.add(bancadaCartografia);
+
+        Item caldeirao = new Item("Caldeirão",
+            "Armazena água, lava ou neve",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        caldeirao.adicionarIngrediente("7x Lingote de Ferro");
+        itens.add(caldeirao);
+
+        Item conduite = new Item("Conduite",
+            "Dá Conduit Power debaixo d'água",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        conduite.adicionarIngrediente("8x Concha de Nautilus + 1x Coração do Mar");
+        itens.add(conduite);
+
+        Item rebolo = new Item("Rebolo",
+            "Remove encantamentos e repara itens",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        rebolo.adicionarIngrediente("2x Graveto + 1x Laje de Pedra + 2x Tábuas");
+        itens.add(rebolo);
+
+        // ===== BALDES E RECIPIENTES =====
+        // (baldeAgua, baldeLava, baldeLeite já existem anteriormente)
+        
+        Item baldePeixe = new Item("Balde de Peixe Tropical",
+            "Transporta peixe tropical",
+            MinecraftEdition.BOTH, "Utilitário");
+        baldePeixe.adicionarIngrediente("1x Balde de Água + Peixe Tropical");
+        itens.add(baldePeixe);
+
+        Item baldeAxolote = new Item("Balde de Axolote",
+            "Transporta axolote",
+            MinecraftEdition.BOTH, "Utilitário");
+        baldeAxolote.adicionarIngrediente("1x Balde de Água + Axolote");
+        itens.add(baldeAxolote);
+
+        Item baldeBacalhau = new Item("Balde de Bacalhau",
+            "Transporta bacalhau",
+            MinecraftEdition.BOTH, "Utilitário");
+        baldeBacalhau.adicionarIngrediente("1x Balde de Água + Bacalhau");
+        itens.add(baldeBacalhau);
+
+        Item baldeSalmao = new Item("Balde de Salmão",
+            "Transporta salmão",
+            MinecraftEdition.BOTH, "Utilitário");
+        baldeSalmao.adicionarIngrediente("1x Balde de Água + Salmão");
+        itens.add(baldeSalmao);
+
+        Item baldeTadpole = new Item("Balde de Girino",
+            "Transporta girino",
+            MinecraftEdition.BOTH, "Utilitário");
+        baldeTadpole.adicionarIngrediente("1x Balde de Água + Girino");
+        itens.add(baldeTadpole);
+
+        // ===== FLORES E PLANTAS DECORATIVAS =====
+        
+        Item papoula = new Item("Papoula",
+            "Flor vermelha que gera corante",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        papoula.adicionarIngrediente("Encontrada em planícies e florestas");
+        itens.add(papoula);
+
+        Item dentedeleao = new Item("Dente-de-leão",
+            "Flor amarela que gera corante",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        dentedeleao.adicionarIngrediente("Encontrada em planícies");
+        itens.add(dentedeleao);
+
+        Item orquidea = new Item("Orquídea Azul",
+            "Flor azul rara que gera corante",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        orquidea.adicionarIngrediente("Encontrada em pântanos");
+        itens.add(orquidea);
+
+        Item tulipaVermelha = new Item("Tulipa Vermelha",
+            "Flor vermelha decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        tulipaVermelha.adicionarIngrediente("Encontrada em planícies de flores");
+        itens.add(tulipaVermelha);
+
+        Item tulipaLaranja = new Item("Tulipa Laranja",
+            "Flor laranja decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        tulipaLaranja.adicionarIngrediente("Encontrada em planícies de flores");
+        itens.add(tulipaLaranja);
+
+        Item tulipaBranca = new Item("Tulipa Branca",
+            "Flor branca decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        tulipaBranca.adicionarIngrediente("Encontrada em planícies de flores");
+        itens.add(tulipaBranca);
+
+        Item tulipaRosa = new Item("Tulipa Rosa",
+            "Flor rosa decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        tulipaRosa.adicionarIngrediente("Encontrada em planícies de flores");
+        itens.add(tulipaRosa);
+
+        Item margarida = new Item("Margarida",
+            "Flor branca decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        margarida.adicionarIngrediente("Encontrada em planícies");
+        itens.add(margarida);
+
+        Item girassol = new Item("Girassol",
+            "Planta alta amarela que indica leste",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        girassol.adicionarIngrediente("Encontrado em planícies de girassóis");
+        itens.add(girassol);
+
+        Item lilac = new Item("Lilás",
+            "Planta alta roxa decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        lilac.adicionarIngrediente("Encontrada em florestas");
+        itens.add(lilac);
+
+        Item rosaBush = new Item("Arbusto de Rosas",
+            "Planta alta com rosas vermelhas",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        rosaBush.adicionarIngrediente("Encontrado em florestas");
+        itens.add(rosaBush);
+
+        Item peonia = new Item("Peônia",
+            "Planta alta rosa decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        peonia.adicionarIngrediente("Encontrada em florestas");
+        itens.add(peonia);
+
+        Item azaleia = new Item("Azaleia",
+            "Arbusto decorativo que indica lush caves",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        azaleia.adicionarIngrediente("Encontrada em lush caves");
+        itens.add(azaleia);
+
+        Item azaleiaFlorida = new Item("Azaleia Florida",
+            "Arbusto decorativo com flores rosas",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        azaleiaFlorida.adicionarIngrediente("Encontrada em lush caves");
+        itens.add(azaleiaFlorida);
+
+        Item lianaBrilhante = new Item("Liana Brilhante",
+            "Planta que emite luz fraca",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        lianaBrilhante.adicionarIngrediente("Encontrada em lush caves");
+        itens.add(lianaBrilhante);
+
+        Item esporos = new Item("Esporos",
+            "Planta que cria partículas verdes",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        esporos.adicionarIngrediente("Encontrados em lush caves");
+        itens.add(esporos);
+
+        Item rosaWither = new Item("Rosa de Wither",
+            "Flor rara que cresce onde Wither mata mobs",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        rosaWither.adicionarIngrediente("Gerada quando Wither mata um mob");
+        itens.add(rosaWither);
+
+        // ===== DISCOS DE MÚSICA =====
+        // (disco13, discoCat, discoOtherside, disco5 já existem anteriormente)
+        
+        Item discoBlocks = new Item("Disco de Música - Blocks",
+            "Disco de música eletrônico",
+            MinecraftEdition.BOTH, "Item Especial");
+        discoBlocks.adicionarIngrediente("Drop quando Creeper é morto por Esqueleto");
+        itens.add(discoBlocks);
+
+        Item discoChirp = new Item("Disco de Música - Chirp",
+            "Disco de música alegre",
+            MinecraftEdition.BOTH, "Item Especial");
+        discoChirp.adicionarIngrediente("Drop quando Creeper é morto por Esqueleto");
+        itens.add(discoChirp);
+
+        Item discoMall = new Item("Disco de Música - Mall",
+            "Disco de música calma",
+            MinecraftEdition.BOTH, "Item Especial");
+        discoMall.adicionarIngrediente("Drop quando Creeper é morto por Esqueleto");
+        itens.add(discoMall);
+
+        Item discoPigstep = new Item("Disco de Música - Pigstep",
+            "Disco raro encontrado no Nether",
+            MinecraftEdition.BOTH, "Item Especial");
+        discoPigstep.adicionarIngrediente("Baús em Bastion Remnants");
+        itens.add(discoPigstep);
+
+        // ===== ITENS DE MAPA E NAVEGAÇÃO =====
+        // (mapa, bussolaLodestone já existem anteriormente)
+        
+        Item mapaVazio = new Item("Mapa Vazio",
+            "Mapa não ativado",
+            MinecraftEdition.BOTH, "Utilitário");
+        mapaVazio.adicionarIngrediente("9x Papel");
+        itens.add(mapaVazio);
+
+        Item bussolaRecovery = new Item("Bússola de Recuperação",
+            "Aponta para último local de morte",
+            MinecraftEdition.BOTH, "Utilitário");
+        bussolaRecovery.adicionarIngrediente("8x Fragmento de Echo + 1x Bússola");
+        itens.add(bussolaRecovery);
+
+        // ===== ITENS ESPECIAIS DE COMBATE =====
+        // (flecha, flechaEspectral, foguete, ovo já existem anteriormente)
+        
+        Item bolaNeye = new Item("Bola de Neve",
+            "Projétil que empurra mobs",
+            MinecraftEdition.BOTH, "Utilitário");
+        bolaNeye.adicionarIngrediente("Coletar neve com pá");
+        itens.add(bolaNeye);
+
+        // ===== LIVROS ESPECIAIS =====
+        // (livroEncantado, livroPena já existem anteriormente)
+        
+        Item livroConhecimento = new Item("Livro do Conhecimento",
+            "Contém receitas de crafting",
+            MinecraftEdition.BOTH, "Utilitário");
+        livroConhecimento.adicionarIngrediente("1x Livro + 1x Crafting Table");
+        itens.add(livroConhecimento);
+
+        // ===== ITENS DECORATIVOS E ESPECIAIS =====
+        // (quadro, quadroBrilhante, sino já existem anteriormente)
+        
+        Item armadura = new Item("Suporte de Armadura",
+            "Exibe armaduras e itens",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        armadura.adicionarIngrediente("6x Gravetos + 1x Laje de Pedra");
+        itens.add(armadura);
+
+        // ===== VELAS (CANDLES) =====
+        
+        Item vela = new Item("Vela",
+            "Fonte de luz decorativa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vela.adicionarIngrediente("1x Favo de Mel + 1x Linha");
+        itens.add(vela);
+
+        Item velaColorida = new Item("Vela Colorida",
+            "Vela tingida com corantes (16 cores)",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        velaColorida.adicionarIngrediente("1x Vela + 1x Corante");
+        itens.add(velaColorida);
+
+        Item boloBirthday = new Item("Bolo com Vela",
+            "Bolo decorado com vela acesa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        boloBirthday.adicionarIngrediente("1x Bolo + 1x Vela");
+        itens.add(boloBirthday);
+
+        // ===== FRAGMENTOS E SHARDS =====
+        
+        Item fragmentoEcho = new Item("Fragmento de Echo",
+            "Material raro do Deep Dark",
+            MinecraftEdition.BOTH, "Material");
+        fragmentoEcho.adicionarIngrediente("Baús em Ancient Cities");
+        itens.add(fragmentoEcho);
+
+        // ===== ARMADURAS ESPECIAIS =====
+        
+        Item capaceteTartaruga = new Item("Capacete de Tartaruga",
+            "Capacete que dá respiração aquática",
+            MinecraftEdition.BOTH, "Armadura");
+        capaceteTartaruga.adicionarIngrediente("5x Carapaça de Tartaruga");
+        itens.add(capaceteTartaruga);
+
+        // ===== BLOCOS DE AMETISTA =====
+        // (armaduras netherite, blocoAmetista já existem anteriormente)
+        
+        Item geodoAmetista = new Item("Broto de Ametista",
+            "Geodo que cresce cristais de ametista",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        geodoAmetista.adicionarIngrediente("Encontrado em geodos subterrâneos");
+        itens.add(geodoAmetista);
+
+        Item vidroMatizado = new Item("Vidro Matizado",
+            "Vidro que bloqueia luz mas permite visão",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroMatizado.adicionarIngrediente("2x Cristal de Ametista + 2x Vidro");
+        itens.add(vidroMatizado);
+
+        // ===== TAPETES COLORIDOS =====
+        
+        Item tapeteVermelho = new Item("Tapete Vermelho",
+            "Tapete decorativo vermelho",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        tapeteVermelho.adicionarIngrediente("2x Lã Vermelha");
+        itens.add(tapeteVermelho);
+
+        Item tapeteAzul = new Item("Tapete Azul",
+            "Tapete decorativo azul",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        tapeteAzul.adicionarIngrediente("2x Lã Azul");
+        itens.add(tapeteAzul);
+
+        Item tapeteVerde = new Item("Tapete Verde",
+            "Tapete decorativo verde",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        tapeteVerde.adicionarIngrediente("2x Lã Verde");
+        itens.add(tapeteVerde);
+
+        Item tapeteBranco = new Item("Tapete Branco",
+            "Tapete decorativo branco",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        tapeteBranco.adicionarIngrediente("2x Lã Branca");
+        itens.add(tapeteBranco);
+
+        // ===== CORANTES ADICIONAIS =====
+        // (coranteVerde, coranteBranco, corantePreto já existem anteriormente)
+        
+        Item coranteAzul = new Item("Corante Azul",
+            "Corante para tingir itens",
+            MinecraftEdition.BOTH, "Material");
+        coranteAzul.adicionarIngrediente("Lápis-lazúli ou Orquídea Azul");
+        itens.add(coranteAzul);
+
+        Item coranteCiano = new Item("Corante Ciano",
+            "Corante para tingir itens",
+            MinecraftEdition.BOTH, "Material");
+        coranteCiano.adicionarIngrediente("1x Corante Azul + 1x Corante Verde");
+        itens.add(coranteCiano);
+
+        Item coranteMagenta = new Item("Corante Magenta",
+            "Corante para tingir itens",
+            MinecraftEdition.BOTH, "Material");
+        coranteMagenta.adicionarIngrediente("1x Corante Roxo + 1x Corante Rosa");
+        itens.add(coranteMagenta);
+
+        Item coranteLima = new Item("Corante Lima",
+            "Corante para tingir itens",
+            MinecraftEdition.BOTH, "Material");
+        coranteLima.adicionarIngrediente("1x Corante Verde + 1x Corante Branco");
+        itens.add(coranteLima);
+
+        // ===== BLOCOS DECORATIVOS DO NETHER =====
+        
+        Item tijoloCarmesim = new Item("Tijolo Carmesim do Nether",
+            "Bloco decorativo vermelho",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijoloCarmesim.adicionarIngrediente("4x Verruga do Nether");
+        itens.add(tijoloCarmesim);
+
+        Item tijoloVermelho = new Item("Tijolo Vermelho do Nether",
+            "Bloco decorativo avermelhado",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijoloVermelho.adicionarIngrediente("4x Tijolo do Nether");
+        itens.add(tijoloVermelho);
+
+        Item quartzoPilar = new Item("Pilar de Quartzo",
+            "Bloco decorativo com padrão vertical",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        quartzoPilar.adicionarIngrediente("2x Bloco de Quartzo");
+        itens.add(quartzoPilar);
+
+        Item quartzoEntalhado = new Item("Quartzo Entalhado",
+            "Bloco decorativo de quartzo entalhado",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        quartzoEntalhado.adicionarIngrediente("1x Laje de Quartzo + 1x Laje de Quartzo");
+        itens.add(quartzoEntalhado);
+
+        // ===== BLOCOS DO END =====
+        // (quartzoLiso já existe anteriormente)
+        
+        Item purpurPilar = new Item("Pilar Purpur",
+            "Bloco decorativo roxo com padrão vertical",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        purpurPilar.adicionarIngrediente("1x Laje Purpur + 1x Laje Purpur");
+        itens.add(purpurPilar);
+
+        Item frutaChorusAssada = new Item("Fruta Chorus Assada",
+            "Ingrediente para varinha do End",
+            MinecraftEdition.BOTH, "Material");
+        frutaChorusAssada.adicionarIngrediente("Fundir Fruta Chorus");
+        itens.add(frutaChorusAssada);
+
+        Item varaEnd = new Item("Varinha do End",
+            "Material para crafting de purpur",
+            MinecraftEdition.BOTH, "Material");
+        varaEnd.adicionarIngrediente("1x Fruta Chorus Assada + 1x Pérola de Blaze");
+        itens.add(varaEnd);
+
+        // ===== ITENS RAROS E ESPECIAIS =====
+        // (esmeralda, blocoEsmeralda, dragaoOvo, cabeças já existem anteriormente)
+
+        // ===== BLOCOS TÉCNICOS E ESPECIAIS =====
+        // (barreira, luz já existem anteriormente)
+        
+        Item blocoComando = new Item("Bloco de Comando",
+            "Executa comandos automáticos",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        blocoComando.adicionarIngrediente("Apenas modo criativo");
+        itens.add(blocoComando);
+
+        Item blocoEstrutura = new Item("Bloco de Estrutura",
+            "Salva e carrega estruturas",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        blocoEstrutura.adicionarIngrediente("Apenas modo criativo");
+        itens.add(blocoEstrutura);
+
+        // ===== ITENS DE ARQUEOLOGIA (1.20+) =====
+        
+        Item pincel = new Item("Pincel",
+            "Ferramenta para arqueologia",
+            MinecraftEdition.BOTH, "Ferramenta");
+        pincel.adicionarIngrediente("1x Pena + 1x Lingote de Cobre + 1x Graveto");
+        itens.add(pincel);
+
+        Item ceramicaDecorada = new Item("Cerâmica Decorada",
+            "Bloco decorativo com padrões",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        ceramicaDecorada.adicionarIngrediente("4x Fragmento de Cerâmica");
+        itens.add(ceramicaDecorada);
+
+        Item areiaSuspeita = new Item("Areia Suspeita",
+            "Areia que contém itens arqueológicos",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        areiaSuspeita.adicionarIngrediente("Encontrada em estruturas antigas");
+        itens.add(areiaSuspeita);
+
+        Item cascalhoSuspeito = new Item("Cascalho Suspeito",
+            "Cascalho que contém itens arqueológicos",
+            MinecraftEdition.BOTH, "Bloco Especial");
+        cascalhoSuspeito.adicionarIngrediente("Encontrado em estruturas antigas");
+        itens.add(cascalhoSuspeito);
+
+        Item moldeArmaduraNetherite = new Item("Molde de Armadura Netherite",
+            "Template para upgrade de armadura",
+            MinecraftEdition.BOTH, "Material");
+        moldeArmaduraNetherite.adicionarIngrediente("Baús em Bastion Remnants");
+        itens.add(moldeArmaduraNetherite);
+
+        // ===== BLOCOS DE PEDRA VARIANTES =====
+        
+        Item pedraLisa = new Item("Pedra Lisa",
+            "Pedra com textura lisa",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        pedraLisa.adicionarIngrediente("Fundir Pedregulho");
+        itens.add(pedraLisa);
+
+        Item tijolosPedraRachados = new Item("Tijolos de Pedra Rachados",
+            "Tijolos decorativos rachados",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijolosPedraRachados.adicionarIngrediente("Fundir Tijolos de Pedra");
+        itens.add(tijolosPedraRachados);
+
+        Item tijolosPedraMusgosos = new Item("Tijolos de Pedra Musgosos",
+            "Tijolos cobertos de musgo",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijolosPedraMusgosos.adicionarIngrediente("1x Tijolos de Pedra + 1x Trepadeira");
+        itens.add(tijolosPedraMusgosos);
+
+        Item pedregulhoMusgoso = new Item("Pedregulho Musgoso",
+            "Pedregulho coberto de musgo",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        pedregulhoMusgoso.adicionarIngrediente("1x Pedregulho + 1x Trepadeira");
+        itens.add(pedregulhoMusgoso);
+
+        Item pedraEntalhada = new Item("Pedra Entalhada",
+            "Bloco decorativo com padrão",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        pedraEntalhada.adicionarIngrediente("1x Laje de Pedra + 1x Laje de Pedra");
+        itens.add(pedraEntalhada);
+
+        // ===== BLOCOS DE DEEPSLATE VARIANTES =====
+        
+        Item deepslatePolido = new Item("Deepslate Polido",
+            "Deepslate com textura polida",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        deepslatePolido.adicionarIngrediente("4x Deepslate Pedregulhoso");
+        itens.add(deepslatePolido);
+
+        Item tijoloDeepslate = new Item("Tijolo de Deepslate",
+            "Tijolos feitos de deepslate",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijoloDeepslate.adicionarIngrediente("4x Deepslate Polido");
+        itens.add(tijoloDeepslate);
+
+        Item ladrilhoDeepslate = new Item("Ladrilho de Deepslate",
+            "Ladrilhos decorativos de deepslate",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        ladrilhoDeepslate.adicionarIngrediente("4x Tijolo de Deepslate");
+        itens.add(ladrilhoDeepslate);
+
+        Item deepslateRachado = new Item("Tijolo de Deepslate Rachado",
+            "Tijolos rachados de deepslate",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        deepslateRachado.adicionarIngrediente("Fundir Tijolo de Deepslate");
+        itens.add(deepslateRachado);
+
+        // ===== BLOCOS DE BLACKSTONE VARIANTES =====
+        
+        Item blackstoneDourado = new Item("Blackstone Dourado",
+            "Blackstone com detalhes dourados",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blackstoneDourado.adicionarIngrediente("Encontrado em Bastion Remnants");
+        itens.add(blackstoneDourado);
+
+        Item tijoloBlackstone = new Item("Tijolo de Blackstone",
+            "Tijolos feitos de blackstone",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijoloBlackstone.adicionarIngrediente("4x Blackstone Polido");
+        itens.add(tijoloBlackstone);
+
+        Item blackstoneRachado = new Item("Tijolo de Blackstone Rachado",
+            "Tijolos rachados de blackstone",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blackstoneRachado.adicionarIngrediente("Fundir Tijolo de Blackstone");
+        itens.add(blackstoneRachado);
+
+        Item tijoloNetherRachado = new Item("Tijolo do Nether Rachado",
+            "Tijolos rachados do Nether",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijoloNetherRachado.adicionarIngrediente("Fundir Tijolos do Nether");
+        itens.add(tijoloNetherRachado);
+
+        // ===== BLOCOS DE MADEIRA ESPECIAIS =====
+        
+        Item madeiraDescascada = new Item("Madeira Descascada",
+            "Tronco sem casca (todas as faces iguais)",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        madeiraDescascada.adicionarIngrediente("Usar machado em tronco");
+        itens.add(madeiraDescascada);
+
+        Item blocoMadeira = new Item("Bloco de Madeira",
+            "Bloco com textura de casca em todos os lados",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoMadeira.adicionarIngrediente("4x Tronco");
+        itens.add(blocoMadeira);
+
+        Item tabuasCarvalho = new Item("Tábuas de Carvalho",
+            "Tábuas de madeira de carvalho",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tabuasCarvalho.adicionarIngrediente("1x Tronco de Carvalho");
+        itens.add(tabuasCarvalho);
+
+        Item tabuasBetula = new Item("Tábuas de Bétula",
+            "Tábuas de madeira de bétula",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tabuasBetula.adicionarIngrediente("1x Tronco de Bétula");
+        itens.add(tabuasBetula);
+
+        Item tabuasAbeto = new Item("Tábuas de Abeto",
+            "Tábuas de madeira de abeto",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tabuasAbeto.adicionarIngrediente("1x Tronco de Abeto");
+        itens.add(tabuasAbeto);
+
+        Item tabuasSelva = new Item("Tábuas de Selva",
+            "Tábuas de madeira da selva",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tabuasSelva.adicionarIngrediente("1x Tronco de Selva");
+        itens.add(tabuasSelva);
+
+        Item tabuasAcacia = new Item("Tábuas de Acácia",
+            "Tábuas de madeira de acácia",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tabuasAcacia.adicionarIngrediente("1x Tronco de Acácia");
+        itens.add(tabuasAcacia);
+
+        Item tabuasCarvalhoEscuro = new Item("Tábuas de Carvalho Escuro",
+            "Tábuas de madeira de carvalho escuro",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tabuasCarvalhoEscuro.adicionarIngrediente("1x Tronco de Carvalho Escuro");
+        itens.add(tabuasCarvalhoEscuro);
+
+        // ===== BLOCOS DE TERRA E GRAMA =====
+        
+        Item blocoGrama = new Item("Bloco de Grama",
+            "Bloco de terra com grama por cima",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        blocoGrama.adicionarIngrediente("Grama se espalha para terra adjacente com luz");
+        itens.add(blocoGrama);
+
+        Item caminhoGrama = new Item("Caminho de Grama",
+            "Caminho decorativo feito em grama",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        caminhoGrama.adicionarIngrediente("Usar pá em bloco de grama");
+        itens.add(caminhoGrama);
+
+        Item terraArada = new Item("Terra Arada",
+            "Terra preparada para agricultura",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        terraArada.adicionarIngrediente("Usar enxada em terra ou grama");
+        itens.add(terraArada);
+
+        Item podzol = new Item("Podzol",
+            "Solo especial de florestas escuras",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        podzol.adicionarIngrediente("Encontrado em florestas de taiga");
+        itens.add(podzol);
+
+        Item micelio = new Item("Micélio",
+            "Solo especial de ilha de cogumelos",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        micelio.adicionarIngrediente("Encontrado em ilhas de cogumelos");
+        itens.add(micelio);
+
+        Item terraEnraizada = new Item("Terra Enraizada",
+            "Terra com raízes de azaleia",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        terraEnraizada.adicionarIngrediente("Encontrada sob árvores de azaleia");
+        itens.add(terraEnraizada);
+
+        // ===== BLOCOS DE AREIA E CASCALHO =====
+        
+        Item areiaVermelha = new Item("Areia Vermelha",
+            "Areia avermelhada encontrada em badlands",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        areiaVermelha.adicionarIngrediente("Encontrada em biomas de badlands");
+        itens.add(areiaVermelha);
+
+        Item blocoAreia = new Item("Arenito",
+            "Bloco feito de areia compactada",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoAreia.adicionarIngrediente("4x Areia");
+        itens.add(blocoAreia);
+
+        Item arenitoLiso = new Item("Arenito Liso",
+            "Arenito com textura lisa",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        arenitoLiso.adicionarIngrediente("Fundir Arenito");
+        itens.add(arenitoLiso);
+
+        Item arenitoEntalhado = new Item("Arenito Entalhado",
+            "Arenito decorativo com padrão",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        arenitoEntalhado.adicionarIngrediente("1x Laje de Arenito + 1x Laje de Arenito");
+        itens.add(arenitoEntalhado);
+
+        Item arenitoVermelho = new Item("Arenito Vermelho",
+            "Bloco feito de areia vermelha",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        arenitoVermelho.adicionarIngrediente("4x Areia Vermelha");
+        itens.add(arenitoVermelho);
+
+        Item concretoAmarelo = new Item("Concreto Amarelo",
+            "Bloco de concreto amarelo sólido",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        concretoAmarelo.adicionarIngrediente("Pó de Concreto Amarelo + Água");
+        itens.add(concretoAmarelo);
+
+        Item concretoVermelho = new Item("Concreto Vermelho",
+            "Bloco de concreto vermelho sólido",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        concretoVermelho.adicionarIngrediente("Pó de Concreto Vermelho + Água");
+        itens.add(concretoVermelho);
+
+        Item concretoAzul = new Item("Concreto Azul",
+            "Bloco de concreto azul sólido",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        concretoAzul.adicionarIngrediente("Pó de Concreto Azul + Água");
+        itens.add(concretoAzul);
+
+        // ===== LAJES E ESCADAS =====
+        
+        Item lajeCarvalho = new Item("Laje de Carvalho",
+            "Meia altura de tábuas",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        lajeCarvalho.adicionarIngrediente("3x Tábuas de Carvalho");
+        itens.add(lajeCarvalho);
+
+        Item escadaCarvalho = new Item("Escada de Carvalho",
+            "Escada de madeira de carvalho",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        escadaCarvalho.adicionarIngrediente("6x Tábuas de Carvalho");
+        itens.add(escadaCarvalho);
+
+        Item lajePedra = new Item("Laje de Pedra",
+            "Meia altura de pedra",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        lajePedra.adicionarIngrediente("3x Pedra");
+        itens.add(lajePedra);
+
+        Item escadaPedra = new Item("Escada de Pedra",
+            "Escada de pedra",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        escadaPedra.adicionarIngrediente("6x Pedregulho");
+        itens.add(escadaPedra);
+
+        Item lajeTijolo = new Item("Laje de Tijolo",
+            "Meia altura de tijolos",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        lajeTijolo.adicionarIngrediente("3x Bloco de Tijolos");
+        itens.add(lajeTijolo);
+
+        Item escadaTijolo = new Item("Escada de Tijolo",
+            "Escada de tijolos",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        escadaTijolo.adicionarIngrediente("6x Bloco de Tijolos");
+        itens.add(escadaTijolo);
+
+        // ===== MUROS E CERCAS ESPECIAIS =====
+        
+        Item muroPedra = new Item("Muro de Pedregulho",
+            "Muro decorativo de pedra",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        muroPedra.adicionarIngrediente("6x Pedregulho");
+        itens.add(muroPedra);
+
+        Item muroTijolo = new Item("Muro de Tijolo",
+            "Muro decorativo de tijolo",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        muroTijolo.adicionarIngrediente("6x Bloco de Tijolos");
+        itens.add(muroTijolo);
+
+        Item muroArenito = new Item("Muro de Arenito",
+            "Muro decorativo de arenito",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        muroArenito.adicionarIngrediente("6x Arenito");
+        itens.add(muroArenito);
+
+        Item cercaCarvalho = new Item("Cerca de Carvalho",
+            "Cerca de madeira de carvalho",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        cercaCarvalho.adicionarIngrediente("4x Gravetos + 2x Tábuas de Carvalho");
+        itens.add(cercaCarvalho);
+
+        Item portaoCarvalho = new Item("Portão de Carvalho",
+            "Portão de cerca de carvalho",
+            MinecraftEdition.BOTH, "Bloco Utilitário");
+        portaoCarvalho.adicionarIngrediente("4x Gravetos + 2x Tábuas de Carvalho");
+        itens.add(portaoCarvalho);
+
+        // ===== VIDROS COLORIDOS (16 CORES) =====
+        
+        Item vidroBranco = new Item("Vidro Branco",
+            "Vidro branco transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroBranco.adicionarIngrediente("8x Vidro + 1x Corante Branco");
+        itens.add(vidroBranco);
+
+        Item vidroLaranja = new Item("Vidro Laranja",
+            "Vidro laranja transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroLaranja.adicionarIngrediente("8x Vidro + 1x Corante Laranja");
+        itens.add(vidroLaranja);
+
+        Item vidroMagenta = new Item("Vidro Magenta",
+            "Vidro magenta transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroMagenta.adicionarIngrediente("8x Vidro + 1x Corante Magenta");
+        itens.add(vidroMagenta);
+
+        Item vidroAzulClaro = new Item("Vidro Azul Claro",
+            "Vidro azul claro transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroAzulClaro.adicionarIngrediente("8x Vidro + 1x Corante Azul Claro");
+        itens.add(vidroAzulClaro);
+
+        Item vidroAmarelo = new Item("Vidro Amarelo",
+            "Vidro amarelo transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroAmarelo.adicionarIngrediente("8x Vidro + 1x Corante Amarelo");
+        itens.add(vidroAmarelo);
+
+        Item vidroLima = new Item("Vidro Lima",
+            "Vidro verde lima transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroLima.adicionarIngrediente("8x Vidro + 1x Corante Lima");
+        itens.add(vidroLima);
+
+        Item vidroRosa = new Item("Vidro Rosa",
+            "Vidro rosa transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroRosa.adicionarIngrediente("8x Vidro + 1x Corante Rosa");
+        itens.add(vidroRosa);
+
+        Item vidroCinza = new Item("Vidro Cinza",
+            "Vidro cinza transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroCinza.adicionarIngrediente("8x Vidro + 1x Corante Cinza");
+        itens.add(vidroCinza);
+
+        Item vidroCinzaClaro = new Item("Vidro Cinza Claro",
+            "Vidro cinza claro transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroCinzaClaro.adicionarIngrediente("8x Vidro + 1x Corante Cinza Claro");
+        itens.add(vidroCinzaClaro);
+
+        Item vidroCiano = new Item("Vidro Ciano",
+            "Vidro ciano transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroCiano.adicionarIngrediente("8x Vidro + 1x Corante Ciano");
+        itens.add(vidroCiano);
+
+        Item vidroRoxo = new Item("Vidro Roxo",
+            "Vidro roxo transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroRoxo.adicionarIngrediente("8x Vidro + 1x Corante Roxo");
+        itens.add(vidroRoxo);
+
+        Item vidroAzul = new Item("Vidro Azul",
+            "Vidro azul transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroAzul.adicionarIngrediente("8x Vidro + 1x Corante Azul");
+        itens.add(vidroAzul);
+
+        Item vidroMarrom = new Item("Vidro Marrom",
+            "Vidro marrom transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroMarrom.adicionarIngrediente("8x Vidro + 1x Corante Marrom");
+        itens.add(vidroMarrom);
+
+        Item vidroVerde = new Item("Vidro Verde",
+            "Vidro verde transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroVerde.adicionarIngrediente("8x Vidro + 1x Corante Verde");
+        itens.add(vidroVerde);
+
+        Item vidroVermelho = new Item("Vidro Vermelho",
+            "Vidro vermelho transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroVermelho.adicionarIngrediente("8x Vidro + 1x Corante Vermelho");
+        itens.add(vidroVermelho);
+
+        Item vidroPreto = new Item("Vidro Preto",
+            "Vidro preto transparente",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroPreto.adicionarIngrediente("8x Vidro + 1x Corante Preto");
+        itens.add(vidroPreto);
+
+        // ===== PAINÉIS DE VIDRO COLORIDOS (16 CORES) =====
+        
+        Item painelVidroBranco = new Item("Painel de Vidro Branco",
+            "Painel fino de vidro branco",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroBranco.adicionarIngrediente("6x Vidro Branco");
+        itens.add(painelVidroBranco);
+
+        Item painelVidroLaranja = new Item("Painel de Vidro Laranja",
+            "Painel fino de vidro laranja",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroLaranja.adicionarIngrediente("6x Vidro Laranja");
+        itens.add(painelVidroLaranja);
+
+        Item painelVidroMagenta = new Item("Painel de Vidro Magenta",
+            "Painel fino de vidro magenta",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroMagenta.adicionarIngrediente("6x Vidro Magenta");
+        itens.add(painelVidroMagenta);
+
+        Item painelVidroAzulClaro = new Item("Painel de Vidro Azul Claro",
+            "Painel fino de vidro azul claro",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroAzulClaro.adicionarIngrediente("6x Vidro Azul Claro");
+        itens.add(painelVidroAzulClaro);
+
+        Item painelVidroAmarelo = new Item("Painel de Vidro Amarelo",
+            "Painel fino de vidro amarelo",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroAmarelo.adicionarIngrediente("6x Vidro Amarelo");
+        itens.add(painelVidroAmarelo);
+
+        Item painelVidroLima = new Item("Painel de Vidro Lima",
+            "Painel fino de vidro verde lima",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroLima.adicionarIngrediente("6x Vidro Lima");
+        itens.add(painelVidroLima);
+
+        Item painelVidroRosa = new Item("Painel de Vidro Rosa",
+            "Painel fino de vidro rosa",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroRosa.adicionarIngrediente("6x Vidro Rosa");
+        itens.add(painelVidroRosa);
+
+        Item painelVidroCinza = new Item("Painel de Vidro Cinza",
+            "Painel fino de vidro cinza",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroCinza.adicionarIngrediente("6x Vidro Cinza");
+        itens.add(painelVidroCinza);
+
+        Item painelVidroCinzaClaro = new Item("Painel de Vidro Cinza Claro",
+            "Painel fino de vidro cinza claro",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroCinzaClaro.adicionarIngrediente("6x Vidro Cinza Claro");
+        itens.add(painelVidroCinzaClaro);
+
+        Item painelVidroCiano = new Item("Painel de Vidro Ciano",
+            "Painel fino de vidro ciano",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroCiano.adicionarIngrediente("6x Vidro Ciano");
+        itens.add(painelVidroCiano);
+
+        Item painelVidroRoxo = new Item("Painel de Vidro Roxo",
+            "Painel fino de vidro roxo",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroRoxo.adicionarIngrediente("6x Vidro Roxo");
+        itens.add(painelVidroRoxo);
+
+        Item painelVidroAzul = new Item("Painel de Vidro Azul",
+            "Painel fino de vidro azul",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroAzul.adicionarIngrediente("6x Vidro Azul");
+        itens.add(painelVidroAzul);
+
+        Item painelVidroMarrom = new Item("Painel de Vidro Marrom",
+            "Painel fino de vidro marrom",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroMarrom.adicionarIngrediente("6x Vidro Marrom");
+        itens.add(painelVidroMarrom);
+
+        Item painelVidroVerde = new Item("Painel de Vidro Verde",
+            "Painel fino de vidro verde",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroVerde.adicionarIngrediente("6x Vidro Verde");
+        itens.add(painelVidroVerde);
+
+        Item painelVidroVermelho = new Item("Painel de Vidro Vermelho",
+            "Painel fino de vidro vermelho",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroVermelho.adicionarIngrediente("6x Vidro Vermelho");
+        itens.add(painelVidroVermelho);
+
+        Item painelVidroPreto = new Item("Painel de Vidro Preto",
+            "Painel fino de vidro preto",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidroPreto.adicionarIngrediente("6x Vidro Preto");
+        itens.add(painelVidroPreto);
+
+        // ===== BLOCOS FUNCIONAIS ADICIONAIS =====
+        
+        Item defumador = new Item("Defumador",
+            "Cozinha comida 2x mais rápido",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        defumador.adicionarIngrediente("4x Tronco + 1x Fornalha");
+        itens.add(defumador);
+
+        Item composteira = new Item("Composteira",
+            "Transforma itens orgânicos em farinha de osso",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        composteira.adicionarIngrediente("7x Lajes de Madeira");
+        itens.add(composteira);
+
+        Item pedestalEncantamento = new Item("Pedestal de Encantamento",
+            "Aumenta nível de encantamentos",
+            MinecraftEdition.BOTH, "Bloco Funcional");
+        pedestalEncantamento.adicionarIngrediente("Encontrado em End Ships");
+        itens.add(pedestalEncantamento);
+
+        Item blocoAbobora = new Item("Abóbora Esculpida",
+            "Abóbora decorativa esculpida",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        blocoAbobora.adicionarIngrediente("Usar tesoura em abóbora");
+        itens.add(blocoAbobora);
+
+        Item jackLantern = new Item("Abóbora de Halloween",
+            "Abóbora iluminada",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        jackLantern.adicionarIngrediente("1x Abóbora Esculpida + 1x Tocha");
+        itens.add(jackLantern);
     }
 
     private void carregarPocoes() {

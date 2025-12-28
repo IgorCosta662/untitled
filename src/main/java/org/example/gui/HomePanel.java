@@ -146,14 +146,14 @@ public class HomePanel extends JPanel {
         panel.setBorder(BorderFactory.createEmptyBorder(50, 60, 50, 60));
 
         // === LINHA 1: CATEGORIAS PRINCIPAIS ===
-        panel.add(createCategoryButton("ITEMS", "📦 Itens", MinecraftWikiGUI.MINECRAFT_BLUE, "ITEMS"));
-        panel.add(createCategoryButton("SYSTEMS", "⚙️ Sistemas", new Color(85, 255, 255), "SYSTEMS"));
-        panel.add(createCategoryButton("STATISTICS", "📊 Estatísticas", MinecraftWikiGUI.MINECRAFT_GOLD, "STATISTICS"));
+        panel.add(createCategoryButton("ITEMS", "[ITEM] Itens", MinecraftWikiGUI.MINECRAFT_BLUE, "ITEMS"));
+        panel.add(createCategoryButton("SYSTEMS", "[SYS] Sistemas", new Color(85, 255, 255), "SYSTEMS"));
+        panel.add(createCategoryButton("STATISTICS", "[STAT] Estatísticas", MinecraftWikiGUI.MINECRAFT_GOLD, "STATISTICS"));
 
         // === LINHA 2: UTILIDADES ===
-        panel.add(createCategoryButton("WORLD", "🌍 Mundo", MinecraftWikiGUI.MINECRAFT_GREEN, "WORLD"));
-        panel.add(createCategoryButton("ABOUT", "ℹ️ Sobre", new Color(100, 149, 237), "ABOUT"));
-        panel.add(createCategoryButton("EXIT", "❌ Sair", MinecraftWikiGUI.MINECRAFT_RED, "EXIT"));
+        panel.add(createCategoryButton("WORLD", "[WORLD] Mundo", MinecraftWikiGUI.MINECRAFT_GREEN, "WORLD"));
+        panel.add(createCategoryButton("ABOUT", "[INFO] Sobre", new Color(100, 149, 237), "ABOUT"));
+        panel.add(createCategoryButton("EXIT", "[X] Sair", MinecraftWikiGUI.MINECRAFT_RED, "EXIT"));
 
         return panel;
     }
@@ -252,7 +252,7 @@ public class HomePanel extends JPanel {
             ImageManager.setOfflineMode(!isOffline);
             
             if (!isOffline) {
-                offlineButton.setText("🌐 Modo Online");
+                offlineButton.setText("[ONLINE] Modo Online");
                 offlineButton.setBorder(BorderFactory.createCompoundBorder(
                     BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_GREEN, 2),
                     BorderFactory.createEmptyBorder(5, 10, 5, 10)
