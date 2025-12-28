@@ -13,7 +13,7 @@ public class ExemploImagensItens {
         Item picareta = new Item(
             "Picareta de Ferro",
             "Ferramenta essencial para minerar pedras e minérios rapidamente. Mais durável que madeira e pedra.",
-            MinecraftEdition.AMBAS,
+            MinecraftEdition.BOTH,
             "Ferramenta"
         );
         picareta.adicionarIngrediente("3x Lingote de Ferro");
@@ -30,24 +30,25 @@ public class ExemploImagensItens {
         // Configurar imagens
         picareta.setImagemItem("src/main/resources/images/items/picareta_ferro.png");
         picareta.setImagemCrafting("src/main/resources/images/crafting/picareta_ferro_craft.png");
-        wiki.adicionarItem(picareta);
+        // Nota: Use este código dentro do método carregarItens() de MinecraftWiki.java
+        // wiki.adicionarItem(picareta);
         
         // EXEMPLO 2: Diamante com imagem
         Item diamante = new Item(
             "Diamante",
             "Gema preciosa encontrada nas camadas mais profundas. Usado para criar os melhores equipamentos.",
-            MinecraftEdition.AMBAS,
+            MinecraftEdition.BOTH,
             "Gema"
         );
         diamante.setImagemItem("src/main/resources/images/items/diamante.png");
         // Diamante não tem crafting, apenas a imagem do item
-        wiki.adicionarItem(diamante);
+        // wiki.adicionarItem(diamante);
         
         // EXEMPLO 3: Espada de Diamante
         Item espadaDiamante = new Item(
             "Espada de Diamante",
             "Arma corpo a corpo com alto dano. Uma das melhores espadas do jogo.",
-            MinecraftEdition.AMBAS,
+            MinecraftEdition.BOTH,
             "Arma"
         );
         espadaDiamante.adicionarIngrediente("2x Diamante");
@@ -63,13 +64,13 @@ public class ExemploImagensItens {
         );
         espadaDiamante.setImagemItem("src/main/resources/images/items/espada_diamante.png");
         espadaDiamante.setImagemCrafting("src/main/resources/images/crafting/espada_diamante_craft.png");
-        wiki.adicionarItem(espadaDiamante);
+        // wiki.adicionarItem(espadaDiamante);
         
         // EXEMPLO 4: Tocha
         Item tocha = new Item(
             "Tocha",
             "Fonte de luz portátil. Essencial para iluminar cavernas e construções.",
-            MinecraftEdition.AMBAS,
+            MinecraftEdition.BOTH,
             "Utilitário"
         );
         tocha.adicionarIngrediente("1x Carvão ou Carvão Vegetal");
@@ -86,7 +87,7 @@ public class ExemploImagensItens {
         );
         tocha.setImagemItem("src/main/resources/images/items/tocha.png");
         tocha.setImagemCrafting("src/main/resources/images/crafting/tocha_craft.png");
-        wiki.adicionarItem(tocha);
+        // wiki.adicionarItem(tocha);
     }
     
     /*
