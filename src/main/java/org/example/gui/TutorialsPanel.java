@@ -173,16 +173,16 @@ public class TutorialsPanel extends JPanel {
         panel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
         String survivalText = """
-                ⚔️ GUIA DE SOBREVIVÊNCIA AVANÇADO
+                [COMBAT] GUIA DE SOBREVIVÊNCIA AVANÇADO
                 
-                💎 MINERAÇÃO EFICIENTE
+                [DIAMOND] MINERAÇÃO EFICIENTE
                 
-                🔹 TÉCNICA DE MINERAÇÃO EM GALHOS
+                [INFO] TÉCNICA DE MINERAÇÃO EM GALHOS
                 • Cave túnel principal no nível Y -54
                 • Faça galhos laterais a cada 3 blocos
                 • Cubra máxima área com mínimo esforço
                 
-                🔹 MELHORES NÍVEIS PARA MINÉRIOS:
+                [INFO] MELHORES NÍVEIS PARA MINÉRIOS:
                 • Diamante: Y -64 a -16 (melhor: -54)
                 • Ferro: Y -32 a 256 (melhor: 16)
                 • Ouro: Y -64 a 32 (melhor: -16)
@@ -191,9 +191,9 @@ public class TutorialsPanel extends JPanel {
                 • Carvão: Y 0 a 256 (melhor: 96)
                 • Redstone: Y -64 a 16 (melhor: -54)
                 
-                🛡️ COMBATE E DEFESA
+                [SHIELD] COMBATE E DEFESA
                 
-                ⚔️ EQUIPAMENTO RECOMENDADO:
+                [COMBAT] EQUIPAMENTO RECOMENDADO:
                 • Armadura completa de ferro (mínimo)
                 • Espada com Sharpness III+
                 • Arco com Power III+ e Infinity

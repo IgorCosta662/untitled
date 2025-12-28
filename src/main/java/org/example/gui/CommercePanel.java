@@ -43,20 +43,20 @@ public class CommercePanel extends JPanel {
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        tabbedPane.addTab("👨‍🌾 Fazendeiro", createTradesPanel("Fazendeiro", new String[][]{
-            {"Trigo x20", "1 💎", "Pão x6", "1 💎"},
-            {"Cenoura x22", "1 💎", "Torta de Abóbora", "1 💎"},
-            {"Batata x26", "1 💎", "Maçã x4", "1 💎"}
+        tabbedPane.addTab("[FARM] Fazendeiro", createTradesPanel("Fazendeiro", new String[][]{
+            {"Trigo x20", "1 [EME]", "Pão x6", "1 [EME]"},
+            {"Cenoura x22", "1 [EME]", "Torta de Abóbora", "1 [EME]"},
+            {"Batata x26", "1 [EME]", "Maçã x4", "1 [EME]"}
         }));
-        tabbedPane.addTab("📚 Bibliotecário", createTradesPanel("Bibliotecário", new String[][]{
-            {"Papel x24", "1 💎", "Estante", "9 💎"},
-            {"Livro x4", "1 💎", "Livro Encantado", "5-64 💎"},
-            {"Tinta x5", "1 💎", "Bússola", "4 💎"}
+        tabbedPane.addTab("[BOOK] Bibliotecário", createTradesPanel("Bibliotecário", new String[][]{
+            {"Papel x24", "1 [EME]", "Estante", "9 [EME]"},
+            {"Livro x4", "1 [EME]", "Livro Encantado", "5-64 [EME]"},
+            {"Tinta x5", "1 [EME]", "Bússola", "4 [EME]"}
         }));
-        tabbedPane.addTab("⛏️ Ferreiro", createTradesPanel("Ferreiro de Ferramentas", new String[][]{
-            {"Carvão x15", "1 💎", "Picareta de Ferro", "7-22 💎"},
-            {"Barra de Ferro x4", "1 💎", "Machado de Diamante", "17-31 💎"},
-            {"Diamante x1", "1 💎", "Picareta Encantada", "13-27 💎"}
+        tabbedPane.addTab("[TOOL] Ferreiro", createTradesPanel("Ferreiro de Ferramentas", new String[][]{
+            {"Carvão x15", "1 [EME]", "Picareta de Ferro", "7-22 [EME]"},
+            {"Barra de Ferro x4", "1 [EME]", "Machado de Diamante", "17-31 [EME]"},
+            {"Diamante x1", "1 [EME]", "Picareta Encantada", "13-27 [EME]"}
         }));
         tabbedPane.addTab("🛡️ Armeiro", createTradesPanel("Armeiro", new String[][]{
             {"Carvão x15", "1 💎", "Peitoral de Ferro", "14-33 💎"},
@@ -66,7 +66,9 @@ public class CommercePanel extends JPanel {
 
         add(tabbedPane, BorderLayout.CENTER);
 
-        JButton backButton = new JButton("🏠 Voltar ao Menu");
+        JButton backButton = new JButton("[HOME] Voltar ao Menu");
+        backButton.setIcon(ImageManager.getItemIcon("OAK_PLANKS", 16));
+        backButton.setIconTextGap(6);
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         backButton.setBackground(MINECRAFT_GREEN);
         backButton.setForeground(Color.BLACK);
@@ -95,7 +97,9 @@ public class CommercePanel extends JPanel {
             new EmptyBorder(10, 10, 10, 10)
         ));
 
-        JLabel profLabel = new JLabel("👤 Profissão: " + profession);
+        JLabel profLabel = new JLabel("[PROF] Profissão: " + profession);
+        profLabel.setIcon(ImageManager.getItemIcon("EMERALD", 14));
+        profLabel.setIconTextGap(5);
         profLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         profLabel.setForeground(MINECRAFT_GOLD);
 

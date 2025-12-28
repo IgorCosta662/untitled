@@ -30,7 +30,7 @@ public class WorldPanel extends JPanel {
 
         // Adicionar painéis existentes como abas
         tabbedPane.addTab("🐾 Criaturas", new CreaturesPanel(parent));
-        tabbedPane.addTab("🌍 Biomas", new BiomesPanel(parent));
+        tabbedPane.addTab("[BIOMES] Biomas", ImageManager.getItemIcon("GRASS_BLOCK", 16), new BiomesPanel(parent));
         tabbedPane.addTab("🏛️ Estruturas", new StructuresPanel(parent));
 
         add(tabbedPane, BorderLayout.CENTER);

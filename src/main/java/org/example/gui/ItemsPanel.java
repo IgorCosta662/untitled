@@ -64,10 +64,10 @@ public class ItemsPanel extends JPanel {
         put("⛏️ Ferramentas", new String[]{"Madeira", "Pedra", "Ferro", "Ouro", "Diamante", "Netherite", "Ferramentas Especiais"});
         
         // Categoria 3: Armas (5 subcategorias)
-        put("⚔️ Armas", new String[]{"Espada", "Arco", "Besta", "Arma", "Arma de Longo Alcance"});
+        put("[ARMA] Armas", new String[]{"Espada", "Arco", "Besta", "Arma", "Arma de Longo Alcance"});
         
         // Categoria 4: Armaduras (7 tipos de materiais + moldes)
-        put("🛡️ Armaduras", new String[]{"Couro", "Cota de Malha", "Ferro", "Ouro", "Diamante", "Netherite", "Tartaruga", "Moldes de Ferraria"});
+        put("[ARMADURA] Armaduras", new String[]{"Couro", "Cota de Malha", "Ferro", "Ouro", "Diamante", "Netherite", "Tartaruga", "Moldes de Ferraria"});
         
         // Categoria 5: Alimentos (1 subcategoria)
         put("🍖 Alimentos", new String[]{"Alimento"});
@@ -76,7 +76,7 @@ public class ItemsPanel extends JPanel {
         put("🧪 Poções e Alquimia", new String[]{"Poção"});
         
         // Categoria 7: Materiais de Crafting (4 subcategorias)
-        put("🔨 Materiais de Crafting", new String[]{"Material", "Minério", "Lingote", "Gema"});
+        put("[CRAFT] Materiais de Crafting", new String[]{"Material", "Minério", "Lingote", "Gema"});
         
         // Categoria 8: Redstone e Mecanismos (1 subcategoria)
         put("⚡ Redstone e Mecanismos", new String[]{"Redstone"});
@@ -85,7 +85,7 @@ public class ItemsPanel extends JPanel {
         put("🚂 Exploração e Transporte", new String[]{"Transporte"});
         
         // Categoria 10: Itens Especiais e Utilitários (2 subcategorias)
-        put("✨ Itens Especiais", new String[]{"Item Especial", "Utilitário"});
+        put("[ESPECIAL] Itens Especiais", new String[]{"Item Especial", "Utilitário"});
     }};
 
     public ItemsPanel(MinecraftWiki wiki, MinecraftWikiGUI parent) {
@@ -197,6 +197,8 @@ public class ItemsPanel extends JPanel {
 
         // Título moderno com efeito
         JLabel titleLabel = new JLabel("[BIBLIOTECA] BIBLIOTECA DE ITENS");
+        titleLabel.setIcon(ImageManager.getItemIcon("BOOKSHELF", 32));
+        titleLabel.setIconTextGap(12);
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 32));
         titleLabel.setForeground(new Color(255, 200, 100));
         
@@ -275,14 +277,14 @@ public class ItemsPanel extends JPanel {
         searchButton.setPreferredSize(new Dimension(120, 36));
         searchButton.addActionListener(e -> performSearch());
 
-        JButton clearButton = createModernButton("🏠 Categorias", new Color(139, 69, 19), new Color(184, 92, 25));
+        JButton clearButton = createModernButton("[HOME] Categorias", new Color(139, 69, 19), new Color(184, 92, 25));
         clearButton.setPreferredSize(new Dimension(140, 36));
         clearButton.addActionListener(e -> {
             searchField.setText("");
             showCategorySelection();
         });
 
-        JButton allItemsBtn = createModernButton("📋 Todos", new Color(41, 128, 185), new Color(52, 152, 219));
+        JButton allItemsBtn = createModernButton("[TODOS] Todos", new Color(41, 128, 185), new Color(52, 152, 219));
         allItemsBtn.setPreferredSize(new Dimension(110, 36));
         allItemsBtn.addActionListener(e -> showAllItems());
 
@@ -336,6 +338,8 @@ public class ItemsPanel extends JPanel {
         
         // Título da seção
         JLabel sectionTitle = new JLabel("[CATEGORIAS] SISTEMA DE CATEGORIAS DE ITENS", SwingConstants.CENTER);
+        sectionTitle.setIcon(ImageManager.getItemIcon("CHEST", 20));
+        sectionTitle.setIconTextGap(8);
         sectionTitle.setFont(new Font("SansSerif", Font.BOLD, 28));
         sectionTitle.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         sectionTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -356,7 +360,7 @@ public class ItemsPanel extends JPanel {
         actionsPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         
         // Botão VER TODOS OS ITENS
-        JButton allItemsButton = new JButton("📋 VER TODOS OS ITENS", ImageManager.getItemIcon("DIAMOND", 16));
+        JButton allItemsButton = new JButton("[TODOS] VER TODOS OS ITENS", ImageManager.getItemIcon("DIAMOND", 16));
         allItemsButton.setFont(new Font("SansSerif", Font.BOLD, 16));
         allItemsButton.setBackground(MinecraftWikiGUI.MINECRAFT_BLUE);
         allItemsButton.setForeground(Color.WHITE);
@@ -652,14 +656,14 @@ public class ItemsPanel extends JPanel {
         return switch (category) {
             case "🧱 Blocos" -> new Color(183, 110, 58);  // Marrom terroso vibrante
             case "⛏️ Ferramentas" -> new Color(169, 169, 169);  // Prata brilhante
-            case "⚔️ Armas" -> new Color(220, 50, 47);  // Vermelho intenso
-            case "🛡️ Armaduras" -> new Color(65, 140, 230);  // Azul royal
+            case "[ARMA] Armas" -> new Color(220, 50, 47);  // Vermelho intenso
+            case "[ARMADURA] Armaduras" -> new Color(65, 140, 230);  // Azul royal
             case "🍖 Alimentos" -> new Color(255, 159, 64);  // Laranja apetitoso
             case "🧪 Poções e Alquimia" -> new Color(155, 89, 182);  // Roxo místico
-            case "🔨 Materiais de Crafting" -> new Color(241, 196, 15);  // Dourado brilhante
+            case "[CRAFT] Materiais de Crafting" -> new Color(241, 196, 15);  // Dourado brilhante
             case "⚡ Redstone e Mecanismos" -> new Color(231, 76, 60);  // Vermelho redstone
             case "🚂 Exploração e Transporte" -> new Color(52, 152, 219);  // Azul celeste
-            case "✨ Itens Especiais" -> new Color(142, 68, 173);  // Roxo épico
+            case "[ESPECIAL] Itens Especiais" -> new Color(142, 68, 173);  // Roxo épico
             // Fallback para categorias antigas
             case "Blocos" -> new Color(183, 110, 58);
             case "Ferramentas" -> new Color(169, 169, 169);
@@ -691,7 +695,7 @@ public class ItemsPanel extends JPanel {
             case "Machado" -> "🪓";
             case "Pá" -> "🥄";
             case "Enxada" -> "🔱";
-            case "Espada" -> "⚔️";
+            case "Espada" -> "[ESPADA]";
             case "Arco" -> "🏹";
             case "Besta" -> "🎯";
             // Armaduras por material
@@ -702,7 +706,7 @@ public class ItemsPanel extends JPanel {
             case "Diamante" -> "💎";
             case "Netherite" -> "🔥";
             case "Tartaruga" -> "🐢";
-            case "Moldes de Ferraria" -> "✨";
+            case "Moldes de Ferraria" -> "[MOLDE]";
             // Outros
             case "Semente" -> "🌱";
             case "Planta" -> "🌿";
@@ -766,29 +770,60 @@ public class ItemsPanel extends JPanel {
         if (nameLower.contains("bota") || nameLower.contains("boots")) return "BOOTS";
         if (nameLower.contains("escudo") || nameLower.contains("shield")) return "SHIELD";
         
-        // Materiais
+        // Materiais (minérios e lingotes)
         if (nameLower.contains("diamante") || nameLower.contains("diamond")) return "DIAMOND";
         if (nameLower.contains("esmeralda") || nameLower.contains("emerald")) return "EMERALD";
-        if (nameLower.contains("ouro") || nameLower.contains("gold")) return "GOLD_INGOT";
-        if (nameLower.contains("ferro") || nameLower.contains("iron")) return "IRON_INGOT";
-        if (nameLower.contains("netherite")) return "NETHERITE";
+        if (nameLower.contains("lingote de ouro") || nameLower.contains("gold ingot")) return "GOLD_INGOT";
+        if (nameLower.contains("lingote de ferro") || nameLower.contains("iron ingot")) return "IRON_INGOT";
+        if (nameLower.contains("lingote de netherite") || nameLower.contains("netherite ingot")) return "NETHERITE";
+        if (nameLower.contains("sucata de netherite") || nameLower.contains("netherite scrap")) return "NETHERITE_SCRAP";
+        if (nameLower.contains("minério de ferro") || nameLower.contains("iron ore")) return "IRON_ORE";
+        if (nameLower.contains("minério de ouro") || nameLower.contains("gold ore")) return "GOLD_ORE";
+        if (nameLower.contains("minério de diamante") || nameLower.contains("diamond ore")) return "DIAMOND_ORE";
         if (nameLower.contains("carvão") || nameLower.contains("coal")) return "COAL";
         if (nameLower.contains("redstone")) return "REDSTONE";
+        if (nameLower.contains("lápis") || nameLower.contains("lapis")) return "LAPIS_LAZULI";
+        if (nameLower.contains("quartzo") || nameLower.contains("quartz")) return "QUARTZ";
+        
+        // Materiais básicos
+        if (nameLower.contains("graveto") || nameLower.contains("stick")) return "STICK";
+        if (nameLower.contains("tábua") || nameLower.contains("plank")) return "OAK_PLANKS";
+        if (nameLower.contains("madeira") || nameLower.contains("wood") || nameLower.contains("log")) return "OAK_LOG";
+        if (nameLower.contains("pedra") || nameLower.contains("stone") || nameLower.contains("paralelepípedo") || nameLower.contains("cobblestone")) return "COBBLESTONE";
+        if (nameLower.contains("couro") || nameLower.contains("leather")) return "LEATHER";
+        if (nameLower.contains("corda") || nameLower.contains("string")) return "STRING";
+        if (nameLower.contains("pérola do end") || nameLower.contains("ender pearl")) return "ENDER_PEARL";
+        if (nameLower.contains("olho de aranha") || nameLower.contains("spider eye")) return "SPIDER_EYE";
+        if (nameLower.contains("pó de blaze") || nameLower.contains("blaze powder")) return "BLAZE_POWDER";
+        if (nameLower.contains("verruga do nether") || nameLower.contains("nether wart")) return "NETHER_WART";
+        if (nameLower.contains("slime") || nameLower.contains("slimeball")) return "SLIMEBALL";
         
         // Poções
         if (nameLower.contains("poção") || nameLower.contains("potion")) return "POTION_HEALING";
-        if (nameLower.contains("suporte") || nameLower.contains("brewing")) return "BREWING_STAND";
+        if (nameLower.contains("suporte de poções") || nameLower.contains("brewing stand")) return "BREWING_STAND";
+        if (nameLower.contains("caldeirão") || nameLower.contains("cauldron")) return "CAULDRON";
+        if (nameLower.contains("garrafa") || nameLower.contains("bottle")) return "GLASS_BOTTLE";
         
         // Encantamentos
         if (nameLower.contains("livro encantado") || nameLower.contains("enchanted book")) return "ENCHANTED_BOOK";
         if (nameLower.contains("mesa de encantamento") || nameLower.contains("enchanting table")) return "ENCHANTING_TABLE";
         if (nameLower.contains("bigorna") || nameLower.contains("anvil")) return "ANVIL";
+        if (nameLower.contains("estante") || nameLower.contains("bookshelf")) return "BOOKSHELF";
         
-        // Crafting
+        // Crafting e produção
         if (nameLower.contains("bancada") || nameLower.contains("crafting table")) return "CRAFTING_TABLE";
         if (nameLower.contains("fornalha") || nameLower.contains("furnace")) return "FURNACE";
         if (nameLower.contains("alto-forno") || nameLower.contains("blast furnace")) return "BLAST_FURNACE";
+        if (nameLower.contains("defumador") || nameLower.contains("smoker")) return "SMOKER";
         if (nameLower.contains("mesa de ferraria") || nameLower.contains("smithing")) return "SMITHING_TABLE";
+        
+        // Blocos especiais
+        if (nameLower.contains("tnt") || nameLower.contains("dinamite")) return "TNT";
+        if (nameLower.contains("obsidiana") || nameLower.contains("obsidian")) return "OBSIDIAN";
+        if (nameLower.contains("bloco de") && nameLower.contains("diamante")) return "DIAMOND_BLOCK";
+        if (nameLower.contains("bloco de") && nameLower.contains("ouro")) return "GOLD_BLOCK";
+        if (nameLower.contains("bloco de") && nameLower.contains("ferro")) return "IRON_BLOCK";
+        if (nameLower.contains("bloco de") && nameLower.contains("esmeralda")) return "EMERALD_BLOCK";
         
         return null;
     }
@@ -853,7 +888,9 @@ public class ItemsPanel extends JPanel {
         headerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         headerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 150));
         
-        JLabel titleLabel = new JLabel("📋 TODOS OS ITENS DO MINECRAFT", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("[BIBLIOTECA] TODOS OS ITENS DO MINECRAFT", SwingConstants.CENTER);
+        titleLabel.setIcon(ImageManager.getItemIcon("BOOKSHELF", 28));
+        titleLabel.setIconTextGap(10);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -930,7 +967,7 @@ public class ItemsPanel extends JPanel {
             resultsPanel.add(Box.createVerticalStrut(50));
             resultsPanel.add(noResults);
         } else {
-            JLabel countLabel = new JLabel("🧪 " + potions.size() + " poção(ões) encontrada(s)");
+            JLabel countLabel = new JLabel("[POCAO] " + potions.size() + " poção(ões) encontrada(s)");
             countLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
             countLabel.setForeground(new Color(155, 89, 182)); // Roxo místico
             countLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1009,25 +1046,25 @@ public class ItemsPanel extends JPanel {
         centerPanel.setOpaque(false);
 
         // Nome da poção
-        JLabel nameLabel = new JLabel(potion.getNome());
+        JLabel nameLabel = createItemLabel(potion.getNome(), 20);
         nameLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
         nameLabel.setForeground(new Color(155, 89, 182));
         nameLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Efeito
-        JLabel effectLabel = new JLabel("⚡ " + potion.getEfeito());
+        JLabel effectLabel = new JLabel("[!] " + potion.getEfeito());
         effectLabel.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         effectLabel.setForeground(new Color(80, 80, 80));
         effectLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Duração
-        JLabel durationLabel = new JLabel("⏱️ " + potion.getDuracao());
+        JLabel durationLabel = new JLabel("[TIME] " + potion.getDuracao());
         durationLabel.setFont(new Font("Segoe UI", Font.BOLD, 13));
         durationLabel.setForeground(new Color(0, 150, 136));
         durationLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         // Edição
-        JLabel editionLabel = new JLabel("🎮 " + potion.getEdicao().getDisplayName());
+        JLabel editionLabel = new JLabel("[ED] " + potion.getEdicao().getDisplayName());
         editionLabel.setFont(new Font("Segoe UI", Font.ITALIC, 11));
         editionLabel.setForeground(new Color(150, 150, 150));
         editionLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1049,6 +1086,8 @@ public class ItemsPanel extends JPanel {
 
         if (!potion.getIngredientes().isEmpty()) {
             JLabel ingLabel = new JLabel("[ING] Ingredientes:");
+            ingLabel.setIcon(ImageManager.getItemIcon("BREWING_STAND", 12));
+            ingLabel.setIconTextGap(5);
             ingLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
             ingLabel.setForeground(new Color(100, 100, 100));
             ingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -1298,24 +1337,24 @@ public class ItemsPanel extends JPanel {
 
     private String getPotionEmoji(String potionName) {
         String nome = potionName.toLowerCase();
-        if (nome.contains("cura") || nome.contains("healing")) return "❤️";
-        if (nome.contains("força") || nome.contains("strength")) return "💪";
-        if (nome.contains("velocidade") || nome.contains("speed") || nome.contains("swiftness")) return "⚡";
-        if (nome.contains("regeneração") || nome.contains("regeneration")) return "💚";
-        if (nome.contains("fogo") || nome.contains("fire")) return "🔥";
-        if (nome.contains("visão") || nome.contains("vision") || nome.contains("night")) return "👁️";
-        if (nome.contains("invisibilidade") || nome.contains("invisibility")) return "👻";
-        if (nome.contains("salto") || nome.contains("jump") || nome.contains("leaping")) return "🦘";
-        if (nome.contains("veneno") || nome.contains("poison")) return "☠️";
-        if (nome.contains("fraqueza") || nome.contains("weakness")) return "😰";
-        if (nome.contains("lentidão") || nome.contains("slowness")) return "🐌";
-        if (nome.contains("dano") || nome.contains("harming") || nome.contains("damage")) return "💀";
-        if (nome.contains("respiração") || nome.contains("water") || nome.contains("breathing")) return "🌊";
-        if (nome.contains("queda") || nome.contains("falling") || nome.contains("slow fall")) return "🪂";
-        if (nome.contains("tartaruga") || nome.contains("turtle")) return "🐢";
-        if (nome.contains("arremessável") || nome.contains("splash")) return "💣";
-        if (nome.contains("persistente") || nome.contains("lingering")) return "☁️";
-        return "🧪";
+        if (nome.contains("cura") || nome.contains("healing")) return "[HEAL]";
+        if (nome.contains("força") || nome.contains("strength")) return "[STR]";
+        if (nome.contains("velocidade") || nome.contains("speed") || nome.contains("swiftness")) return "[SPEED]";
+        if (nome.contains("regeneração") || nome.contains("regeneration")) return "[REGEN]";
+        if (nome.contains("fogo") || nome.contains("fire")) return "[FIRE]";
+        if (nome.contains("visão") || nome.contains("vision") || nome.contains("night")) return "[VISION]";
+        if (nome.contains("invisibilidade") || nome.contains("invisibility")) return "[INVIS]";
+        if (nome.contains("salto") || nome.contains("jump") || nome.contains("leaping")) return "[JUMP]";
+        if (nome.contains("veneno") || nome.contains("poison")) return "[POISON]";
+        if (nome.contains("fraqueza") || nome.contains("weakness")) return "[WEAK]";
+        if (nome.contains("lentidão") || nome.contains("slowness")) return "[SLOW]";
+        if (nome.contains("dano") || nome.contains("harming") || nome.contains("damage")) return "[DMG]";
+        if (nome.contains("respiração") || nome.contains("water") || nome.contains("breathing")) return "[WATER]";
+        if (nome.contains("queda") || nome.contains("falling") || nome.contains("slow fall")) return "[FALL]";
+        if (nome.contains("tartaruga") || nome.contains("turtle")) return "[TURTLE]";
+        if (nome.contains("arremessável") || nome.contains("splash")) return "[SPLASH]";
+        if (nome.contains("persistente") || nome.contains("lingering")) return "[LINGER]";
+        return "[POTION]";
     }
 
     private ImageIcon getPotionIcon(String potionName) {
@@ -1574,6 +1613,8 @@ public class ItemsPanel extends JPanel {
         gbc.gridx = 2;
         gbc.gridy = 0;
         JLabel pecasLabel = new JLabel("[PECAS] PEÇAS");
+        pecasLabel.setIcon(ImageManager.getItemIcon("IRON_CHESTPLATE", 14));
+        pecasLabel.setIconTextGap(6);
         pecasLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         pecasLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         statsPanel.add(pecasLabel, gbc);
@@ -1848,6 +1889,8 @@ public class ItemsPanel extends JPanel {
         ingredientesPanel.setOpaque(false);
         
         JLabel ingLabel = new JLabel("[ING] Ingredientes:");
+        ingLabel.setIcon(ImageManager.getItemIcon("IRON_INGOT", 12));
+        ingLabel.setIconTextGap(5);
         ingLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
         ingLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         ingredientesPanel.add(ingLabel);
@@ -1870,7 +1913,9 @@ public class ItemsPanel extends JPanel {
         statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.Y_AXIS));
         statsPanel.setOpaque(false);
         
-        JLabel statsTitle = new JLabel("📊 Estatísticas:");
+        JLabel statsTitle = new JLabel("[STATS] Estatísticas:");
+        statsTitle.setIcon(ImageManager.getItemIcon("DIAMOND", 12));
+        statsTitle.setIconTextGap(5);
         statsTitle.setFont(new Font("SansSerif", Font.BOLD, 12));
         statsTitle.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         statsPanel.add(statsTitle);
@@ -1896,7 +1941,9 @@ public class ItemsPanel extends JPanel {
         recipePanel.setLayout(new BoxLayout(recipePanel, BoxLayout.Y_AXIS));
         recipePanel.setOpaque(false);
         
-        JLabel recipeTitle = new JLabel("⚒️ Receita:");
+        JLabel recipeTitle = new JLabel("[RECEITA] Receita:");
+        recipeTitle.setIcon(ImageManager.getItemIcon("CRAFTING_TABLE", 12));
+        recipeTitle.setIconTextGap(5);
         recipeTitle.setFont(new Font("SansSerif", Font.BOLD, 12));
         recipeTitle.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         recipeTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -2053,7 +2100,7 @@ public class ItemsPanel extends JPanel {
             "2⃣ Molde de Melhoria de Netherite\n" +
             "3⃣ Lingote de Netherite\n" +
             "4⃣ Mesa de Ferraria\n\n" +
-            "✨ O molde é encontrado em Baús do Bastiao em Ruínas no Nether!"
+            "[!] O molde é encontrado em Baús do Bastiao em Ruínas no Nether!"
         );
         infoArea.setFont(new Font("SansSerif", Font.PLAIN, 12));
         infoArea.setForeground(Color.LIGHT_GRAY);
@@ -2074,7 +2121,7 @@ public class ItemsPanel extends JPanel {
         dialogPanel.setBackground(new Color(40, 40, 40));
         dialogPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         
-        JLabel titleLabel = new JLabel(armadura.getNome());
+        JLabel titleLabel = createItemLabel(armadura.getNome(), 24);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -2094,14 +2141,16 @@ public class ItemsPanel extends JPanel {
         
         dialogPanel.add(Box.createVerticalStrut(15));
         
-        JLabel ingLabel = new JLabel("📝 Ingredientes:");
+        JLabel ingLabel = new JLabel("[ING] Ingredientes:");
+        ingLabel.setIcon(ImageManager.getItemIcon("IRON_INGOT", 16));
+        ingLabel.setIconTextGap(6);
         ingLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         ingLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
         ingLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
         dialogPanel.add(ingLabel);
         
         for (String ing : armadura.getIngredientes()) {
-            JLabel ingItem = new JLabel("  • " + ing);
+            JLabel ingItem = createItemLabel("  • " + ing, 16);
             ingItem.setFont(new Font("SansSerif", Font.PLAIN, 14));
             ingItem.setForeground(Color.WHITE);
             ingItem.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -2146,7 +2195,9 @@ public class ItemsPanel extends JPanel {
         resultsPanel.add(backPanel);
         
         // Título
-        JLabel titleLabel = new JLabel("✨ MOLDES DE FERRARIA (ENFEITES)", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("[MOLDES] MOLDES DE FERRARIA (ENFEITES)", SwingConstants.CENTER);
+        titleLabel.setIcon(ImageManager.getItemIcon("SMITHING_TABLE", 28));
+        titleLabel.setIconTextGap(10);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -2215,10 +2266,11 @@ public class ItemsPanel extends JPanel {
         card.setPreferredSize(new Dimension(300, 250));
         card.setMaximumSize(new Dimension(300, 250));
         
-        JLabel nameLabel = new JLabel(molde.getNome(), SwingConstants.CENTER);
+        JLabel nameLabel = createItemLabel(molde.getNome(), 20);
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         nameLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE);
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         card.add(nameLabel);
         
         card.add(Box.createVerticalStrut(10));
@@ -2235,7 +2287,9 @@ public class ItemsPanel extends JPanel {
         
         card.add(Box.createVerticalStrut(10));
         
-        JLabel locLabel = new JLabel("📍 " + molde.getLocalizacao());
+        JLabel locLabel = new JLabel("[LOC] " + molde.getLocalizacao());
+        locLabel.setIcon(ImageManager.getItemIcon("COMPASS", 11));
+        locLabel.setIconTextGap(4);
         locLabel.setFont(new Font("SansSerif", Font.PLAIN, 11));
         locLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
         locLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -2269,7 +2323,7 @@ public class ItemsPanel extends JPanel {
         dialogPanel.setBackground(new Color(40, 40, 40));
         dialogPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
         
-        JLabel titleLabel = new JLabel(molde.getNome());
+        JLabel titleLabel = createItemLabel(molde.getNome(), 20);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -2288,7 +2342,9 @@ public class ItemsPanel extends JPanel {
         
         dialogPanel.add(Box.createVerticalStrut(15));
         
-        JLabel locLabel = new JLabel("📍 Localização:");
+        JLabel locLabel = new JLabel("[LOC] Localização:");
+        locLabel.setIcon(ImageManager.getItemIcon("COMPASS", 12));
+        locLabel.setIconTextGap(5);
         locLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         locLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
         locLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -2352,24 +2408,24 @@ public class ItemsPanel extends JPanel {
     
     private String getEmojiForMaterial(String material) {
         return switch (material) {
-            case "Couro" -> "🐮";
-            case "Cota de Malha" -> "⛓️";
-            case "Ferro" -> "⚒️";
-            case "Ouro" -> "💎";
-            case "Diamante" -> "💎";
-            case "Netherite" -> "🔥";
-            case "Tartaruga" -> "🐢";
-            default -> "⚔️";
+            case "Couro" -> "[LEATHER]";
+            case "Cota de Malha" -> "[CHAIN]";
+            case "Ferro" -> "[FERRO]";
+            case "Ouro" -> "[GOLD]";
+            case "Diamante" -> "[DIAMOND]";
+            case "Netherite" -> "[NETH]";
+            case "Tartaruga" -> "[TURTLE]";
+            default -> "[ITEM]";
         };
     }
     
     private String getTipoEmoji(String tipo) {
         return switch (tipo) {
-            case "Capacete" -> "🪦";
-            case "Peitoral" -> "🦺";
-            case "Calças" -> "👖";
-            case "Botas" -> "🥾";
-            default -> "⚔️";
+            case "Capacete" -> "[HELM]";
+            case "Peitoral" -> "[CHEST]";
+            case "Calças" -> "[LEGS]";
+            case "Botas" -> "[BOOTS]";
+            default -> "[ARMOR]";
         };
     }
 
@@ -2417,7 +2473,7 @@ public class ItemsPanel extends JPanel {
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setOpaque(false);
 
-        JLabel nameLabel = new JLabel("⛏️ " + item.getNome());
+        JLabel nameLabel = createItemLabel(item.getNome(), 24);
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         nameLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
 
@@ -2447,13 +2503,15 @@ public class ItemsPanel extends JPanel {
 
         // Ingredientes
         if (!item.getIngredientes().isEmpty()) {
-            JLabel ingLabel = new JLabel("📋 Ingredientes:");
+            JLabel ingLabel = new JLabel("[ING] Ingredientes:");
+            ingLabel.setIcon(ImageManager.getItemIcon("STICK", 14));
+            ingLabel.setIconTextGap(6);
             ingLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
             ingLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
             infoPanel.add(ingLabel);
 
             for (String ing : item.getIngredientes()) {
-                JLabel ingItem = new JLabel("  • " + ing);
+                JLabel ingItem = createItemLabel("  • " + ing, 16);
                 ingItem.setFont(new Font("SansSerif", Font.PLAIN, 12));
                 ingItem.setForeground(Color.WHITE);
                 infoPanel.add(ingItem);
@@ -2465,7 +2523,9 @@ public class ItemsPanel extends JPanel {
             JPanel craftingPanel = new JPanel(new BorderLayout(10, 10));
             craftingPanel.setOpaque(false);
 
-            JLabel craftLabel = new JLabel("🔨 Padrão de Crafting:");
+            JLabel craftLabel = new JLabel("[CRAFT] Padrão de Crafting:");
+            craftLabel.setIcon(ImageManager.getItemIcon("CRAFTING_TABLE", 14));
+            craftLabel.setIconTextGap(6);
             craftLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
             craftLabel.setForeground(MinecraftWikiGUI.MINECRAFT_BROWN);
             craftLabel.setBorder(new EmptyBorder(10, 0, 5, 0));
@@ -2635,7 +2695,7 @@ public class ItemsPanel extends JPanel {
             rowPanel.add(materialLabel);
             
             // Defesa Total
-            JLabel defenseLabel = new JLabel("🛡️ " + stats[i][0], SwingConstants.CENTER);
+            JLabel defenseLabel = new JLabel("[DEF] " + stats[i][0], SwingConstants.CENTER);
             defenseLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
             defenseLabel.setForeground(Color.WHITE);
             defenseLabel.setOpaque(true);
@@ -2663,7 +2723,7 @@ public class ItemsPanel extends JPanel {
             rowPanel.add(toughnessLabel);
             
             // Encantabilidade
-            JLabel enchantLabel = new JLabel("✨ " + stats[i][3], SwingConstants.CENTER);
+            JLabel enchantLabel = new JLabel("[ENCH] " + stats[i][3], SwingConstants.CENTER);
             enchantLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
             enchantLabel.setForeground(new Color(170, 100, 255));
             enchantLabel.setOpaque(true);
@@ -2703,7 +2763,9 @@ public class ItemsPanel extends JPanel {
         chartPanel.setMaximumSize(new Dimension(900, 400));
         chartPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
-        JLabel chartTitle = new JLabel("📊 Comparação Visual de Defesa", SwingConstants.CENTER);
+        JLabel chartTitle = new JLabel("[CHART] Comparação Visual de Defesa", SwingConstants.CENTER);
+        chartTitle.setIcon(ImageManager.getItemIcon("IRON_CHESTPLATE", 18));
+        chartTitle.setIconTextGap(8);
         chartTitle.setFont(new Font("SansSerif", Font.BOLD, 18));
         chartTitle.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         chartTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -2740,7 +2802,7 @@ public class ItemsPanel extends JPanel {
             barPanel.add(Box.createHorizontalStrut(10));
             
             // Valor da defesa
-            JLabel valueLabel = new JLabel("🛡️ " + defenseValues[i]);
+            JLabel valueLabel = new JLabel("[DEF] " + defenseValues[i]);
             valueLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
             valueLabel.setForeground(Color.WHITE);
             barPanel.add(valueLabel);
@@ -2781,10 +2843,10 @@ public class ItemsPanel extends JPanel {
             "🔥 Netherite: A única armadura indestrutível por lava e fogo. Não queima ao ser descartada.",
             "⚡ Diamante vs Netherite: Mesma defesa, mas Netherite tem +1 de resistência a knockback e durabilidade 12% maior.",
             "🐷 Ouro: Apesar da defesa baixa, tem a maior encantabilidade. Piglins não atacam se você usar pelo menos uma peça.",
-            "🐢 Tartaruga: O capacete fornece respiração aquática por 10 segundos fora d'água.",
+            "[WATER] Tartaruga: O capacete fornece respiração aquática por 10 segundos fora d'água.",
             "💎 Dureza (Toughness): Reduz dano de ataques fortes. Diamante tem +2, Netherite tem +3.",
-            "⚔️ Para PvP: Netherite é superior. Para PvE inicial: Ferro tem melhor custo-benefício.",
-            "✨ Encantamentos recomendados: Proteção IV, Inquebrável III, Remendo."
+            "[!] Para PvP: Netherite é superior. Para PvE inicial: Ferro tem melhor custo-benefício.",
+            "[!] Encantamentos recomendados: Proteção IV, Inquebrável III, Remendo."
         };
         
         for (String note : notes) {
@@ -2834,7 +2896,9 @@ public class ItemsPanel extends JPanel {
         resultsPanel.add(backPanel);
         
         // Título
-        JLabel titleLabel = new JLabel("✨ ARMADURAS COM MOLDES DE FERRARIA", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("[ARMADURA+] ARMADURAS COM MOLDES DE FERRARIA", SwingConstants.CENTER);
+        titleLabel.setIcon(ImageManager.getItemIcon("NETHERITE_CHESTPLATE", 28));
+        titleLabel.setIconTextGap(10);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 28));
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -2900,12 +2964,16 @@ public class ItemsPanel extends JPanel {
         headerPanel.setBackground(new Color(45, 45, 45));
         headerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         
-        JLabel moldeNameLabel = new JLabel("✨ " + molde.getNome().toUpperCase());
+        JLabel moldeNameLabel = new JLabel("[MOLDE] " + molde.getNome().toUpperCase());
+        moldeNameLabel.setIcon(ImageManager.getItemIcon("SMITHING_TABLE", 20));
+        moldeNameLabel.setIconTextGap(8);
         moldeNameLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         moldeNameLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE);
         headerPanel.add(moldeNameLabel, BorderLayout.WEST);
         
-        JLabel locLabel = new JLabel("📍 " + molde.getLocalizacao());
+        JLabel locLabel = new JLabel("[LOC] " + molde.getLocalizacao());
+        locLabel.setIcon(ImageManager.getItemIcon("COMPASS", 12));
+        locLabel.setIconTextGap(5);
         locLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
         locLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
         headerPanel.add(locLabel, BorderLayout.EAST);
@@ -3060,7 +3128,7 @@ public class ItemsPanel extends JPanel {
         statsPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
         statsPanel.setMaximumSize(new Dimension(800, 80));
         
-        JLabel defLabel = new JLabel("🛡️ Defesa: " + armadura.getDefesa());
+        JLabel defLabel = new JLabel("[DEF] Defesa: " + armadura.getDefesa());
         defLabel.setFont(new Font("SansSerif", Font.BOLD, 16));
         defLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
         statsPanel.add(defLabel);
@@ -3085,7 +3153,9 @@ public class ItemsPanel extends JPanel {
         resultsPanel.add(Box.createVerticalStrut(20));
         
         // Separador
-        JLabel trimsLabel = new JLabel("✨ COM MOLDES DE FERRARIA", SwingConstants.CENTER);
+        JLabel trimsLabel = new JLabel("[MOLDE+] COM MOLDES DE FERRARIA", SwingConstants.CENTER);
+        trimsLabel.setIcon(ImageManager.getItemIcon("SMITHING_TABLE", 20));
+        trimsLabel.setIconTextGap(8);
         trimsLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         trimsLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE);
         trimsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -3157,7 +3227,9 @@ public class ItemsPanel extends JPanel {
             
             centerPanel.add(Box.createVerticalStrut(8));
             
-            JLabel locLabel = new JLabel("📍 Localização: " + molde.getLocalizacao());
+            JLabel locLabel = new JLabel("[LOC] Localização: " + molde.getLocalizacao());
+            locLabel.setIcon(ImageManager.getItemIcon("COMPASS", 10));
+            locLabel.setIconTextGap(4);
             locLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
             locLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
             centerPanel.add(locLabel);

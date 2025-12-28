@@ -305,7 +305,9 @@ public class CreaturesPanel extends JPanel {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         panel.setBackground(DARK_BG);
 
-        JButton backButton = new JButton("🏠 Voltar ao Menu");
+        JButton backButton = new JButton("[HOME] Voltar ao Menu");
+        backButton.setIcon(ImageManager.getItemIcon("OAK_PLANKS", 16));
+        backButton.setIconTextGap(6);
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         backButton.setBackground(MINECRAFT_GREEN);
         backButton.setForeground(Color.BLACK);

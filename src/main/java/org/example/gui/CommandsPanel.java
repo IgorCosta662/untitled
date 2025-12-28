@@ -44,13 +44,15 @@ public class CommandsPanel extends JPanel {
 
         JTabbedPane tabbedPane = new JTabbedPane();
         tabbedPane.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        tabbedPane.addTab("🎮 Jogabilidade", createGameplayCommandsPanel());
-        tabbedPane.addTab("🌍 Mundo", createWorldCommandsPanel());
-        tabbedPane.addTab("👤 Jogador", createPlayerCommandsPanel());
+        tabbedPane.addTab("[GAMEPLAY] Jogabilidade", ImageManager.getItemIcon("DIAMOND_SWORD", 16), createGameplayCommandsPanel());
+        tabbedPane.addTab("[WORLD] Mundo", ImageManager.getItemIcon("GRASS_BLOCK", 16), createWorldCommandsPanel());
+        tabbedPane.addTab("[PLAYER] Jogador", ImageManager.getItemIcon("PLAYER_HEAD", 16), createPlayerCommandsPanel());
 
         add(tabbedPane, BorderLayout.CENTER);
 
-        JButton backButton = new JButton("🏠 Voltar ao Menu");
+        JButton backButton = new JButton("[HOME] Voltar ao Menu");
+        backButton.setIcon(ImageManager.getItemIcon("OAK_PLANKS", 16));
+        backButton.setIconTextGap(6);
         backButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         backButton.setBackground(MINECRAFT_GREEN);
         backButton.setForeground(Color.BLACK);

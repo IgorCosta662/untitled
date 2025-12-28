@@ -161,7 +161,9 @@ public class AboutPanel extends JPanel {
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel subtitleLabel = new JLabel("🎮 Edição Completa e Interativa 🎮");
+        JLabel subtitleLabel = new JLabel("[COMPLETO] Edição Completa e Interativa [COMPLETO]");
+        subtitleLabel.setIcon(ImageManager.getItemIcon("DIAMOND", 20));
+        subtitleLabel.setIconTextGap(8);
         subtitleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         subtitleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -217,7 +219,7 @@ public class AboutPanel extends JPanel {
         panel.setBackground(new Color(30, 30, 30));
         panel.setBorder(new EmptyBorder(30, 20, 30, 20));
 
-        JLabel devLabel = new JLabel("👨‍💻 Desenvolvido com ☕ Java e 💚 para a comunidade Minecraft");
+        JLabel devLabel = new JLabel("[DEV] Desenvolvido com Java para a comunidade Minecraft");
         devLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
         devLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
         devLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

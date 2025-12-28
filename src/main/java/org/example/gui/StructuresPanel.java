@@ -47,20 +47,20 @@ public class StructuresPanel extends JPanel {
         String[][] structures = {
             {"🏰", "Vila", "Planícies, Deserto, Savana, Taiga", "Aldeões, baús, ferreiro"},
             {"🗼", "Fortaleza (Stronghold)", "Subterrâneo aleatório", "Portal do End, biblioteca"},
-            {"⛪", "Templo do Deserto", "Deserto", "TNT, 4 baús com tesouros"},
-            {"🕌", "Templo da Selva", "Selva", "Alavancas, dispensers, baús"},
-            {"💀", "Mansão da Floresta", "Floresta Escura", "Vindicators, Evokers, Totens"},
-            {"🏛️", "Monumento Oceânico", "Oceano Profundo", "Guardiões, esponjas, prismarinho"},
-            {"🔥", "Fortaleza do Nether", "Nether", "Blazes, Wither Skeletons"},
-            {"🏗️", "Bastião Remnant", "Nether", "Piglins, ouro, Ancient Debris"},
-            {"🌆", "Cidade do End", "End", "Shulkers, elytra, End Ships"},
-            {"⚔️", "Posto Avançado", "Próximo a vilas", "Pillagers, Bad Omen"},
-            {"💀", "Ruínas Antigas", "Deep Dark (Y -50)", "Warden, Skulk, loot épico"},
-            {"🌊", "Ruínas Oceânicas", "Oceanos", "Baús, tesouros submersos"},
-            {"⛏️", "Mina Abandonada", "Subterrâneo", "Trilhos, minecarts, spawners"},
-            {"🪦", "Dungeon", "Subterrâneo aleatório", "Spawner de mobs, baús"},
-            {"🏜️", "Poço do Deserto", "Deserto", "Entrada para mina, baús"},
-            {"🧊", "Iglu", "Tundra Gelada", "Cama, fornalha, subsolo secreto"}
+            {"[TEMPLE]", "Templo do Deserto", "Deserto", "TNT, 4 baús com tesouros"},
+            {"[TEMPLE]", "Templo da Selva", "Selva", "Alavancas, dispensers, baús"},
+            {"[MANSION]", "Mansão da Floresta", "Floresta Escura", "Vindicators, Evokers, Totens"},
+            {"[MONUMENT]", "Monumento Oceânico", "Oceano Profundo", "Guardiões, esponjas, prismarinho"},
+            {"[FORTRESS]", "Fortaleza do Nether", "Nether", "Blazes, Wither Skeletons"},
+            {"[BASTION]", "Bastião Remnant", "Nether", "Piglins, ouro, Ancient Debris"},
+            {"[CITY]", "Cidade do End", "End", "Shulkers, elytra, End Ships"},
+            {"[OUTPOST]", "Posto Avançado", "Próximo a vilas", "Pillagers, Bad Omen"},
+            {"[RUINS]", "Ruínas Antigas", "Deep Dark (Y -50)", "Warden, Skulk, loot épico"},
+            {"[RUINS]", "Ruínas Oceânicas", "Oceanos", "Baús, tesouros submersos"},
+            {"[MINE]", "Mina Abandonada", "Subterrâneo", "Trilhos, minecarts, spawners"},
+            {"[DUNGEON]", "Dungeon", "Subterrâneo aleatório", "Spawner de mobs, baús"},
+            {"[WELL]", "Poço do Deserto", "Deserto", "Entrada para mina, baús"},
+            {"[IGLOO]", "Iglu", "Tundra Gelada", "Cama, fornalha, subsolo secreto"}
         };
 
         for (String[] struct : structures) {
