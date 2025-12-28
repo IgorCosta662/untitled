@@ -77,29 +77,21 @@ public class HomePanel extends JPanel {
     }
 
     private JPanel createCenterPanel() {
-        JPanel panel = new JPanel(new GridLayout(2, 8, 15, 15));
+        JPanel panel = new JPanel(new GridLayout(2, 4, 15, 15));
         panel.setBackground(new Color(40, 40, 40));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
 
         // Linha 1
-        panel.add(createCategoryButton("💎", "Comércio", MinecraftWikiGUI.MINECRAFT_GREEN, "COMMERCE"));
-        panel.add(createCategoryButton("⚗️", "Fermentação", new Color(139, 90, 43), "BREWING"));
-        panel.add(createCategoryButton("📖", "Encantamento", MinecraftWikiGUI.MINECRAFT_PURPLE, "ENCHANTMENTS"));
-        panel.add(createCategoryButton("🐷", "Criaturas", new Color(0, 200, 0), "CREATURES"));
-        panel.add(createCategoryButton("🧱", "Blocos", new Color(139, 69, 19), "BLOCKS"));
         panel.add(createCategoryButton("⛏️", "Itens", MinecraftWikiGUI.MINECRAFT_BLUE, "ITEMS"));
-        panel.add(createCategoryButton("🌸", "Biomas", new Color(255, 105, 180), "BIOMES"));
-        panel.add(createCategoryButton("✨", "Efeitos", MinecraftWikiGUI.MINECRAFT_GREEN.brighter(), "EFFECTS"));
+        panel.add(createCategoryButton("⚔️", "Armaduras", new Color(192, 192, 192), "ARMOR"));
+        panel.add(createCategoryButton("📖", "Encantamento", MinecraftWikiGUI.MINECRAFT_PURPLE, "ENCHANTMENTS"));
+        panel.add(createCategoryButton("⚗️", "Poções", MinecraftWikiGUI.MINECRAFT_PURPLE, "BREWING"));
 
         // Linha 2
         panel.add(createCategoryButton("🔨", "Fabricação", new Color(139, 90, 43), "CRAFTING"));
-        panel.add(createCategoryButton("🔥", "Fundição", new Color(128, 128, 128), "SMELTING"));
-        panel.add(createCategoryButton("⚒️", "Ferraria", new Color(64, 64, 64), "SMITHING"));
-        panel.add(createCategoryButton("🏛️", "Estruturas", new Color(222, 184, 135), "STRUCTURES"));
-        panel.add(createCategoryButton("🔴", "Redstone", MinecraftWikiGUI.MINECRAFT_RED, "REDSTONE"));
-        panel.add(createCategoryButton("💻", "Comandos", new Color(255, 165, 0), "COMMANDS"));
-        panel.add(createCategoryButton("📜", "Histórico", MinecraftWikiGUI.MINECRAFT_DARK_GRAY, "HISTORY"));
-        panel.add(createCategoryButton("📚", "Tutoriais", MinecraftWikiGUI.MINECRAFT_GOLD, "TUTORIALS"));
+        panel.add(createCategoryButton("📊", "Estatísticas", MinecraftWikiGUI.MINECRAFT_GOLD, "STATISTICS"));
+        panel.add(createCategoryButton("ℹ️", "Sobre", MinecraftWikiGUI.MINECRAFT_BLUE, "ABOUT"));
+        panel.add(createCategoryButton("🚪", "Sair", MinecraftWikiGUI.MINECRAFT_RED, "EXIT"));
 
         return panel;
     }
@@ -161,21 +153,13 @@ public class HomePanel extends JPanel {
     private void handleCategoryClick(String category) {
         switch (category) {
             case "ITEMS" -> parent.showPanel("ITEMS");
+            case "ARMOR" -> parent.showPanel("ARMOR");
             case "ENCHANTMENTS" -> parent.showPanel("ENCHANTMENTS");
             case "BREWING" -> parent.showPanel("POTIONS");
             case "CRAFTING" -> parent.showPanel("CRAFTING");
-            case "BLOCKS" -> parent.showPanel("BLOCKS");
-            case "CREATURES" -> parent.showPanel("CREATURES");
-            case "BIOMES" -> parent.showPanel("BIOMES");
-            case "EFFECTS" -> parent.showPanel("EFFECTS");
-            case "SMELTING" -> parent.showPanel("SMELTING");
-            case "SMITHING" -> parent.showPanel("SMITHING");
-            case "STRUCTURES" -> parent.showPanel("STRUCTURES");
-            case "REDSTONE" -> parent.showPanel("REDSTONE");
-            case "COMMANDS" -> parent.showPanel("COMMANDS");
-            case "COMMERCE" -> parent.showPanel("COMMERCE");
-            case "HISTORY" -> parent.showPanel("HISTORY");
-            case "TUTORIALS" -> parent.showPanel("TUTORIALS");
+            case "STATISTICS" -> parent.showPanel("STATISTICS");
+            case "ABOUT" -> parent.showPanel("ABOUT");
+            case "EXIT" -> System.exit(0);
             default -> parent.showPanel("HOME");
         }
     }
@@ -185,38 +169,11 @@ public class HomePanel extends JPanel {
         panel.setBackground(new Color(30, 30, 30));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
-        JLabel infoLabel = new JLabel("💡 Explore as 16 categorias da Minecraft Wiki!");
-        infoLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
+        JLabel infoLabel = new JLabel("💡 Bem-vindo à Minecraft Wiki! Explore as categorias acima.");
+        infoLabel.setFont(new Font("SansSerif", Font.ITALIC, 14));
         infoLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
 
-        JButton statsButton = new JButton("📊 Estatísticas");
-        statsButton.setFont(new Font("SansSerif", Font.BOLD, 12));
-        statsButton.setBackground(MinecraftWikiGUI.MINECRAFT_GOLD.darker());
-        statsButton.setForeground(Color.WHITE);
-        statsButton.setFocusPainted(false);
-        statsButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        statsButton.addActionListener(e -> parent.showPanel("STATISTICS"));
-
-        JButton aboutButton = new JButton("ℹ️ Sobre");
-        aboutButton.setFont(new Font("SansSerif", Font.BOLD, 12));
-        aboutButton.setBackground(MinecraftWikiGUI.MINECRAFT_BLUE.darker());
-        aboutButton.setForeground(Color.WHITE);
-        aboutButton.setFocusPainted(false);
-        aboutButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        aboutButton.addActionListener(e -> parent.showPanel("ABOUT"));
-
-        JButton exitButton = new JButton("🚪 Sair");
-        exitButton.setFont(new Font("SansSerif", Font.BOLD, 12));
-        exitButton.setBackground(MinecraftWikiGUI.MINECRAFT_RED.darker());
-        exitButton.setForeground(Color.WHITE);
-        exitButton.setFocusPainted(false);
-        exitButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        exitButton.addActionListener(e -> System.exit(0));
-
         panel.add(infoLabel);
-        panel.add(statsButton);
-        panel.add(aboutButton);
-        panel.add(exitButton);
 
         return panel;
     }

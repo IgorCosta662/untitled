@@ -8,11 +8,15 @@ public class MinecraftWiki {
     private final List<Item> itens;
     private final List<Pocao> pocoes;
     private final List<Encantamento> encantamentos;
+    private final List<Armadura> armaduras;
+    private final List<MoldeFerraria> moldesFerraria;
 
     public MinecraftWiki() {
         this.itens = new ArrayList<>();
         this.pocoes = new ArrayList<>();
         this.encantamentos = new ArrayList<>();
+        this.armaduras = new ArrayList<>();
+        this.moldesFerraria = new ArrayList<>();
         carregarDados();
     }
 
@@ -20,6 +24,8 @@ public class MinecraftWiki {
         carregarItens();
         carregarPocoes();
         carregarEncantamentos();
+        carregarArmaduras();
+        carregarMoldesFerraria();
     }
 
     private void carregarItens() {
@@ -1505,6 +1511,474 @@ public class MinecraftWiki {
             MinecraftEdition.BOTH, "Alimento");
         frascoMel.adicionarIngrediente("Usar garrafa em colmeia cheia");
         itens.add(frascoMel);
+
+        // ==================== BLOCOS DE CONSTRUÇÃO DECORATIVOS ====================
+        
+        Item concreto = new Item("Concreto",
+            "Bloco sólido colorido para construção",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        concreto.adicionarIngrediente("Pó de Concreto + Água");
+        itens.add(concreto);
+
+        Item poConcreto = new Item("Pó de Concreto",
+            "Cai como areia, vira concreto com água",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        poConcreto.adicionarIngrediente("4x Areia + 4x Cascalho + 1x Corante");
+        itens.add(poConcreto);
+
+        Item terracota = new Item("Terracota",
+            "Bloco de argila cozida",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        terracota.adicionarIngrediente("Cozinhar Argila");
+        itens.add(terracota);
+
+        Item argila = new Item("Argila",
+            "Bloco encontrado debaixo d'água",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        argila.adicionarIngrediente("Encontrado em rios e lagos");
+        itens.add(argila);
+
+        Item blocoArgila = new Item("Bloco de Argila",
+            "4 bolas de argila",
+            MinecraftEdition.BOTH, "Material");
+        blocoArgila.adicionarIngrediente("Quebrar blocos de argila");
+        itens.add(blocoArgila);
+
+        Item tijolo = new Item("Tijolo",
+            "Item de construção clássico",
+            MinecraftEdition.BOTH, "Material");
+        tijolo.adicionarIngrediente("Cozinhar Argila");
+        itens.add(tijolo);
+
+        Item blocoTijolo = new Item("Bloco de Tijolos",
+            "Bloco decorativo resistente",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        blocoTijolo.adicionarIngrediente("4x Tijolos");
+        itens.add(blocoTijolo);
+
+        Item vidroColorido = new Item("Vidro Colorido",
+            "Vidro tingido com corantes",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        vidroColorido.adicionarIngrediente("8x Vidro + 1x Corante");
+        itens.add(vidroColorido);
+
+        Item painelVidro = new Item("Painel de Vidro",
+            "Versão fina do vidro",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        painelVidro.adicionarIngrediente("6x Vidro");
+        itens.add(painelVidro);
+
+        Item quartzoLiso = new Item("Bloco de Quartzo",
+            "Bloco branco decorativo",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        quartzoLiso.adicionarIngrediente("4x Quartzo do Nether");
+        itens.add(quartzoLiso);
+
+        Item prismarinho = new Item("Prismarinho",
+            "Bloco dos monumentos oceânicos",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        prismarinho.adicionarIngrediente("4x Fragmento de Prismarinho");
+        itens.add(prismarinho);
+
+        Item fragmentoPrismarinho = new Item("Fragmento de Prismarinho",
+            "Material dos guardiões",
+            MinecraftEdition.BOTH, "Material");
+        fragmentoPrismarinho.adicionarIngrediente("Matar Guardiões");
+        itens.add(fragmentoPrismarinho);
+
+        Item cristalPrismarinho = new Item("Cristais de Prismarinho",
+            "Item luminoso dos guardiões",
+            MinecraftEdition.BOTH, "Material");
+        cristalPrismarinho.adicionarIngrediente("Matar Guardiões");
+        itens.add(cristalPrismarinho);
+
+        Item lanternas = new Item("Lanterna",
+            "Fonte de luz que pode ser pendurada",
+            MinecraftEdition.BOTH, "Utilitário");
+        lanternas.adicionarIngrediente("8x Pepitas de Ferro + 1x Tocha");
+        itens.add(lanternas);
+
+        Item lanternaMar = new Item("Lanterna do Mar",
+            "Fonte de luz subaquática",
+            MinecraftEdition.BOTH, "Utilitário");
+        lanternaMar.adicionarIngrediente("4x Fragmento Prismarinho + 5x Cristais");
+        itens.add(lanternaMar);
+
+        // ==================== BLOCOS DE PEDRA VARIADOS ====================
+        
+        Item pedraTalhada = new Item("Pedra Talhada",
+            "Pedra decorativa lisa",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        pedraTalhada.adicionarIngrediente("Cozinhar Pedregulho");
+        itens.add(pedraTalhada);
+
+        Item tijolosPedra = new Item("Tijolos de Pedra",
+            "Bloco decorativo de pedra",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        tijolosPedra.adicionarIngrediente("4x Pedra");
+        itens.add(tijolosPedra);
+
+        Item ardosia = new Item("Ardósia",
+            "Pedra escura decorativa",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        ardosia.adicionarIngrediente("Encontrada em Y -64 a 0");
+        itens.add(ardosia);
+
+        Item tufoProfundo = new Item("Tufo Profundo",
+            "Pedra resistente das profundezas",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        tufoProfundo.adicionarIngrediente("Encontrado em Y -64 a -8");
+        itens.add(tufoProfundo);
+
+        Item andesito = new Item("Andesito",
+            "Pedra cinza natural",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        andesito.adicionarIngrediente("Encontrado naturalmente");
+        itens.add(andesito);
+
+        Item diorito = new Item("Diorito",
+            "Pedra branca natural",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        diorito.adicionarIngrediente("Encontrado naturalmente");
+        itens.add(diorito);
+
+        Item granito = new Item("Granito",
+            "Pedra vermelha natural",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        granito.adicionarIngrediente("Encontrado naturalmente");
+        itens.add(granito);
+
+        Item calcario = new Item("Calcário",
+            "Pedra bege decorativa",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        calcario.adicionarIngrediente("Encontrado em cavernas exuberantes");
+        itens.add(calcario);
+
+        // ==================== MADEIRAS VARIADAS ====================
+        
+        Item carvalho = new Item("Tronco de Carvalho",
+            "Madeira mais comum",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        carvalho.adicionarIngrediente("Cortar árvores de carvalho");
+        itens.add(carvalho);
+
+        Item betula = new Item("Tronco de Bétula",
+            "Madeira branca",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        betula.adicionarIngrediente("Cortar árvores de bétula");
+        itens.add(betula);
+
+        Item pinheiro = new Item("Tronco de Pinheiro",
+            "Madeira escura",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        pinheiro.adicionarIngrediente("Cortar árvores de pinheiro");
+        itens.add(pinheiro);
+
+        Item selva = new Item("Tronco da Selva",
+            "Madeira da selva",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        selva.adicionarIngrediente("Cortar árvores da selva");
+        itens.add(selva);
+
+        Item acacia = new Item("Tronco de Acácia",
+            "Madeira laranja",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        acacia.adicionarIngrediente("Cortar árvores de acácia");
+        itens.add(acacia);
+
+        Item carvalhoEscuro = new Item("Tronco de Carvalho Escuro",
+            "Madeira muito escura",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        carvalhoEscuro.adicionarIngrediente("Cortar árvores de carvalho escuro");
+        itens.add(carvalhoEscuro);
+
+        Item mangue = new Item("Tronco de Mangue",
+            "Madeira de pântano",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        mangue.adicionarIngrediente("Cortar árvores de mangue");
+        itens.add(mangue);
+
+        Item cerejeira = new Item("Tronco de Cerejeira",
+            "Madeira rosa",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        cerejeira.adicionarIngrediente("Cortar árvores de cerejeira");
+        itens.add(cerejeira);
+
+        Item carmesim = new Item("Caule Carmesim",
+            "Madeira do Nether vermelha",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        carmesim.adicionarIngrediente("Cortar fungos carmesim (Nether)");
+        itens.add(carmesim);
+
+        Item distorcido = new Item("Caule Distorcido",
+            "Madeira do Nether azul",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        distorcido.adicionarIngrediente("Cortar fungos distorcidos (Nether)");
+        itens.add(distorcido);
+
+        // ==================== ITENS DE FARM E AGRICULTURA ====================
+        
+        Item sementesTrigo = new Item("Sementes de Trigo",
+            "Planta trigo",
+            MinecraftEdition.BOTH, "Material");
+        sementesTrigo.adicionarIngrediente("Quebrar grama alta");
+        itens.add(sementesTrigo);
+
+        Item sementesBeterraba = new Item("Sementes de Beterraba",
+            "Planta beterraba",
+            MinecraftEdition.BOTH, "Material");
+        sementesBeterraba.adicionarIngrediente("Encontrar em vilas");
+        itens.add(sementesBeterraba);
+
+        Item beterraba = new Item("Beterraba",
+            "Vegetal vermelho",
+            MinecraftEdition.BOTH, "Alimento");
+        beterraba.adicionarIngrediente("Cultivar beterraba");
+        itens.add(beterraba);
+
+        Item sopaBeterraba = new Item("Sopa de Beterraba",
+            "Restaura 6 de fome",
+            MinecraftEdition.BOTH, "Alimento");
+        sopaBeterraba.adicionarIngrediente("6x Beterraba + 1x Tigela");
+        itens.add(sopaBeterraba);
+
+        Item cacau = new Item("Sementes de Cacau",
+            "Produz cacau",
+            MinecraftEdition.BOTH, "Material");
+        cacau.adicionarIngrediente("Encontrado na selva");
+        itens.add(cacau);
+
+        Item chocolate = new Item("Grãos de Cacau",
+            "Ingrediente de biscoitos",
+            MinecraftEdition.BOTH, "Material");
+        chocolate.adicionarIngrediente("Colher cacau maduro");
+        itens.add(chocolate);
+
+        Item canaAcucar = new Item("Cana-de-açúcar",
+            "Produz açúcar e papel",
+            MinecraftEdition.BOTH, "Material");
+        canaAcucar.adicionarIngrediente("Encontrada perto de água");
+        itens.add(canaAcucar);
+
+        Item bambu = new Item("Bambu",
+            "Cresce rápido, combustível",
+            MinecraftEdition.BOTH, "Material");
+        bambu.adicionarIngrediente("Encontrado na selva de bambu");
+        itens.add(bambu);
+
+        Item cacto = new Item("Cacto",
+            "Planta do deserto que causa dano",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        cacto.adicionarIngrediente("Encontrado no deserto");
+        itens.add(cacto);
+
+        Item algaroba = new Item("Bagas Brilhantes",
+            "Alimento e fonte de luz",
+            MinecraftEdition.BOTH, "Alimento");
+        algaroba.adicionarIngrediente("Encontradas em cavernas exuberantes");
+        itens.add(algaroba);
+
+        Item melanciaBloco = new Item("Melancia",
+            "Bloco de melancia",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        melanciaBloco.adicionarIngrediente("Plantar sementes de melancia");
+        itens.add(melanciaBloco);
+
+        Item sementesMelancia = new Item("Sementes de Melancia",
+            "Planta melancia",
+            MinecraftEdition.BOTH, "Material");
+        sementesMelancia.adicionarIngrediente("Fatia de Melancia");
+        itens.add(sementesMelancia);
+
+        Item sementesAbobora = new Item("Sementes de Abóbora",
+            "Planta abóbora",
+            MinecraftEdition.BOTH, "Material");
+        sementesAbobora.adicionarIngrediente("Abóbora");
+        itens.add(sementesAbobora);
+
+        Item jackolantern = new Item("Abóbora de Halloween",
+            "Abóbora iluminada",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        jackolantern.adicionarIngrediente("Abóbora Esculpida + Tocha");
+        itens.add(jackolantern);
+
+        Item fardoFeno = new Item("Fardo de Feno",
+            "Bloco de armazenamento de trigo",
+            MinecraftEdition.BOTH, "Bloco Construção");
+        fardoFeno.adicionarIngrediente("9x Trigo");
+        itens.add(fardoFeno);
+
+        // ==================== CORANTES ====================
+        
+        Item coranteVermelho = new Item("Corante Vermelho",
+            "Tintura vermelha",
+            MinecraftEdition.BOTH, "Material");
+        coranteVermelho.adicionarIngrediente("Rosa Vermelha ou Beterraba");
+        itens.add(coranteVermelho);
+
+        Item coranteAmarelo = new Item("Corante Amarelo",
+            "Tintura amarela",
+            MinecraftEdition.BOTH, "Material");
+        coranteAmarelo.adicionarIngrediente("Dente-de-leão");
+        itens.add(coranteAmarelo);
+
+        Item coranteVerde = new Item("Corante Verde",
+            "Tintura verde",
+            MinecraftEdition.BOTH, "Material");
+        coranteVerde.adicionarIngrediente("Cozinhar Cacto");
+        itens.add(coranteVerde);
+
+        Item coranteBranco = new Item("Corante Branco",
+            "Tintura branca",
+            MinecraftEdition.BOTH, "Material");
+        coranteBranco.adicionarIngrediente("Farinha de Osso ou Lírio");
+        itens.add(coranteBranco);
+
+        Item corantePreto = new Item("Corante Preto",
+            "Tintura preta",
+            MinecraftEdition.BOTH, "Material");
+        corantePreto.adicionarIngrediente("Saco de Tinta");
+        itens.add(corantePreto);
+
+        Item sacoTinta = new Item("Saco de Tinta",
+            "Tinta de lula",
+            MinecraftEdition.BOTH, "Material");
+        sacoTinta.adicionarIngrediente("Matar Lulas");
+        itens.add(sacoTinta);
+
+        Item sacoTintaBrilhante = new Item("Saco de Tinta Brilhante",
+            "Tinta luminosa",
+            MinecraftEdition.BOTH, "Material");
+        sacoTintaBrilhante.adicionarIngrediente("Matar Lulas Brilhantes");
+        itens.add(sacoTintaBrilhante);
+
+        // ==================== ITENS DE EXPLORAÇÃO ====================
+        
+        Item luneta = new Item("Luneta",
+            "Permite dar zoom",
+            MinecraftEdition.BOTH, "Utilitário");
+        luneta.adicionarIngrediente("2x Lingote de Cobre + 1x Cristal de Ametista");
+        itens.add(luneta);
+
+        Item cristalAmetista = new Item("Cristal de Ametista",
+            "Gema roxa de geodos",
+            MinecraftEdition.BOTH, "Gema");
+        cristalAmetista.adicionarIngrediente("Quebrar blocos de ametista");
+        itens.add(cristalAmetista);
+
+        Item fragmentoAmetista = new Item("Fragmento de Ametista",
+            "Pedaço de cristal",
+            MinecraftEdition.BOTH, "Material");
+        fragmentoAmetista.adicionarIngrediente("Quebrar cristais de ametista");
+        itens.add(fragmentoAmetista);
+
+        Item blocoAmetista = new Item("Bloco de Ametista",
+            "Bloco decorativo roxo",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        blocoAmetista.adicionarIngrediente("4x Fragmento de Ametista");
+        itens.add(blocoAmetista);
+
+        Item poDeCobre = new Item("Pó de Cobre",
+            "Material oxidado",
+            MinecraftEdition.BOTH, "Material");
+        poDeCobre.adicionarIngrediente("Raspar Cobre Oxidado");
+        itens.add(poDeCobre);
+
+        Item paraRaios = new Item("Para-raios",
+            "Atrai raios",
+            MinecraftEdition.BOTH, "Utilitário");
+        paraRaios.adicionarIngrediente("3x Lingote de Cobre");
+        itens.add(paraRaios);
+
+        Item sino = new Item("Sino",
+            "Item decorativo de vilas",
+            MinecraftEdition.BOTH, "Utilitário");
+        sino.adicionarIngrediente("3x Lingote de Ouro + 1x Graveto + 2x Tábuas");
+        itens.add(sino);
+
+        Item ancora = new Item("Âncora de Respawn",
+            "Define ponto de respawn no Nether",
+            MinecraftEdition.BOTH, "Utilitário");
+        ancora.adicionarIngrediente("6x Choro de Obsidiana + 3x Pedra Luminosa");
+        itens.add(ancora);
+
+        Item choroObsidiana = new Item("Choro de Obsidiana",
+            "Obsidiana luminosa do Nether",
+            MinecraftEdition.BOTH, "Bloco Natural");
+        choroObsidiana.adicionarIngrediente("Encontrada em ruínas do Nether");
+        itens.add(choroObsidiana);
+
+        Item respawnAnchor = new Item("Lodestone",
+            "Ancora bússolas para localização",
+            MinecraftEdition.BOTH, "Utilitário");
+        respawnAnchor.adicionarIngrediente("8x Pedregulho Talhado + 1x Lingote de Netherite");
+        itens.add(respawnAnchor);
+
+        Item bussolaLodestone = new Item("Bússola de Lodestone",
+            "Aponta para lodestone",
+            MinecraftEdition.BOTH, "Utilitário");
+        bussolaLodestone.adicionarIngrediente("Bússola + Lodestone (usar)");
+        itens.add(bussolaLodestone);
+
+        Item bussolaRecuperacao = new Item("Bússola de Recuperação",
+            "Aponta para último local de morte",
+            MinecraftEdition.BOTH, "Utilitário");
+        bussolaRecuperacao.adicionarIngrediente("8x Fragmento Eco + 1x Bússola");
+        itens.add(bussolaRecuperacao);
+
+        Item fragmentoEco = new Item("Fragmento de Eco",
+            "Material das profundezas",
+            MinecraftEdition.BOTH, "Material");
+        fragmentoEco.adicionarIngrediente("Encontrado em Ancient Cities");
+        itens.add(fragmentoEco);
+
+        Item disco = new Item("Disco de Música",
+            "Toca música em jukeboxes",
+            MinecraftEdition.BOTH, "Item Especial");
+        disco.adicionarIngrediente("Creeper morto por Esqueleto ou encontrado em baús");
+        itens.add(disco);
+
+        Item jukebox = new Item("Jukebox",
+            "Reproduz discos de música",
+            MinecraftEdition.BOTH, "Utilitário");
+        jukebox.adicionarIngrediente("8x Tábuas + 1x Diamante");
+        itens.add(jukebox);
+
+        Item livroPena = new Item("Livro e Pena",
+            "Permite escrever",
+            MinecraftEdition.BOTH, "Utilitário");
+        livroPena.adicionarIngrediente("1x Livro + 1x Pena + 1x Saco de Tinta");
+        itens.add(livroPena);
+
+        Item armaduraSupport = new Item("Suporte de Armadura",
+            "Exibe armaduras e itens",
+            MinecraftEdition.BOTH, "Utilitário");
+        armaduraSupport.adicionarIngrediente("6x Graveto + 1x Laje de Pedra");
+        itens.add(armaduraSupport);
+
+        Item quadro = new Item("Quadro",
+            "Decoração para paredes",
+            MinecraftEdition.BOTH, "Utilitário");
+        quadro.adicionarIngrediente("8x Graveto + 1x Couro");
+        itens.add(quadro);
+
+        Item pintura = new Item("Bandeira",
+            "Decoração personalizável",
+            MinecraftEdition.BOTH, "Bloco Decorativo");
+        pintura.adicionarIngrediente("6x Lã + 1x Graveto");
+        itens.add(pintura);
+
+        Item tear = new Item("Tear",
+            "Cria padrões em bandeiras",
+            MinecraftEdition.BOTH, "Utilitário");
+        tear.adicionarIngrediente("2x Linha + 2x Tábuas");
+        itens.add(tear);
+
+        Item tingidor = new Item("Caldeirão",
+            "Usado para tingir em Bedrock",
+            MinecraftEdition.BEDROCK, "Utilitário");
+        tingidor.adicionarIngrediente("7x Lingote de Ferro");
+        itens.add(tingidor);
     }
 
     private void carregarPocoes() {
@@ -2417,6 +2891,384 @@ public class MinecraftWiki {
 
     public List<Encantamento> listarTodosEncantamentos() {
         return new ArrayList<>(encantamentos);
+    }
+
+    public List<Armadura> getArmaduras() {
+        return new ArrayList<>(armaduras);
+    }
+
+    public List<Armadura> buscarArmaduras(String termo) {
+        return armaduras.stream()
+                .filter(a -> a.getNome().toLowerCase().contains(termo.toLowerCase()) ||
+                            a.getMaterial().toLowerCase().contains(termo.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    private void carregarArmaduras() {
+        // ==================== ARMADURAS DE COURO ====================
+        
+        Armadura capaceteCouro = new Armadura("Capacete de Couro", "Capacete", "Couro",
+            "Armadura básica tingível", 1, 55, MinecraftEdition.BOTH);
+        capaceteCouro.adicionarIngrediente("5x Couro");
+        armaduras.add(capaceteCouro);
+
+        Armadura peitoralCouro = new Armadura("Peitoral de Couro", "Peitoral", "Couro",
+            "Peitoral leve e tingível", 3, 80, MinecraftEdition.BOTH);
+        peitoralCouro.adicionarIngrediente("8x Couro");
+        armaduras.add(peitoralCouro);
+
+        Armadura calcasCouro = new Armadura("Calças de Couro", "Calças", "Couro",
+            "Calças tingíveis", 2, 75, MinecraftEdition.BOTH);
+        calcasCouro.adicionarIngrediente("7x Couro");
+        armaduras.add(calcasCouro);
+
+        Armadura botasCouro = new Armadura("Botas de Couro", "Botas", "Couro",
+            "Botas leves tingíveis", 1, 65, MinecraftEdition.BOTH);
+        botasCouro.adicionarIngrediente("4x Couro");
+        armaduras.add(botasCouro);
+
+        // ==================== ARMADURAS DE COTA DE MALHA ====================
+        
+        Armadura capaceteMalha = new Armadura("Capacete de Cota de Malha", "Capacete", "Cota de Malha",
+            "Armadura rara, não craftável", 2, 165, MinecraftEdition.BOTH);
+        capaceteMalha.adicionarIngrediente("Encontrado em baús ou comércio");
+        armaduras.add(capaceteMalha);
+
+        Armadura peitoralMalha = new Armadura("Peitoral de Cota de Malha", "Peitoral", "Cota de Malha",
+            "Peitoral raro, não craftável", 5, 240, MinecraftEdition.BOTH);
+        peitoralMalha.adicionarIngrediente("Encontrado em baús ou comércio");
+        armaduras.add(peitoralMalha);
+
+        Armadura calcasMalha = new Armadura("Calças de Cota de Malha", "Calças", "Cota de Malha",
+            "Calças raras, não craftáveis", 4, 225, MinecraftEdition.BOTH);
+        calcasMalha.adicionarIngrediente("Encontrado em baús ou comércio");
+        armaduras.add(calcasMalha);
+
+        Armadura botasMalha = new Armadura("Botas de Cota de Malha", "Botas", "Cota de Malha",
+            "Botas raras, não craftáveis", 1, 195, MinecraftEdition.BOTH);
+        botasMalha.adicionarIngrediente("Encontrado em baús ou comércio");
+        armaduras.add(botasMalha);
+
+        // ==================== ARMADURAS DE FERRO ====================
+        
+        Armadura capaceteFerro = new Armadura("Capacete de Ferro", "Capacete", "Ferro",
+            "Proteção sólida e confiável", 2, 165, MinecraftEdition.BOTH);
+        capaceteFerro.adicionarIngrediente("5x Lingote de Ferro");
+        armaduras.add(capaceteFerro);
+
+        Armadura peitoralFerro = new Armadura("Peitoral de Ferro", "Peitoral", "Ferro",
+            "Excelente proteção do tronco", 6, 240, MinecraftEdition.BOTH);
+        peitoralFerro.adicionarIngrediente("8x Lingote de Ferro");
+        armaduras.add(peitoralFerro);
+
+        Armadura calcasFerro = new Armadura("Calças de Ferro", "Calças", "Ferro",
+            "Proteção forte para as pernas", 5, 225, MinecraftEdition.BOTH);
+        calcasFerro.adicionarIngrediente("7x Lingote de Ferro");
+        armaduras.add(calcasFerro);
+
+        Armadura botasFerro = new Armadura("Botas de Ferro", "Botas", "Ferro",
+            "Botas duráveis", 2, 195, MinecraftEdition.BOTH);
+        botasFerro.adicionarIngrediente("4x Lingote de Ferro");
+        armaduras.add(botasFerro);
+
+        // ==================== ARMADURAS DE OURO ====================
+        
+        Armadura capaceteOuro = new Armadura("Capacete de Ouro", "Capacete", "Ouro",
+            "Fraco mas encanta melhor. Piglins gostam!", 2, 77, MinecraftEdition.BOTH);
+        capaceteOuro.adicionarIngrediente("5x Lingote de Ouro");
+        armaduras.add(capaceteOuro);
+
+        Armadura peitoralOuro = new Armadura("Peitoral de Ouro", "Peitoral", "Ouro",
+            "Baixa durabilidade, alto encantamento", 5, 112, MinecraftEdition.BOTH);
+        peitoralOuro.adicionarIngrediente("8x Lingote de Ouro");
+        armaduras.add(peitoralOuro);
+
+        Armadura calcasOuro = new Armadura("Calças de Ouro", "Calças", "Ouro",
+            "Protege dos Piglins no Nether", 3, 105, MinecraftEdition.BOTH);
+        calcasOuro.adicionarIngrediente("7x Lingote de Ouro");
+        armaduras.add(calcasOuro);
+
+        Armadura botasOuro = new Armadura("Botas de Ouro", "Botas", "Ouro",
+            "Botas frágeis mas encantáveis", 1, 91, MinecraftEdition.BOTH);
+        botasOuro.adicionarIngrediente("4x Lingote de Ouro");
+        armaduras.add(botasOuro);
+
+        // ==================== ARMADURAS DE DIAMANTE ====================
+        
+        Armadura capaceteDiamante = new Armadura("Capacete de Diamante", "Capacete", "Diamante",
+            "Segunda melhor proteção do jogo", 3, 363, MinecraftEdition.BOTH);
+        capaceteDiamante.adicionarIngrediente("5x Diamante");
+        armaduras.add(capaceteDiamante);
+
+        Armadura peitoralDiamante = new Armadura("Peitoral de Diamante", "Peitoral", "Diamante",
+            "Proteção superior para o tronco", 8, 528, MinecraftEdition.BOTH);
+        peitoralDiamante.adicionarIngrediente("8x Diamante");
+        armaduras.add(peitoralDiamante);
+
+        Armadura calcasDiamante = new Armadura("Calças de Diamante", "Calças", "Diamante",
+            "Excelente proteção das pernas", 6, 495, MinecraftEdition.BOTH);
+        calcasDiamante.adicionarIngrediente("7x Diamante");
+        armaduras.add(calcasDiamante);
+
+        Armadura botasDiamante = new Armadura("Botas de Diamante", "Botas", "Diamante",
+            "Botas de alta durabilidade", 3, 429, MinecraftEdition.BOTH);
+        botasDiamante.adicionarIngrediente("4x Diamante");
+        armaduras.add(botasDiamante);
+
+        // ==================== ARMADURAS DE NETHERITE ====================
+        
+        Armadura capaceteNetherite = new Armadura("Capacete de Netherite", "Capacete", "Netherite",
+            "Melhor capacete do jogo, imune a lava", 3, 407, MinecraftEdition.BOTH);
+        capaceteNetherite.adicionarIngrediente("Capacete de Diamante");
+        capaceteNetherite.adicionarIngrediente("1x Lingote de Netherite");
+        capaceteNetherite.setMoldeFerraria("Molde de Upgrade de Netherite");
+        capaceteNetherite.setReceitaMolde("Encontrado em:\n• Baús de Bastião do Nether\n• Baús de Fortaleza do Nether\n• Raramente em ruínas do Nether\n\nPode ser duplicado com:\n• 7x Diamante + 1x Molde + 1x Netherrack");
+        armaduras.add(capaceteNetherite);
+
+        Armadura peitoralNetherite = new Armadura("Peitoral de Netherite", "Peitoral", "Netherite",
+            "Melhor peitoral, +1 de resistência a knockback", 8, 592, MinecraftEdition.BOTH);
+        peitoralNetherite.adicionarIngrediente("Peitoral de Diamante");
+        peitoralNetherite.adicionarIngrediente("1x Lingote de Netherite");
+        peitoralNetherite.setMoldeFerraria("Molde de Upgrade de Netherite");
+        peitoralNetherite.setReceitaMolde("Encontrado em:\n• Baús de Bastião do Nether\n• Baús de Fortaleza do Nether\n• Raramente em ruínas do Nether\n\nPode ser duplicado com:\n• 7x Diamante + 1x Molde + 1x Netherrack");
+        armaduras.add(peitoralNetherite);
+
+        Armadura calcasNetherite = new Armadura("Calças de Netherite", "Calças", "Netherite",
+            "Melhores calças, resistência extra", 6, 555, MinecraftEdition.BOTH);
+        calcasNetherite.adicionarIngrediente("Calças de Diamante");
+        calcasNetherite.adicionarIngrediente("1x Lingote de Netherite");
+        calcasNetherite.setMoldeFerraria("Molde de Upgrade de Netherite");
+        calcasNetherite.setReceitaMolde("Encontrado em:\n• Baús de Bastião do Nether\n• Baús de Fortaleza do Nether\n• Raramente em ruínas do Nether\n\nPode ser duplicado com:\n• 7x Diamante + 1x Molde + 1x Netherrack");
+        armaduras.add(calcasNetherite);
+
+        Armadura botasNetherite = new Armadura("Botas de Netherite", "Botas", "Netherite",
+            "Melhores botas, flutuam na lava", 3, 481, MinecraftEdition.BOTH);
+        botasNetherite.adicionarIngrediente("Botas de Diamante");
+        botasNetherite.adicionarIngrediente("1x Lingote de Netherite");
+        botasNetherite.setMoldeFerraria("Molde de Upgrade de Netherite");
+        botasNetherite.setReceitaMolde("Encontrado em:\n• Baús de Bastião do Nether\n• Baús de Fortaleza do Nether\n• Raramente em ruínas do Nether\n\nPode ser duplicado com:\n• 7x Diamante + 1x Molde + 1x Netherrack");
+        armaduras.add(botasNetherite);
+
+        // ==================== ARMADURA DE TARTARUGA ====================
+        
+        Armadura capaceteTartaruga = new Armadura("Casco de Tartaruga", "Capacete", "Tartaruga",
+            "Permite respirar embaixo d'água por mais tempo", 2, 275, MinecraftEdition.BOTH);
+        capaceteTartaruga.adicionarIngrediente("5x Escama de Tartaruga");
+        armaduras.add(capaceteTartaruga);
+    }
+
+    private void carregarMoldesFerraria() {
+        // ==================== MOLDE DE UPGRADE ====================
+        
+        MoldeFerraria upgradeNetherite = new MoldeFerraria(
+            "Melhoria de Netherite",
+            "upgrade",
+            "Usado para melhorar armaduras e ferramentas de diamante para netherite na Mesa de Ferraria",
+            "📍 Bastião em Ruínas:\n  • Baú do tesouro: 100% (1 item)\n  • Baú genérico: 10% (1 item)\n  • Baú da ponte: 10% (1 item)\n  • Baú do estábulo de hoglin: 10% (1 item)\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Netherrack",
+            "Na Mesa de Ferraria:\n1. Molde no primeiro slot\n2. Armadura/Ferramenta de Diamante no segundo\n3. Lingote de Netherite no terceiro\n\n✨ Preserva todos os encantamentos!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(upgradeNetherite);
+
+        // ==================== MOLDES DE APARAGEM (TRIM) ====================
+        
+        MoldeFerraria coastTrim = new MoldeFerraria(
+            "Enfeite do Litoral",
+            "trim",
+            "Padrão decorativo inspirado em ruínas oceânicas e naufrágios",
+            "📍 Naufrágio:\n  • Baú do mapa: 16,7% (2 itens)\n  • Baú do tesouro: 16,7% (2 itens)\n  • Baú de suprimentos: 16,7% (2 itens)\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Pedregulho",
+            "Na Mesa de Ferraria:\n1. Molde no primeiro slot\n2. Armadura no segundo\n3. Material decorativo (minerais) no terceiro\n\n🎨 Cores variam conforme o material usado!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(coastTrim);
+
+        MoldeFerraria duneTrim = new MoldeFerraria(
+            "Enfeite de Dunas",
+            "trim",
+            "Padrão desértico inspirado nas antigas construções dos templos de areia",
+            "📍 Templo do Deserto:\n  • Baú: 14,3% (2 itens)\n  • Baús suspeitos (areia): Comum\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Arenito",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use ouro para efeito desértico!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(duneTrim);
+
+        MoldeFerraria eyeTrim = new MoldeFerraria(
+            "Enfeite de Olho",
+            "trim",
+            "Padrão misterioso inspirado nos Olhos do Ender e nas Fortalezas",
+            "📍 Fortaleza (Stronghold):\n  • Baú da biblioteca: 100% (1 item)\n  • Baú do altar: 10% (1 item)\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Pedra do End",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use esmeralda ou aquamarine!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(eyeTrim);
+
+        MoldeFerraria hostTrim = new MoldeFerraria(
+            "Enfeite de Hospedeiro",
+            "trim",
+            "Padrão elegante inspirado nos antigos guardiões das Cidades Ancestrais",
+            "📍 Cidade Ancestral (Ancient City):\n  • Baú: 8,3% (1 item)\n  • Raro - explore bem as estruturas!\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Terracota",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use diamante ou netherite!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(hostTrim);
+
+        MoldeFerraria raiserTrim = new MoldeFerraria(
+            "Enfeite de Levante",
+            "trim",
+            "Padrão inspirado nas bandeiras e torres dos Saqueadores",
+            "📍 Posto de Saqueadores (Pillager Outpost):\n  • Baú: 25% (2 itens)\n  • Boa chance de encontrar!\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Terracota",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use ferro ou cobre!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(raiserTrim);
+
+        MoldeFerraria ribTrim = new MoldeFerraria(
+            "Enfeite de Costelas",
+            "trim",
+            "Padrão ósseo inspirado nos esqueletos Wither das Fortalezas do Nether",
+            "📍 Fortaleza do Nether:\n  • Baú: 6,7% (1 item)\n  • Raro - prepare-se para explorar!\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Netherrack",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use quartzo ou osso!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(ribTrim);
+
+        MoldeFerraria sentryTrim = new MoldeFerraria(
+            "Enfeite de Sentinela",
+            "trim",
+            "Padrão de vigilância inspirado nos guardas dos Postos de Saqueadores",
+            "📍 Posto de Saqueadores (Pillager Outpost):\n  • Baú: 25% (2 itens)\n  • Mesma estrutura do Raiser!\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Pedregulho",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use ferro escuro ou lapis!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(sentryTrim);
+
+        MoldeFerraria shaperTrim = new MoldeFerraria(
+            "Enfeite de Moldador",
+            "trim",
+            "Padrão artesanal criado pelos antigos construtores das profundezas",
+            "📍 Cidade Ancestral (Ancient City):\n  • Baú: 8,3% (1 item)\n  • Estrutura perigosa - cuidado com o Warden!\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Terracota",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use cobre ou ametista!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(shaperTrim);
+
+        MoldeFerraria silenceTrim = new MoldeFerraria(
+            "Enfeite de Silêncio",
+            "trim",
+            "Padrão mais raro do jogo, encontrado nas profundezas escuras",
+            "📍 Cidade Ancestral (Ancient City):\n  • Baú: 1,2% (1 item)\n  • ⚠️ EXTREMAMENTE RARO!\n  • Melhor molde do jogo!\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Pedregulho",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use netherite ou obsidiana!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(silenceTrim);
+
+        MoldeFerraria snoutTrim = new MoldeFerraria(
+            "Enfeite de Focinho",
+            "trim",
+            "Padrão Piglin inspirado nas máscaras dos habitantes do Nether",
+            "📍 Bastião em Ruínas:\n  • Baú do tesouro: 8,3% (1 item)\n  • Baú genérico: 8,3% (1 item)\n  • Baú da ponte: 8,3% (1 item)\n  • Baú do estábulo de hoglin: 8,3% (1 item)\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Blackstone",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use ouro (Piglins adoram!)\n⚠️ Vista ouro ao explorar o Bastião!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(snoutTrim);
+
+        MoldeFerraria spireTrim = new MoldeFerraria(
+            "Enfeite de Espiral",
+            "trim",
+            "Padrão pontiagudo inspirado nas torres das Cidades do End",
+            "📍 Cidade do End (End City):\n  • Baú: 6,7% (1 item)\n  • Encontrado após derrotar o Ender Dragon\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Purpur",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use ametista ou purpur!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(spireTrim);
+
+        MoldeFerraria tideTrim = new MoldeFerraria(
+            "Enfeite de Marés",
+            "trim",
+            "Padrão aquático inspirado nos Guardiões dos Monumentos Oceânicos",
+            "📍 Monumento Oceânico (Ocean Monument):\n  • Baú: 6,7% (1 item)\n  • Protegido por Elder Guardians\n  • Traga poções de respiração aquática!\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Prismarinho",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use prismarinho ou diamante!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(tideTrim);
+
+        MoldeFerraria vexTrim = new MoldeFerraria(
+            "Enfeite de Vex",
+            "trim",
+            "Padrão mágico inspirado nas criaturas invocadas pelos Evokers",
+            "📍 Mansão da Floresta (Woodland Mansion):\n  • Baú: 50% (1 item)\n  • Estrutura MUITO rara de encontrar!\n  • Use um mapa de explorador\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Pedregulho",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use lapis ou diamante!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(vexTrim);
+
+        MoldeFerraria wardTrim = new MoldeFerraria(
+            "Enfeite das Profundezas",
+            "trim",
+            "Padrão protetor usado pelos antigos guardiões das profundezas",
+            "📍 Cidade Ancestral (Ancient City):\n  • Baú: 5% (1 item)\n  • Raro mas vale a pena!\n  • Evite despertar o Warden\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Pedregulho",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use netherite ou sculk!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(wardTrim);
+
+        MoldeFerraria wayfinderTrim = new MoldeFerraria(
+            "Enfeite de Navegador",
+            "trim",
+            "Padrão de exploração inspirado nos antigos viajantes e suas ruínas",
+            "📍 Ruínas de Trilha (Trail Ruins):\n  • Baú suspeito: Comum\n  • Escave com pincel!\n  • Estrutura adicionada em 1.20\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Terracota",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use cobre ou tijolo!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(wayfinderTrim);
+
+        MoldeFerraria wildTrim = new MoldeFerraria(
+            "Enfeite da Selva",
+            "trim",
+            "Padrão natural inspirado na vegetação densa e misteriosa das selvas",
+            "📍 Templo da Selva (Jungle Temple):\n  • Baú: 33,3% (2 itens)\n  • Boa chance de encontrar!\n  • Cuidado com as armadilhas\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Blocos de Musgo",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use esmeralda ou cobre!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(wildTrim);
+
+        // ==================== MOLDES EXCLUSIVOS (1.21+) ====================
+        
+        MoldeFerraria boltTrim = new MoldeFerraria(
+            "Enfeite de Parafuso",
+            "trim",
+            "Padrão mecânico inspirado nos artefatos elétricos das estruturas de teste",
+            "📍 Trial Chambers (Câmaras de Teste):\n  • Baú de recompensa: Comum\n  • Novo conteúdo 1.21+\n  • Complete os desafios para ganhar!\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Cobre",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use cobre ou ferro oxidado!\n⚡ Padrão de aspecto tecnológico!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(boltTrim);
+
+        MoldeFerraria flowTrim = new MoldeFerraria(
+            "Enfeite de Fluxo",
+            "trim",
+            "Padrão fluído inspirado nas correntes de vento e movimento",
+            "📍 Trial Chambers (Câmaras de Teste):\n  • Baú de recompensa: Comum\n  • Novo conteúdo 1.21+\n  • Vaults ominosos têm melhor chance\n\n✨ Duplicação: 7x Diamante + 1x Molde + 1x Brisa (Breeze Rod)",
+            "Na Mesa de Ferraria com armadura e material decorativo\n\n🎨 Recomendado: Use ametista ou quartzo!\n💨 Padrão de aspecto aerodinâmico!",
+            MinecraftEdition.BOTH
+        );
+        moldesFerraria.add(flowTrim);
+    }
+
+    public List<MoldeFerraria> getMoldesFerraria() {
+        return new ArrayList<>(moldesFerraria);
+    }
+
+    public List<MoldeFerraria> getMoldesUpgrade() {
+        return moldesFerraria.stream()
+                .filter(MoldeFerraria::isUpgrade)
+                .collect(Collectors.toList());
+    }
+
+    public List<MoldeFerraria> getMoldesTrim() {
+        return moldesFerraria.stream()
+                .filter(MoldeFerraria::isTrim)
+                .collect(Collectors.toList());
     }
 }
 

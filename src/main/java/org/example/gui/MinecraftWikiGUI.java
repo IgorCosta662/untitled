@@ -47,23 +47,10 @@ public class MinecraftWikiGUI extends JFrame {
         mainPanel.add(new ItemsPanel(wiki), "ITEMS");
         mainPanel.add(new PotionsPanel(wiki), "POTIONS");
         mainPanel.add(new EnchantmentsPanel(wiki), "ENCHANTMENTS");
+        mainPanel.add(new ArmorPanel(wiki), "ARMOR");
         mainPanel.add(new CraftingSimulatorPanel(), "CRAFTING");
         mainPanel.add(new StatisticsPanel(wiki), "STATISTICS");
         mainPanel.add(new AboutPanel(this), "ABOUT");
-        
-        // Novos painéis de categorias
-        mainPanel.add(new BlocksPanel(this), "BLOCKS");
-        mainPanel.add(new CreaturesPanel(this), "CREATURES");
-        mainPanel.add(new BiomesPanel(this), "BIOMES");
-        mainPanel.add(new EffectsPanel(this), "EFFECTS");
-        mainPanel.add(new SmeltingPanel(this), "SMELTING");
-        mainPanel.add(new SmithingPanel(this), "SMITHING");
-        mainPanel.add(new StructuresPanel(this), "STRUCTURES");
-        mainPanel.add(new RedstonePanel(this), "REDSTONE");
-        mainPanel.add(new CommandsPanel(this), "COMMANDS");
-        mainPanel.add(new CommercePanel(this), "COMMERCE");
-        mainPanel.add(new HistoryPanel(this), "HISTORY");
-        mainPanel.add(new TutorialsPanel(this), "TUTORIALS");
 
         add(mainPanel);
 

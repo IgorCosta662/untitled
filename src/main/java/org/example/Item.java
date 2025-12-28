@@ -10,6 +10,8 @@ public class Item {
     private List<String> ingredientes;
     private String padraoCrafting;
     private String categoria;
+    private String imagemItem;  // Caminho para imagem do item
+    private String imagemCrafting;  // Caminho para imagem da receita de crafting
 
     public Item(String nome, String descricao, MinecraftEdition edicao, String categoria) {
         this.nome = nome;
@@ -49,6 +51,22 @@ public class Item {
 
     public String getPadraoCrafting() {
         return padraoCrafting;
+    }
+
+    public String getImagemItem() {
+        return imagemItem;
+    }
+
+    public void setImagemItem(String imagemItem) {
+        this.imagemItem = imagemItem;
+    }
+
+    public String getImagemCrafting() {
+        return imagemCrafting;
+    }
+
+    public void setImagemCrafting(String imagemCrafting) {
+        this.imagemCrafting = imagemCrafting;
     }
 
     @Override
