@@ -335,13 +335,33 @@ public class EnchantmentsPanel extends JPanel {
             BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_BLUE, 2),
             new EmptyBorder(15, 15, 15, 15)
         ));
-        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 200));
+        card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
+
+        // Painel com imagem do livro encantado à esquerda
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setOpaque(false);
+        leftPanel.setBorder(new EmptyBorder(0, 0, 0, 15));
+
+        // Ícone do livro encantado
+        JLabel bookIcon = new JLabel(ImageManager.getItemIcon("ENCHANTED_BOOK", 48));
+        bookIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+        leftPanel.add(bookIcon);
+        leftPanel.add(Box.createVerticalStrut(5));
+
+        JLabel typeLabel = new JLabel("Encantamento");
+        typeLabel.setFont(new Font("SansSerif", Font.PLAIN, 10));
+        typeLabel.setForeground(Color.LIGHT_GRAY);
+        typeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        leftPanel.add(typeLabel);
+
+        card.add(leftPanel, BorderLayout.WEST);
 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setOpaque(false);
 
-        JLabel nameLabel = new JLabel("✨ " + enchantment.getNome());
+        JLabel nameLabel = new JLabel(enchantment.getNome());
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         nameLabel.setForeground(MinecraftWikiGUI.MINECRAFT_BLUE.brighter());
 
@@ -349,11 +369,46 @@ public class EnchantmentsPanel extends JPanel {
         editionLabel.setFont(new Font("SansSerif", Font.PLAIN, 12));
         editionLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
 
+        // Extrair descrição do toString
+        String fullText = enchantment.toString();
+        String descricao = "";
+        if (fullText.contains("Descrição: ")) {
+            descricao = fullText.split("Descrição: ")[1].split("\\n")[0].trim();
+        }
+
+        JLabel descLabel = new JLabel("📜 " + descricao);
+        descLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        descLabel.setForeground(Color.WHITE);
+
+        // Badge de tesouro
+        if (enchantment.isTesouro()) {
+            JLabel treasureLabel = new JLabel("💎 TESOURO");
+            treasureLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
+            treasureLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
+            treasureLabel.setOpaque(true);
+            treasureLabel.setBackground(new Color(255, 215, 0, 50));
+            treasureLabel.setBorder(new EmptyBorder(2, 5, 2, 5));
+            infoPanel.add(treasureLabel);
+            infoPanel.add(Box.createVerticalStrut(5));
+        }
+
         infoPanel.add(nameLabel);
         infoPanel.add(Box.createVerticalStrut(5));
         infoPanel.add(editionLabel);
+        infoPanel.add(Box.createVerticalStrut(10));
+        infoPanel.add(descLabel);
 
         card.add(infoPanel, BorderLayout.CENTER);
+
+        // Adicionar botão "Ver Detalhes"
+        JButton detailsButton = new JButton("📋 Ver Detalhes");
+        detailsButton.setBackground(MinecraftWikiGUI.MINECRAFT_GREEN);
+        detailsButton.setForeground(Color.WHITE);
+        detailsButton.setFocusPainted(false);
+        detailsButton.setFont(new Font("SansSerif", Font.BOLD, 12));
+        detailsButton.addActionListener(e -> showEnchantmentDetails(enchantment));
+
+        card.add(detailsButton, BorderLayout.EAST);
 
         return card;
     }
@@ -468,6 +523,342 @@ public class EnchantmentsPanel extends JPanel {
 
         dialog.add(guideScrollPane);
         dialog.setVisible(true);
+    }
+
+    private void showEnchantmentDetails(Encantamento enchantment) {
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), 
+            "Detalhes: " + enchantment.getNome(), true);
+        dialog.setSize(800, 700);
+        dialog.setLocationRelativeTo(this);
+
+        JPanel mainPanel = new JPanel(new BorderLayout(15, 15));
+        mainPanel.setBackground(new Color(40, 40, 40));
+        mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+        // Painel de informações com imagem do livro
+        JPanel infoPanel = new JPanel(new BorderLayout(15, 15));
+        infoPanel.setBackground(new Color(50, 50, 50));
+        infoPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_BLUE, 2),
+            new EmptyBorder(15, 15, 15, 15)
+        ));
+
+        // Imagem do livro encantado à esquerda
+        JPanel iconPanel = new JPanel();
+        iconPanel.setLayout(new BoxLayout(iconPanel, BoxLayout.Y_AXIS));
+        iconPanel.setOpaque(false);
+        
+        JLabel bookIcon = new JLabel(ImageManager.getItemIcon("ENCHANTED_BOOK", 64));
+        bookIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+        iconPanel.add(bookIcon);
+
+        infoPanel.add(iconPanel, BorderLayout.WEST);
+
+        // Informações do encantamento
+        JPanel detailsPanel = new JPanel();
+        detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
+        detailsPanel.setOpaque(false);
+
+        JLabel titleLabel = new JLabel(enchantment.getNome());
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
+        titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_BLUE.brighter());
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel editionLabel = new JLabel("📦 Edição: " + enchantment.getEdicao().getDisplayName());
+        editionLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        editionLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
+        editionLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        // Extrair informações do toString
+        String fullText = enchantment.toString();
+        String descricao = "";
+        int nivelMaximo = 1;
+        
+        if (fullText.contains("Descrição: ")) {
+            descricao = fullText.split("Descrição: ")[1].split("\\n")[0].trim();
+        }
+        if (fullText.contains("Nível Máximo: ")) {
+            nivelMaximo = Integer.parseInt(fullText.split("Nível Máximo: ")[1].split("\\n")[0].trim());
+        }
+
+        JLabel descLabel = new JLabel("📜 " + descricao);
+        descLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        descLabel.setForeground(Color.WHITE);
+        descLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel levelLabel = new JLabel("⭐ Nível Máximo: " + nivelMaximo);
+        levelLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        levelLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
+        levelLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel weightLabel = new JLabel("⚖️ Peso: " + enchantment.getPeso());
+        weightLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        weightLabel.setForeground(Color.LIGHT_GRAY);
+        weightLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        if (enchantment.isTesouro()) {
+            JLabel treasureLabel = new JLabel("💎 ENCANTAMENTO TESOURO");
+            treasureLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+            treasureLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
+            treasureLabel.setOpaque(true);
+            treasureLabel.setBackground(new Color(255, 215, 0, 80));
+            treasureLabel.setBorder(new EmptyBorder(5, 10, 5, 10));
+            treasureLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            detailsPanel.add(treasureLabel);
+            detailsPanel.add(Box.createVerticalStrut(10));
+        }
+
+        detailsPanel.add(titleLabel);
+        detailsPanel.add(Box.createVerticalStrut(10));
+        detailsPanel.add(editionLabel);
+        detailsPanel.add(Box.createVerticalStrut(5));
+        detailsPanel.add(descLabel);
+        detailsPanel.add(Box.createVerticalStrut(5));
+        detailsPanel.add(levelLabel);
+        detailsPanel.add(Box.createVerticalStrut(5));
+        detailsPanel.add(weightLabel);
+
+        infoPanel.add(detailsPanel, BorderLayout.CENTER);
+
+        // Painel de itens compatíveis com imagens - REORGANIZADO
+        JPanel itemsPanel = new JPanel();
+        itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
+        itemsPanel.setBackground(new Color(35, 35, 35));
+        itemsPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_GREEN, 2),
+            new EmptyBorder(15, 15, 15, 15)
+        ));
+
+        JLabel itemsTitle = new JLabel("🛠️ PARA QUE SERVE E ITENS COMPATÍVEIS");
+        itemsTitle.setFont(new Font("SansSerif", Font.BOLD, 18));
+        itemsTitle.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
+        itemsTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+        itemsPanel.add(itemsTitle);
+        itemsPanel.add(Box.createVerticalStrut(15));
+
+        // Adicionar seção "FINALIDADE"
+        String purpose = getEnchantmentPurpose(enchantment.getNome());
+        if (!purpose.isEmpty()) {
+            JPanel purposePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 5));
+            purposePanel.setOpaque(false);
+            
+            JLabel purposeIcon = new JLabel("🎯");
+            purposeIcon.setFont(new Font("SansSerif", Font.BOLD, 14));
+            
+            JLabel purposeLabel = new JLabel("<html><b>FINALIDADE:</b> " + purpose + "</html>");
+            purposeLabel.setFont(new Font("SansSerif", Font.PLAIN, 13));
+            purposeLabel.setForeground(Color.WHITE);
+            
+            purposePanel.add(purposeIcon);
+            purposePanel.add(purposeLabel);
+            
+            itemsPanel.add(purposePanel);
+            itemsPanel.add(Box.createVerticalStrut(15));
+        }
+
+        // Extrair itens primários e secundários com categorização
+        if (fullText.contains("► Item Primário:")) {
+            String itensPrimarios = fullText.split("► Item Primário: ")[1].split("\\n")[0].trim();
+            addCategorizedItems(itemsPanel, itensPrimarios, enchantment.getNome());
+        }
+
+        if (fullText.contains("► Item Secundário:")) {
+            String itensSecundarios = fullText.split("► Item Secundário: ")[1].split("\\n")[0].trim();
+            itemsPanel.add(Box.createVerticalStrut(10));
+            JLabel secondaryLabel = new JLabel("► Item Secundário (via Bigorna):");
+            secondaryLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+            secondaryLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
+            secondaryLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            itemsPanel.add(secondaryLabel);
+            itemsPanel.add(Box.createVerticalStrut(8));
+            addItemCategoryWithIcons(itemsPanel, "", itensSecundarios);
+        }
+
+        // Incompatibilidades
+        if (fullText.contains("⚠ Incompatível com:")) {
+            itemsPanel.add(Box.createVerticalStrut(15));
+            JLabel incompatLabel = new JLabel("⚠️ INCOMPATIBILIDADES:");
+            incompatLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+            incompatLabel.setForeground(MinecraftWikiGUI.MINECRAFT_RED);
+            incompatLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            itemsPanel.add(incompatLabel);
+            itemsPanel.add(Box.createVerticalStrut(10));
+
+            String incompativeis = fullText.split("⚠ Incompatível com: ")[1].split("\\n")[0].trim();
+            JLabel incompatText = new JLabel("  " + incompativeis);
+            incompatText.setFont(new Font("SansSerif", Font.PLAIN, 13));
+            incompatText.setForeground(Color.YELLOW);
+            incompatText.setAlignmentX(Component.LEFT_ALIGNMENT);
+            itemsPanel.add(incompatText);
+        }
+
+        // Área de informações adicionais
+        JTextArea detailsArea = new JTextArea();
+        detailsArea.setEditable(false);
+        detailsArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
+        detailsArea.setBackground(new Color(30, 30, 30));
+        detailsArea.setForeground(Color.WHITE);
+        detailsArea.setBorder(new EmptyBorder(15, 15, 15, 15));
+        detailsArea.setLineWrap(true);
+        detailsArea.setWrapStyleWord(true);
+
+        StringBuilder details = new StringBuilder();
+        details.append("\n╔═══════════════════════════════════════════════════════╗\n");
+        details.append("║           COMO OBTER ESTE ENCANTAMENTO               ║\n");
+        details.append("╠═══════════════════════════════════════════════════════╣\n");
+        details.append("║                                                       ║\n");
+
+        if (enchantment.isTesouro()) {
+            details.append("║  ⚠️  ENCANTAMENTO TESOURO - Não disponível em mesa   ║\n");
+            details.append("║                                                       ║\n");
+            details.append("║  FORMAS DE OBTER:                                     ║\n");
+            details.append("║                                                       ║\n");
+            details.append("║  • Pescaria (Vara com Sorte do Mar)                  ║\n");
+            details.append("║  • Baús de estruturas (Templos, Fortalezas, etc.)    ║\n");
+            details.append("║  • Troca com Aldeões Bibliotecários                  ║\n");
+            details.append("║  • Drops de mobs específicos                          ║\n");
+        } else {
+            details.append("║  ✓ Disponível em Mesa de Encantamento                ║\n");
+            details.append("║                                                       ║\n");
+            details.append("║  FORMAS DE OBTER:                                     ║\n");
+            details.append("║                                                       ║\n");
+            details.append("║  • Mesa de Encantamento (com lápis-lazúli e XP)      ║\n");
+            details.append("║  • Pescaria                                           ║\n");
+            details.append("║  • Baús de estruturas                                 ║\n");
+            details.append("║  • Troca com Aldeões                                  ║\n");
+        }
+
+        details.append("║                                                       ║\n");
+        details.append("╚═══════════════════════════════════════════════════════╝\n\n");
+
+        // Dicas específicas
+        details.append("\n💡 DICAS E INFORMAÇÕES:\n\n");
+        details.append("• Peso " + enchantment.getPeso() + " indica a raridade\n");
+        details.append("  (peso maior = mais comum)\n\n");
+        details.append("• Use Bigorna para combinar encantamentos\n\n");
+        details.append("• Remendo pode manter itens para sempre\n\n");
+        details.append("• Biblioteca com 15 estantes dá encantamentos nível 30\n\n");
+        
+        if (nivelMaximo > 1) {
+            details.append("• Este encantamento tem " + nivelMaximo + " níveis\n");
+            details.append("  Níveis maiores = efeito mais forte\n\n");
+        }
+
+        if (fullText.contains("⚠ Incompatível com:")) {
+            details.append("⚠️ ATENÇÃO: Este encantamento é incompatível com\n");
+            details.append("   outros encantamentos específicos.\n");
+            details.append("   Verifique a seção de incompatibilidades acima.\n");
+        }
+
+        detailsArea.setText(details.toString());
+        detailsArea.setCaretPosition(0);
+
+        JScrollPane detailsScrollPane = new JScrollPane(detailsArea);
+        detailsScrollPane.setBorder(BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_BLUE, 2));
+
+        // Layout principal
+        JPanel centerPanel = new JPanel(new BorderLayout(10, 10));
+        centerPanel.setOpaque(false);
+        centerPanel.add(itemsPanel, BorderLayout.NORTH);
+        centerPanel.add(detailsScrollPane, BorderLayout.CENTER);
+
+        mainPanel.add(infoPanel, BorderLayout.NORTH);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
+
+        // Botão fechar
+        JButton closeButton = new JButton("✖️ Fechar");
+        closeButton.setBackground(MinecraftWikiGUI.MINECRAFT_RED);
+        closeButton.setForeground(Color.WHITE);
+        closeButton.setFocusPainted(false);
+        closeButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        closeButton.addActionListener(e -> dialog.dispose());
+        
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.setBackground(new Color(40, 40, 40));
+        buttonPanel.add(closeButton);
+        
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+        dialog.add(mainPanel);
+        dialog.setVisible(true);
+    }
+
+    /**
+     * Adiciona uma categoria de itens com ícones.
+     */
+    private void addItemCategoryWithIcons(JPanel panel, String category, String itemsText) {
+        JLabel categoryLabel = new JLabel("► " + category + ":");
+        categoryLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+        categoryLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
+        categoryLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(categoryLabel);
+        panel.add(Box.createVerticalStrut(8));
+
+        // Criar painel para os itens
+        JPanel itemsRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        itemsRow.setOpaque(false);
+
+        // Parse dos itens (separados por vírgula)
+        String[] items = itemsText.split(",");
+        for (String item : items) {
+            item = item.trim();
+            if (!item.isEmpty()) {
+                String iconName = getIconNameForItem(item);
+                
+                JPanel itemPanel = new JPanel();
+                itemPanel.setLayout(new BoxLayout(itemPanel, BoxLayout.Y_AXIS));
+                itemPanel.setOpaque(false);
+                itemPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+                JLabel icon = new JLabel(ImageManager.getItemIcon(iconName, 32));
+                icon.setAlignmentX(Component.CENTER_ALIGNMENT);
+                
+                JLabel nameLabel = new JLabel(item);
+                nameLabel.setFont(new Font("SansSerif", Font.PLAIN, 11));
+                nameLabel.setForeground(Color.WHITE);
+                nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+                itemPanel.add(icon);
+                itemPanel.add(Box.createVerticalStrut(3));
+                itemPanel.add(nameLabel);
+
+                itemsRow.add(itemPanel);
+            }
+        }
+
+        panel.add(itemsRow);
+        panel.add(Box.createVerticalStrut(10));
+    }
+
+    /**
+     * Retorna o nome do ícone baseado no nome do item.
+     */
+    private String getIconNameForItem(String itemName) {
+        String normalized = itemName.toLowerCase().replace(" ", "_");
+        
+        // Mapeamento de nomes comuns
+        if (normalized.contains("espada")) return "DIAMOND_SWORD";
+        if (normalized.contains("picareta")) return "DIAMOND_PICKAXE";
+        if (normalized.contains("machado")) return "DIAMOND_AXE";
+        if (normalized.contains("pá")) return "DIAMOND_SHOVEL";
+        if (normalized.contains("enxada")) return "DIAMOND_HOE";
+        if (normalized.contains("arco")) return "BOW";
+        if (normalized.contains("besta")) return "CROSSBOW";
+        if (normalized.contains("tridente")) return "TRIDENT";
+        if (normalized.contains("capacete")) return "DIAMOND_HELMET";
+        if (normalized.contains("peitoral")) return "DIAMOND_CHESTPLATE";
+        if (normalized.contains("calça")) return "DIAMOND_LEGGINGS";
+        if (normalized.contains("bota")) return "DIAMOND_BOOTS";
+        if (normalized.contains("elmo")) return "TURTLE_HELMET";
+        if (normalized.contains("vara")) return "FISHING_ROD";
+        if (normalized.contains("tesoura")) return "SHEARS";
+        if (normalized.contains("pederneira")) return "FLINT_AND_STEEL";
+        if (normalized.contains("cenoura")) return "CARROT_ON_A_STICK";
+        if (normalized.contains("escudo")) return "SHIELD";
+        if (normalized.contains("livro")) return "BOOK";
+        
+        // Default: tentar usar o nome normalizado
+        return normalized.toUpperCase();
     }
 }
 
