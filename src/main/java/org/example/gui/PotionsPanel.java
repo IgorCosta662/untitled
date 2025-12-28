@@ -179,11 +179,32 @@ public class PotionsPanel extends JPanel {
         ));
         card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 250));
 
+        // Painel com imagem da poção à esquerda
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
+        leftPanel.setOpaque(false);
+        leftPanel.setBorder(new EmptyBorder(0, 0, 0, 15));
+
+        // Tentar obter ícone da poção
+        String potionIconName = getPotionIconName(potion.getNome());
+        JLabel potionIcon = new JLabel(ImageManager.getItemIcon(potionIconName, 48));
+        potionIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+        leftPanel.add(potionIcon);
+        leftPanel.add(Box.createVerticalStrut(5));
+
+        JLabel typeLabel = new JLabel("Poção");
+        typeLabel.setFont(new Font("SansSerif", Font.PLAIN, 10));
+        typeLabel.setForeground(Color.LIGHT_GRAY);
+        typeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        leftPanel.add(typeLabel);
+
+        card.add(leftPanel, BorderLayout.WEST);
+
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.setOpaque(false);
 
-        JLabel nameLabel = new JLabel("🧪 " + potion.getNome());
+        JLabel nameLabel = new JLabel(potion.getNome());
         nameLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
         nameLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE.brighter());
 
@@ -219,23 +240,39 @@ public class PotionsPanel extends JPanel {
     private void showPotionRecipe(Pocao potion) {
         JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(this), 
             "Receita: " + potion.getNome(), true);
-        dialog.setSize(700, 600);
+        dialog.setSize(800, 700);
         dialog.setLocationRelativeTo(this);
 
         JPanel mainPanel = new JPanel(new BorderLayout(15, 15));
         mainPanel.setBackground(new Color(40, 40, 40));
         mainPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Painel de informações
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        // Painel de informações com imagem da poção
+        JPanel infoPanel = new JPanel(new BorderLayout(15, 15));
         infoPanel.setBackground(new Color(50, 50, 50));
         infoPanel.setBorder(BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_PURPLE, 2),
             new EmptyBorder(15, 15, 15, 15)
         ));
 
-        JLabel titleLabel = new JLabel("🧪 " + potion.getNome());
+        // Imagem da poção à esquerda
+        JPanel iconPanel = new JPanel();
+        iconPanel.setLayout(new BoxLayout(iconPanel, BoxLayout.Y_AXIS));
+        iconPanel.setOpaque(false);
+        
+        String potionIconName = getPotionIconName(potion.getNome());
+        JLabel potionIcon = new JLabel(ImageManager.getItemIcon(potionIconName, 64));
+        potionIcon.setAlignmentX(Component.CENTER_ALIGNMENT);
+        iconPanel.add(potionIcon);
+
+        infoPanel.add(iconPanel, BorderLayout.WEST);
+
+        // Informações da poção
+        JPanel detailsPanel = new JPanel();
+        detailsPanel.setLayout(new BoxLayout(detailsPanel, BoxLayout.Y_AXIS));
+        detailsPanel.setOpaque(false);
+
+        JLabel titleLabel = new JLabel(potion.getNome());
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 24));
         titleLabel.setForeground(MinecraftWikiGUI.MINECRAFT_PURPLE.brighter());
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -255,18 +292,58 @@ public class PotionsPanel extends JPanel {
         durationLabel.setForeground(MinecraftWikiGUI.MINECRAFT_GOLD);
         durationLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        infoPanel.add(titleLabel);
-        infoPanel.add(Box.createVerticalStrut(10));
-        infoPanel.add(editionLabel);
-        infoPanel.add(Box.createVerticalStrut(5));
-        infoPanel.add(effectLabel);
-        infoPanel.add(Box.createVerticalStrut(5));
-        infoPanel.add(durationLabel);
+        detailsPanel.add(titleLabel);
+        detailsPanel.add(Box.createVerticalStrut(10));
+        detailsPanel.add(editionLabel);
+        detailsPanel.add(Box.createVerticalStrut(5));
+        detailsPanel.add(effectLabel);
+        detailsPanel.add(Box.createVerticalStrut(5));
+        detailsPanel.add(durationLabel);
+
+        infoPanel.add(detailsPanel, BorderLayout.CENTER);
+
+        // Painel de ingredientes com imagens
+        JPanel ingredientsPanel = new JPanel();
+        ingredientsPanel.setLayout(new BoxLayout(ingredientsPanel, BoxLayout.Y_AXIS));
+        ingredientsPanel.setBackground(new Color(35, 35, 35));
+        ingredientsPanel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_GREEN, 2),
+            new EmptyBorder(15, 15, 15, 15)
+        ));
+
+        JLabel recipeTitle = new JLabel("🧪 INGREDIENTES NECESSÁRIOS");
+        recipeTitle.setFont(new Font("SansSerif", Font.BOLD, 18));
+        recipeTitle.setForeground(MinecraftWikiGUI.MINECRAFT_GREEN);
+        recipeTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
+        ingredientsPanel.add(recipeTitle);
+        ingredientsPanel.add(Box.createVerticalStrut(15));
+
+        // Adicionar ingredientes com ícones
+        addIngredientWithIcon(ingredientsPanel, "GLASS_BOTTLE", "Garrafa de Vidro", "Base inicial");
+        addIngredientWithIcon(ingredientsPanel, "NETHER_WART", "Verruga do Nether", "Criar Poção Estranha");
+        
+        // Ingrediente principal baseado no efeito
+        String mainIngredient = getMainIngredient(potion.getNome());
+        addIngredientWithIcon(ingredientsPanel, mainIngredient, 
+            mainIngredient.replace("_", " "), "Efeito principal");
+
+        ingredientsPanel.add(Box.createVerticalStrut(10));
+
+        JLabel modifiersLabel = new JLabel("⚙️ MODIFICADORES OPCIONAIS:");
+        modifiersLabel.setFont(new Font("SansSerif", Font.BOLD, 14));
+        modifiersLabel.setForeground(Color.YELLOW);
+        modifiersLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        ingredientsPanel.add(modifiersLabel);
+        ingredientsPanel.add(Box.createVerticalStrut(10));
+
+        addIngredientWithIcon(ingredientsPanel, "GLOWSTONE_DUST", "Pó de Pedra Luminosa", "↑ Potência");
+        addIngredientWithIcon(ingredientsPanel, "REDSTONE", "Pó de Redstone", "↑ Duração");
+        addIngredientWithIcon(ingredientsPanel, "GUNPOWDER", "Pólvora", "= Arremessável");
 
         // Área de receita
         JTextArea recipeArea = new JTextArea();
         recipeArea.setEditable(false);
-        recipeArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
+        recipeArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
         recipeArea.setBackground(new Color(30, 30, 30));
         recipeArea.setForeground(Color.WHITE);
         recipeArea.setBorder(new EmptyBorder(15, 15, 15, 15));
@@ -275,7 +352,7 @@ public class PotionsPanel extends JPanel {
 
         StringBuilder recipe = new StringBuilder();
         recipe.append("\n╔═══════════════════════════════════════════════════════╗\n");
-        recipe.append("║              RECEITA DE PREPARAÇÃO                   ║\n");
+        recipe.append("║              PROCESSO DE PREPARAÇÃO                  ║\n");
         recipe.append("╠═══════════════════════════════════════════════════════╣\n");
         recipe.append("║                                                       ║\n");
 
@@ -345,10 +422,16 @@ public class PotionsPanel extends JPanel {
         recipeArea.setCaretPosition(0);
 
         JScrollPane recipeScrollPane = new JScrollPane(recipeArea);
-        recipeScrollPane.setBorder(BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_GREEN, 2));
+        recipeScrollPane.setBorder(BorderFactory.createLineBorder(MinecraftWikiGUI.MINECRAFT_PURPLE, 2));
+
+        // Layout principal
+        JPanel centerPanel = new JPanel(new BorderLayout(10, 10));
+        centerPanel.setOpaque(false);
+        centerPanel.add(ingredientsPanel, BorderLayout.NORTH);
+        centerPanel.add(recipeScrollPane, BorderLayout.CENTER);
 
         mainPanel.add(infoPanel, BorderLayout.NORTH);
-        mainPanel.add(recipeScrollPane, BorderLayout.CENTER);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
 
         // Botão fechar
         JButton closeButton = new JButton("✖️ Fechar");
@@ -448,6 +531,83 @@ public class PotionsPanel extends JPanel {
 
         dialog.add(guideScrollPane);
         dialog.setVisible(true);
+    }
+
+    /**
+     * Retorna o nome do ícone da poção baseado no nome.
+     */
+    private String getPotionIconName(String potionName) {
+        // Normalizar nome da poção para encontrar o ícone correto
+        String normalized = potionName.toLowerCase();
+        
+        if (normalized.contains("cura")) return "POTION_HEALING";
+        if (normalized.contains("força")) return "POTION_STRENGTH";
+        if (normalized.contains("velocidade")) return "POTION_SWIFTNESS";
+        if (normalized.contains("regeneração")) return "POTION_REGENERATION";
+        if (normalized.contains("resistência")) return "POTION_FIRE_RESISTANCE";
+        if (normalized.contains("veneno")) return "POTION_POISON";
+        if (normalized.contains("fraqueza")) return "POTION_WEAKNESS";
+        if (normalized.contains("lentidão")) return "POTION_SLOWNESS";
+        if (normalized.contains("dano")) return "POTION_HARMING";
+        if (normalized.contains("visão noturna")) return "POTION_NIGHT_VISION";
+        if (normalized.contains("invisibilidade")) return "POTION_INVISIBILITY";
+        if (normalized.contains("salto")) return "POTION_LEAPING";
+        if (normalized.contains("respiração")) return "POTION_WATER_BREATHING";
+        if (normalized.contains("queda")) return "POTION_SLOW_FALLING";
+        if (normalized.contains("sorte")) return "POTION_LUCK";
+        if (normalized.contains("tartaruga")) return "POTION_TURTLE_MASTER";
+        
+        // Poção genérica se não encontrar específica
+        return "POTION";
+    }
+
+    /**
+     * Adiciona um ingrediente com ícone ao painel.
+     */
+    private void addIngredientWithIcon(JPanel panel, String iconName, String ingredientName, String description) {
+        JPanel ingredientPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 5));
+        ingredientPanel.setOpaque(false);
+
+        JLabel icon = new JLabel(ImageManager.getItemIcon(iconName, 24));
+        JLabel nameLabel = new JLabel(ingredientName);
+        nameLabel.setFont(new Font("SansSerif", Font.BOLD, 13));
+        nameLabel.setForeground(Color.WHITE);
+
+        JLabel descLabel = new JLabel(" - " + description);
+        descLabel.setFont(new Font("SansSerif", Font.ITALIC, 12));
+        descLabel.setForeground(Color.LIGHT_GRAY);
+
+        ingredientPanel.add(icon);
+        ingredientPanel.add(nameLabel);
+        ingredientPanel.add(descLabel);
+
+        panel.add(ingredientPanel);
+    }
+
+    /**
+     * Retorna o ingrediente principal baseado no nome da poção.
+     */
+    private String getMainIngredient(String potionName) {
+        String normalized = potionName.toLowerCase();
+        
+        if (normalized.contains("cura")) return "GLISTERING_MELON_SLICE";
+        if (normalized.contains("força")) return "BLAZE_POWDER";
+        if (normalized.contains("velocidade")) return "SUGAR";
+        if (normalized.contains("regeneração")) return "GHAST_TEAR";
+        if (normalized.contains("resistência")) return "MAGMA_CREAM";
+        if (normalized.contains("veneno")) return "SPIDER_EYE";
+        if (normalized.contains("fraqueza")) return "FERMENTED_SPIDER_EYE";
+        if (normalized.contains("lentidão")) return "FERMENTED_SPIDER_EYE";
+        if (normalized.contains("dano")) return "FERMENTED_SPIDER_EYE";
+        if (normalized.contains("visão noturna")) return "GOLDEN_CARROT";
+        if (normalized.contains("invisibilidade")) return "FERMENTED_SPIDER_EYE";
+        if (normalized.contains("salto")) return "RABBIT_FOOT";
+        if (normalized.contains("respiração")) return "PUFFERFISH";
+        if (normalized.contains("queda")) return "PHANTOM_MEMBRANE";
+        if (normalized.contains("sorte")) return "RABBIT_FOOT";
+        if (normalized.contains("tartaruga")) return "TURTLE_SHELL";
+        
+        return "NETHER_WART"; // Default
     }
 }
 
